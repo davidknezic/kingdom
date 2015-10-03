@@ -52,6 +52,9 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
+    "body-parser": "^1.14.1",
+    "colors": "^1.1.2",
+    "express": "^4.13.3",
     "superagent": "^1.4.0"
   }
 }
