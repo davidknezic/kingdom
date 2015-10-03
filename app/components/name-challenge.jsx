@@ -1,6 +1,7 @@
 import { default as React, addons, Component } from 'react/addons'
 import { LeftNav } from 'material-ui'
 import { TextField, RaisedButton } from 'material-ui'
+import Logo from './logo'
 
 export default class NameChallenge extends Component {
   constructor(props) {
@@ -14,15 +15,19 @@ export default class NameChallenge extends Component {
   render() {
     return (
       <div>
+        <Logo />
         <div className="welcome__name-challenge">
-          <span>First, tell us your name </span>
-          <TextField
-            hintText={this.props.hintText}
-            style={{fontSize: '1.5rem', color: 'white'}}
-            value={this.props.value}
-            ref='name'
-            onChange={this.props.onChange}
-            />
+          <span className="welcome__h1">Nice to meet you. What’s your name? </span>
+          <div>
+            <TextField
+              className="welcome__text-answer"
+              hintText={this.props.hintText}
+              style={{fontSize: '1.5rem', color: 'white'}}
+              value={this.props.value}
+              ref='name'
+              onChange={this.props.onChange}
+              />
+          </div>
         </div>
         <div className="welcome__button" >
           <RaisedButton label="Proceed" onClick={this.props.onProceed} />

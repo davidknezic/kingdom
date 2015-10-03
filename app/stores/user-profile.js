@@ -29,6 +29,7 @@ class UserProfileStore {
         max: null
       },
       time: 0,
+      store: '',
     }
   }
 
@@ -44,6 +45,7 @@ class UserProfileStore {
       rooms: this.state.rooms,
       price: this.state.price,
       time: this.state.time,
+      store: this.state.store,
     })
   }
 
@@ -65,6 +67,7 @@ class UserProfileStore {
       },
       price: this.state.price,
       time: this.state.time,
+      store: this.state.store,
     })
   }
 
@@ -94,6 +97,7 @@ class UserProfileStore {
       rooms: this.state.rooms,
       price: this.state.price,
       time: this.state.time,
+      store: this.state.store,
     })
   }
 
@@ -113,6 +117,7 @@ class UserProfileStore {
       rooms: this.state.rooms,
       price: this.state.price,
       time: this.state.time,
+      store: this.state.store,
     })
   }
 
@@ -143,6 +148,7 @@ class UserProfileStore {
         max: maxPrice
       },
       time: this.state.time,
+      store: this.state.store,
     })
   }
 
@@ -158,6 +164,7 @@ class UserProfileStore {
       rooms: this.state.rooms,
       price: this.state.price,
       time: this.state.time,
+      store: this.state.store,
     })
   }
 
@@ -173,6 +180,23 @@ class UserProfileStore {
       rooms: this.state.rooms,
       price: this.state.price,
       time: time,
+      store: this.state.store,
+    })
+  }
+
+  onUpdateStore(store) {
+    this.setState({
+      name: this.state.name,
+      numberOfPeople: this.state.numberOfPeople,
+      sizePreference: this.state.sizePreference,
+      stairsPreference: this.state.stairsPreference,
+      priceIllusions: this.state.priceIllusions,
+      location: this.state.location,
+      area: this.state.area,
+      rooms: this.state.rooms,
+      price: this.state.price,
+      time: this.state.time,
+      store: store,
     })
   }
 }

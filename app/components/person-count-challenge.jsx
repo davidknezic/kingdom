@@ -1,6 +1,7 @@
 import { default as React, addons, Component } from 'react/addons'
 import { LeftNav } from 'material-ui'
 import { RaisedButton } from 'material-ui'
+import Logo from './logo'
 
 export default class PersonCountChallenge extends Component {
   constructor(props) {
@@ -16,8 +17,9 @@ export default class PersonCountChallenge extends Component {
   render() {
     return (
       <div>
+        <Logo />
         <div className="welcome__name-challenge">
-          <span>Nice to meet you {this.props.userName}, how many are you?</span>
+          <span className="welcome__h1">So tell me {this.props.userName}. How many are you?</span>
         </div>
         <div className="button__row" >
           <RaisedButton label="1" onClick={this._oneSelected} />

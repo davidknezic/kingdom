@@ -11,6 +11,7 @@ class UserProfileActions {
       'updatePriceIllusions',
       'updateLocation',
       'updateTime',
+      'updateStore',
     )
   }
 }
