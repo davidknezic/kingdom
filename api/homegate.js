@@ -123,19 +123,28 @@ function doIt(stations, flats) {
     console.log((i+1) + '. station is ' + stations[i].toString())
 
     var station = JSON.parse(stations[i]);
+
+    console.log('parsed this: ', station)
+
     var date = moment().day(-6).toDate();
 
     heatmapPromises.push(new Promise((resolve, reject) => {
       heatmap(station.uic, station.cntr, date, station.maxTime, (err, result) => {
+        console.log('got result from getting heatmap')
+
          if (!err && result.ok) {
+           console.log('it is positive', result.body)
            resolve(result.body)
          } else {
+           console.log('failed', err)
            reject(err)
          }
       })
     }));
 
   }
+
+  console.log('starting ' + heatmapPromises.length + ' promises at once')
 
   return Promise.all(heatmapPromises).then((heatmaps) => {
 
