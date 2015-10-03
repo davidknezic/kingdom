@@ -17,12 +17,22 @@ app.get('/flats', (req, res, next) => {
 
   if(req.query.station) {
 
+    console.log(req.query)
+
     if(!req.query.roomFrom) {
       res.end({error: "roomFrom missing"})
     }
 
     if(!req.query.roomTo) {
       res.end({error: "roomTo missing"})
+    }
+
+    if(!req.query.areaFrom) {
+      res.end({error: "areaFrom missing"})
+    }
+
+    if(!req.query.areaTo) {
+      res.end({error: "areaTo missing"})
     }
 
     if(!req.query.priceFrom) {
@@ -49,6 +59,10 @@ app.get('/flats', (req, res, next) => {
         numberRooms: {
           '$gte': parseFloat(req.query.roomFrom),
           '$lte': parseFloat(req.query.roomTo)
+        },
+        surfaceLiving: {
+          '$gte': parseFloat(req.query.areaFrom),
+          '$lte': parseFloat(req.query.areaTo)
         }
       };
 
