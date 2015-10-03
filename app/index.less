@@ -89,3 +89,41 @@ html, body {
 .main__map {
   flex: 1;
 }
+
+.sidebar {
+
+}
+
+.sidebar__item {
+  padding: 10px 20px;
+}
+
+.sidebar__item__title {
+  color: #666;
+  cursor: pointer;
+  display: flex;
+}
+
+.sidebar__item__title__text {
+  flex: 1;
+}
+
+.sidebar__item__title__action {
+  align-self: flex-end;
+  fill: #666;
+  height: 24px;
+  padding: 24px;
+  padding: 4px;
+
+  &:hover {
+    fill: #333;
+  }
+}
+
+.sidebar__item__content {
+  display: none;
+}
+
+.sidebar__item__content--active {
+  display: block;
+}
