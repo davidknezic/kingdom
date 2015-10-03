@@ -8,9 +8,8 @@ import BriefcaseMarker from './markers/briefcase'
 export default class Map extends Component {
 
   static defaultProps = {
-    center: [59.938043, 30.337157],
-    zoom: 9,
-    greatPlaceCoords: {lat: 59.724465, lng: 30.080121}
+    center: [46.86519534, 8.37823366],
+    zoom: 8
   }
 
   shouldComponentUpdate = shouldPureComponentUpdate
@@ -19,15 +18,39 @@ export default class Map extends Component {
     super(props)
   }
 
+  onBoundsChange(center, zoom, bounds, marginBounds) {
+    console.log('bounds change', center, zoom)
+  }
+
+  onChildMouseEnter(key, childProps) {
+    console.log('child mouse enter', key, childProps)
+  }
+
+  onChildMouseLeave() {
+    console.log('child mouse leave')
+  }
+
+  onBalloonCloseClick() {
+    console.log('balloon close')
+  }
+
   render() {
     return (
        <GoogleMap
          containerProps={{...this.props}}
          ref='map'
          center={this.props.center}
-         zoom={this.props.zoom}>
-        <FlatMarker lat={59.955413} lng={30.337844} text={'A'} />
-        <BriefcaseMarker {...this.props.greatPlaceCoords} text={'B'} />
+         zoom={this.props.zoom}
+         onBoundsChange={this.onBoundsChange}
+         onChildClick={this.onChildClick}
+         onChildMouseEnter={this.onChildMouseEnter}
+         onChildMouseLeave={this.onChildMouseLeave}>
+
+         {['Foo','Bar','baz'].map((title, index) => {
+           return (
+              <FlatMarker title={title} lat={47.498820} lng={8.723689} />
+            )
+          })}
       </GoogleMap>
     )
   }
