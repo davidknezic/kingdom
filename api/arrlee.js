@@ -8,12 +8,13 @@ let app = express()
 app.get('/stations', [
   function (req, res, next) {
     station(req.query.query, (err, result) => {
-         if (result.ok) {
-           res.send(result.body)
-         } else {
-           res.send(err)
-         }
-      })
+      if (err) {
+        res.send(err)
+      }
+      else {
+        res.send(result.body)
+      }
+    })
   }
 ])
 
