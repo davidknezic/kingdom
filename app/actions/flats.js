@@ -15,9 +15,15 @@ class FlatsActions {
       this.currentRequest.abort()
     }
 
+    let station = {
+      uic: profile.location.uic,
+      cntr: profile.location.cntr,
+      maxTime: profile.time
+    }
+
     this.currentRequest = request
       .get(`${config.api.endpoint}/flats`)
-      .query({ station: JSON.stringify(profile.location) })
+      .query({ station: JSON.stringify(station) })
       .query({ roomFrom: profile.rooms.min })
       .query({ roomTo: profile.rooms.max })
       .query({ areaFrom: profile.area.min })

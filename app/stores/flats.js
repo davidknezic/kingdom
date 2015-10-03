@@ -29,7 +29,7 @@ class FlatsStore {
       isLoading: false,
     })
 
-    actions.process.updateProcessState('showResults')
+    //actions.process.updateProcessState('showResults')
   }
 
   onShowFailed(err) {
@@ -40,7 +40,7 @@ class FlatsStore {
       isLoading: false,
     })
 
-    actions.process.updateProcessState('showResults')
+    //actions.process.updateProcessState('showResults')
   }
 }
 
