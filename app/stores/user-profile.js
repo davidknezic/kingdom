@@ -36,16 +36,6 @@ class UserProfileStore {
   onUpdateName(name) {
     this.setState({
       name: name,
-      numberOfPeople: this.state.numberOfPeople,
-      sizePreference: this.state.sizePreference,
-      stairsPreference: this.state.stairsPreference,
-      priceIllusions: this.state.priceIllusions,
-      location: this.state.location,
-      area: this.state.area,
-      rooms: this.state.rooms,
-      price: this.state.price,
-      time: this.state.time,
-      store: this.state.store,
     })
   }
 
@@ -54,20 +44,11 @@ class UserProfileStore {
     let maxRooms = minRooms + 1
 
     this.setState({
-      name: this.state.name,
       numberOfPeople: count,
-      sizePreference: this.state.sizePreference,
-      stairsPreference: this.state.stairsPreference,
-      priceIllusions: this.state.priceIllusions,
-      location: this.state.location,
-      area: this.state.area,
       rooms: {
         min: minRooms,
         max: maxRooms
       },
-      price: this.state.price,
-      time: this.state.time,
-      store: this.state.store,
     })
   }
 
@@ -84,20 +65,11 @@ class UserProfileStore {
     }
 
     this.setState({
-      name: this.state.name,
-      numberOfPeople: this.state.numberOfPeople,
       sizePreference: preference,
-      stairsPreference: this.state.stairsPreference,
-      priceIllusions: this.state.priceIllusions,
-      location: this.state.location,
       area: {
         min: minArea,
         max: maxArea
       },
-      rooms: this.state.rooms,
-      price: this.state.price,
-      time: this.state.time,
-      store: this.state.store,
     })
   }
 
@@ -107,95 +79,47 @@ class UserProfileStore {
     }
 
     this.setState({
-      name: this.state.name,
-      numberOfPeople: this.state.numberOfPeople,
-      sizePreference: this.state.sizePreference,
       stairsPreference: preference,
-      priceIllusions: this.state.priceIllusions,
-      location: this.state.location,
-      area: this.state.area,
-      rooms: this.state.rooms,
-      price: this.state.price,
-      time: this.state.time,
-      store: this.state.store,
     })
   }
 
   onUpdatePriceIllusions(illusions) {
+    var basePrice = this.state.sizePreference == 'cozy' ? (30 + this.state.numberOfPeople*20)*18 : (50 + this.state.numberOfPeople*25)*18
     var tmpPrice;
     if (illusions == 'low') {
-      tmpPrice = illusions * 0.8
+      tmpPrice = basePrice * 0.8
     } else if (illusions == 'mid') {
-      tmpPrice = illusions
+      tmpPrice = basePrice
     } else if (illusions == 'high') {
-      tmpPrice = illusions * 1.2
+      tmpPrice = basePrice * 1.2
     }
 
     let minPrice = tmpPrice * 0.7
     let maxPrice = tmpPrice * 1.1
 
     this.setState({
-      name: this.state.name,
-      numberOfPeople: this.state.numberOfPeople,
-      sizePreference: this.state.sizePreference,
-      stairsPreference: this.state.stairsPreference,
       priceIllusions: illusions,
-      location: this.state.location,
-      area: this.state.area,
-      rooms: this.state.rooms,
       price: {
         min: minPrice,
         max: maxPrice
       },
-      time: this.state.time,
-      store: this.state.store,
     })
   }
 
   onUpdateLocation(location) {
     this.setState({
-      name: this.state.name,
-      numberOfPeople: this.state.numberOfPeople,
-      sizePreference: this.state.sizePreference,
-      stairsPreference: this.state.stairsPreference,
-      priceIllusions: this.state.priceIllusions,
       location: location,
-      area: this.state.area,
-      rooms: this.state.rooms,
-      price: this.state.price,
-      time: this.state.time,
-      store: this.state.store,
     })
   }
 
   onUpdateTime(time) {
     this.setState({
-      name: this.state.name,
-      numberOfPeople: this.state.numberOfPeople,
-      sizePreference: this.state.sizePreference,
-      stairsPreference: this.state.stairsPreference,
-      priceIllusions: this.state.priceIllusions,
-      location: this.state.location,
-      area: this.state.area,
-      rooms: this.state.rooms,
-      price: this.state.price,
       time: time,
-      store: this.state.store,
     })
   }
 
   onUpdateStore(store) {
     this.setState({
-      name: this.state.name,
-      numberOfPeople: this.state.numberOfPeople,
-      sizePreference: this.state.sizePreference,
-      stairsPreference: this.state.stairsPreference,
-      priceIllusions: this.state.priceIllusions,
-      location: this.state.location,
-      area: this.state.area,
-      rooms: this.state.rooms,
-      price: this.state.price,
-      time: this.state.time,
       store: store,
     })
   }
