@@ -1,4 +1,4 @@
-import {Utils,Styles} from 'material-ui';
+import { Utils, Styles, ThemeManager } from 'material-ui';
 
 const theme = {
   spacing: Styles.Spacing,
