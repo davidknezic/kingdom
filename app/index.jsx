@@ -5,3 +5,6 @@ React.render(
   <App />,
   document.getElementById('stage')
 )
+
+window.actions = require('./actions')
+window.stores = require('./stores')
