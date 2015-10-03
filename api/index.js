@@ -1,6 +1,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import homegate from './homegate'
+import arrlee from './arrlee'
 
 let app = express()
 
@@ -14,10 +15,8 @@ app.all('*', function (req, res, next) {
   next()
 })
 
-app.get('/test', function (req, res) {
-  res.send('Hello World!')
-})
-
 app.use(homegate)
+
+app.use(arrlee)
 
 export default app
