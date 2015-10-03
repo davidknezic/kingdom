@@ -5,11 +5,31 @@ import config from '../config'
 class DetailActions {
 
   constructor() {
-    this.generateActions()
+    this.generateActions('instagramCompleted', 'instagramFailed')
   }
 
   show(flat) {
     this.dispatch(flat)
+
+    if(this.currentInstagramRequest) {
+      this.currentInstagramRequest.abort();
+    }
+
+    this.dispatch();
+
+    this.currentInstagramRequest = request
+      .get(`${config.api.endpoint}/instagram/media/find`)
+      .query({'lat': flat.lat})
+      .query({'lng': flat.lng});
+
+    this.currentInstagramRequest
+      .then((response) => {
+        this.currentInstagramRequest = null;
+        this.actions.instagramCompleted(response.body)
+      }).catch((err) => {
+        this.currentInstagramRequest = null;
+        this.actions.instagramFailed(err)
+      });
   }
 
   dismiss() {

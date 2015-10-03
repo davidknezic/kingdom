@@ -1,5 +1,5 @@
 {
-  "transportApi": {
-    "endpoint": "http://transport.opendata.ch/v1"
+  "api": {
+    "endpoint": "http://localhost:8001"
   }
 }

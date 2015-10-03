@@ -13,13 +13,28 @@ class DetailStore {
 
   onShow(flat) {
     this.setState({
-      flat: flat
+      flat: flat,
+      instagramLoading: true,
     })
   }
 
   onDismiss() {
     this.setState({
       flat: null
+    })
+  }
+
+  onInstagramCompleted(data) {
+    this.setState({
+      instagram: data,
+      instagramLoading: false,
+    })
+  }
+
+  onInstagramFailed(err) {
+    this.setState({
+      instagramError: err,
+      instagramLoading: false,
     })
   }
 }

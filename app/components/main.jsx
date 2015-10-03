@@ -15,25 +15,14 @@ export default class Main extends React.Component {
     super();
 
     this.state = {
-      locations: stores.locations,
       detail: stores.detail,
     };
 
-    this.onChange = this.onChange.bind(this)
-
-    stores.locations.listen(this.onChange)
     stores.detail.listen(this.onChangeDetail.bind(this))
   }
 
   componentWillUnmount() {
-    stores.locations.unlisten(this.onChange)
     stores.detail.unlisten(this.onChangeDetail)
-  }
-
-  onChange(store) {
-    this.setState({
-      locations: store
-    })
   }
 
   onChangeDetail(detail) {
@@ -46,14 +35,6 @@ export default class Main extends React.Component {
     }
 
     toggle()
-  }
-
-  _onSearchChange() {
-    actions.locations.search(this.refs.searchField.getValue())
-  }
-
-  shouldComponentUpdate(newState) {
-    return this.state.locations != newState.locations;
   }
 
   render() {
