@@ -16,10 +16,6 @@ class ProcessStore {
       processState: processState
     })
   }
-
-  //output(state) {
-  //  return Immutable.fromJS(state);
-  //}
 }
 
 export default alt.createStore(ProcessStore);
