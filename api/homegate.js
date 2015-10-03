@@ -36,30 +36,6 @@ app.get('/flats', (req, res, next) => {
 
     console.log(req.query)
 
-    if(!req.query.roomFrom) {
-      res.end('{error: "roomFrom missing"}')
-    }
-
-    if(!req.query.roomTo) {
-      res.end('{error: "roomTo missing"}')
-    }
-
-    if(!req.query.areaFrom) {
-      res.end('{error: "areaFrom missing"}')
-    }
-
-    if(!req.query.areaTo) {
-      res.end('{error: "areaTo missing"}')
-    }
-
-    if(!req.query.priceFrom) {
-      res.end('{error: "priceFrom missing"}')
-    }
-
-    if(!req.query.priceTo) {
-      res.end('{error: "priceTo missing"}')
-    }
-
     if(!Array.isArray(req.query.station)) {
       req.query.station = [ req.query.station ];
     }
@@ -69,19 +45,34 @@ app.get('/flats', (req, res, next) => {
       var flats = db.collection('flats');
 
       var search = {
-        sellingPrice: {
-          '$gt': parseInt(req.query.priceFrom, 10),
-          '$lt': parseInt(req.query.priceTo, 10)
-        },
-        numberRooms: {
-          '$gte': parseFloat(req.query.roomFrom),
-          '$lte': parseFloat(req.query.roomTo)
-        },
-        surfaceLiving: {
-          '$gte': parseFloat(req.query.areaFrom),
-          '$lte': parseFloat(req.query.areaTo)
-        }
-      };
+        sellingPrice: {},
+        numberRooms: {},
+        surfaceLiving: {},
+      }
+
+      if (req.query.priceFrom && req.query.priceFrom != 'NaN') {
+        search.sellingPrice['$gte'] = parseInt(req.query.priceFrom, 10)
+      }
+
+      if (req.query.priceTo && req.query.priceTo != 'NaN') {
+        search.sellingPrice['$lte'] = parseInt(req.query.priceTo, 10)
+      }
+
+      if (req.query.roomFrom) {
+        search.numberRooms['$gte'] = parseFloat(req.query.roomFrom)
+      }
+
+      if (req.query.roomTo) {
+        search.numberRooms['$lte'] = parseFloat(req.query.roomTo)
+      }
+
+      if (req.query.areaFrom) {
+        search.surfaceLiving['$gte'] = parseFloat(req.query.areaFrom)
+      }
+
+      if (req.query.areaTo) {
+        search.surfaceLiving['$lte'] = parseFloat(req.query.areaTo)
+      }
 
       flats.find(search, {
         advId: true,
