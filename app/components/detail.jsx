@@ -31,20 +31,23 @@ export default class Detail extends Component {
     })
   }
 
-  render() {
-    var instagram = null;
-
+  _renderInstagram() {
     if(!this.state.details || this.state.details.instagramLoading) {
-      instagram = (
+      return (
         <Loading />
       )
-    } else if(this.state.details.instagramError != null) {
-        instagram = (
+    }
+
+    if(this.state.details.instagramError != null) {
+        return (
           <div>Fail to load instahype</div>
         )
-    } else if(this.state.details.instagram) {
-      instagram = (
+    }
+
+    if(this.state.details.instagram) {
+      return (
         <div className="instagram">
+          <h4 className="instagram__headline">Images from instagram</h4>
           {
             this.state.details.instagram.map((image) => {
               return (
@@ -55,14 +58,47 @@ export default class Detail extends Component {
         </div>
       )
     }
+  }
 
+  render() {
+
+    if(!this.state.details.flat || !this.state.details.flatDetails) {
+      return <div>not ready</div>
+    }
 
     return (
-      <div>
-        <h1>Hello World!</h1>
-        <RaisedButton label="Cloze" secondary={true} onClick={this.onCloseClicked} />
-        <div>
-          {instagram}
+      <div className="details">
+        <div className="details__left" >
+          <p><strong>{this.state.details.flat.street}, {this.state.details.flat.zip} {this.state.details.flat.city}</strong></p>
+          <h3 className="details__title" >{this.state.details.flat.title}</h3>
+          <p dangerouslySetInnerHTML={{__html: this.state.details.flatDetails.adDescription }} ></p>
+          <table className="details__table">
+            <tr>
+              <th>Floor</th>
+              <td>{this.state.details.flat.floorLabel}</td>
+            </tr>
+            <tr>
+              <th>Rooms</th>
+              <td>{this.state.details.flat.numberRooms}</td>
+            </tr>
+            <tr>
+              <th>Price</th>
+              <td>{this.state.details.flat.sellingPrice} {this.state.details.flat.currency}</td>
+            </tr>
+            <tr>
+              <th>Size</th>
+              <td>{this.state.details.flat.surfaceLiving} m2</td>
+            </tr>
+          </table>
+        </div>
+        <div className="details__right" >
+          <div className="details__cloze" >
+            <RaisedButton label="Cloze" secondary={true} onClick={this.onCloseClicked} />
+          </div>
+          <img
+            className="details__image"
+  					src={ this.state.details.flatDetails.pictures[0] } />
+          {this._renderInstagram()}
         </div>
       </div>
     )

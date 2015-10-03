@@ -42,6 +42,11 @@ html, body {
   padding: 10px;
 }
 
+.instagram__headline {
+  margin: 1.5rem 0 .5rem 0;
+  padding: 0 10px;
+}
+
 .welcome {
   min-height: 100%;
   background: #E91E63;
@@ -237,6 +242,16 @@ html, body {
 .sidebar__add-icon {
   width: 100% !important;
   height: 100% !important;
+
+  .bg{fill:#37474F;}
+  .border{fill:#37474F;}
+  .symbol{fill:#B0BEC5;}
+}
+
+.sidebar__add-icon:hover {
+  .bg{fill:#B0BEC5;}
+  .border{fill:#37474F;}
+  .symbol{fill:#37474F;}
 }
 
 .sidebar__add-title {
@@ -297,5 +312,109 @@ html, body {
   li {
     padding: 10px;
     cursor: pointer;
+  }
+}
+
+.marker {
+  box-shadow: 0px 0px 4px rgba(0,0,0,0.75);
+  border-radius: 100px
+}
+
+.marker--coop {
+  .bg{fill: #ECEFF1;}
+  .left{fill:#FF5404;}
+  .middle{fill:#DC3002;}
+  .right{fill:#FF8605;}
+}
+
+.marker--coop:hover {
+  .bg{fill:#EF6C00;}
+  .left,.middle,.right{fill:#ECEFF1;}
+}
+
+.marker--castle {
+  .bg{fill:#00E676;}
+  .border{fill:#00E676;}
+  .symbol{fill:#FAFAFA;}
+}
+
+.marker--castle:hover {
+  .bg{fill:#FAFAFA;}
+  .border{fill:#00E676;}
+  .symbol{fill:#00E676;}
+}
+
+.marker--small {
+  .big{fill:#00E676;}
+  .small{fill:#37474F;}
+}
+
+.marker--small:hover {
+  .big{fill:#37474F;}
+  .small{fill:#00E676;}
+}
+
+.marker--migros {
+  .bg{fill:#FAFAFA;}
+  .border{fill:#FF6F00;}
+  .symbol{fill:#FF6F00;}
+}
+
+.marker--migros:hover {
+.bg{fill:#FF6F00;}
+.border{fill:#FAFAFA;}
+.symbol{fill:#FAFAFA;}
+}
+
+.marker--star {
+  .bg{fill:#C51162;}
+  .border{fill:#C51162;}
+  .symbol{fill:#FFEA00;}
+}
+
+.marker--star:hover {
+  .bg{fill:#F06292;}
+  .border{fill:#880E4F;}
+  .symbol{fill:#FFEA00;}
+}
+
+p {
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.details {
+  display: flex;
+}
+
+.details__left {
+  flex: 1;
+  padding-right: 20px;
+}
+
+.details__title {
+  margin-top: 0;
+}
+
+.details__right {
+  flex: 0.75;
+  max-width: 280px;
+}
+
+.details__image {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.details__cloze {
+  text-align: right;
+}
+
+.details__table {
+  width: 100%;
+
+  td, th {
+    text-align: left;
+    padding: 5px 5px 10px 0;
   }
 }

@@ -5,7 +5,6 @@ import GoogleMap from 'google-map-react'
 
 import CastleMarker from './markers/castle'
 import CastleDecentMarker from './markers/castle-decent'
-import BriefcaseMarker from './markers/briefcase'
 import StarMarker from './markers/star'
 import CoopMarker from './markers/coop'
 import MigrosMarker from './markers/migros'
@@ -27,41 +26,22 @@ export default class Map extends Component {
     console.log('bounds change', center, zoom)
   }
 
-  onChildMouseEnter(key, childProps) {
-    console.log('child mouse enter', key, childProps)
-  }
-
-  onChildMouseLeave() {
-    console.log('child mouse leave')
-  }
-
-  onBalloonCloseClick() {
-    console.log('balloon close')
-  }
-
   render() {
+    let title = "reiughri"
+
     return (
        <GoogleMap
          containerProps={{...this.props}}
          ref='map'
          center={this.props.center}
          zoom={this.props.zoom}
-         onBoundsChange={this.onBoundsChange}
-         onChildClick={this.onChildClick}
-         onChildMouseEnter={this.onChildMouseEnter}
-         onChildMouseLeave={this.onChildMouseLeave}>
+         onBoundsChange={this.onBoundsChange}>
 
-         {['Foo'].map((title, index) => {
-           return (
-              <CastleMarker title={title} lat={47.498820} lng={8.723689} />
-            )
-          })}
-
-          {['Foo'].map((title, index) => {
-            return (
-               <BriefcaseMarker title={title} lat={47.50696} lng={8.70872} />
-             )
-          })}
+        <CastleMarker title={title} lat={47.498820} lng={9.723689} />
+        <CastleDecentMarker title={title} lat={47.498820} lng={8.523689} />
+        <StarMarker title={title} lat={47.00696} lng={8.70872} />
+        <CoopMarker title={title} lat={46.70696} lng={8.70872} />
+        <MigrosMarker title={title} lat={48.20696} lng={8.70872} />
       </GoogleMap>
     )
   }

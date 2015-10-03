@@ -9,8 +9,12 @@ app.get('/instagram/media/search', [
 
     console.log('processing', '/instagram/media/search'.cyan)
 
-    media(req.query.lat, req.query.lng, (err, result) => {
+    media(req.query.lat, req.query.lng, function(err, result) {
          if (result.ok) {
+           if(result.body.data && result.body.data.length > 6) {
+             result.body.data = result.body.data.slice(0,6)
+           }
+
            res.send(result.body.data)
          } else {
            res.send(err)

@@ -30,6 +30,7 @@ class FlatsStore {
   }
 
   onShowFailed(err) {
+    console.log('onShowFailed', err)
     this.setState({
       categories: null,
       erro: err,
