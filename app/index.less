@@ -37,6 +37,7 @@ html, body {
 .instagram {
   margin: 0 -10px;
 }
+
 .instagram__image {
   padding: 10px;
 }
@@ -91,6 +92,7 @@ html, body {
   max-width: 700px;
   text-align: center;
   font-size: 1.4rem;
+  margin: 2rem;
 }
 
 .welcome__h2 {
@@ -112,10 +114,31 @@ html, body {
 .welcome__button {
   margin: 1rem;
   text-align: center;
+
+  > div {
+    margin: 10px !important;
+    height: 60px !important;
+
+    > button {
+      > div {
+        height: 100% !important;
+
+        > div {
+          height: 100% !important;
+          padding: 13px !important;
+
+          > span {
+            font-size: 1.2rem !important;
+            padding: 0px 24px !important;
+          }
+        }
+      }
+    }
+  }
 }
 
 .welcome__text-answer {
-  margin: 2rem;
+  margin: 2rem 2rem 1rem 2rem;
 
   > div {
     font-size: 2.5rem;
@@ -125,6 +148,7 @@ html, body {
     margin-left: auto;
     margin-right: auto;
   }
+
   > input {
     font-size: 2.5rem !important;
     text-align: center;
@@ -225,7 +249,24 @@ html, body {
   justify-content: center;
 
   > div {
-    margin: 10px;
+    margin: 10px !important;
+    height: 60px !important;
+
+    > button {
+      > div {
+        height: 100% !important;
+
+        > div {
+          height: 100% !important;
+          padding: 13px !important;
+
+          > span {
+            font-size: 1.2rem !important;
+            padding: 0px 24px !important;
+          }
+        }
+      }
+    }
   }
 }
 
