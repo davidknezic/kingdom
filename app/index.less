@@ -97,6 +97,7 @@ html, body {
   max-width: 700px;
   text-align: center;
   font-size: 1.4rem;
+  margin: 2rem;
 }
 
 .welcome__h2 {
@@ -118,10 +119,31 @@ html, body {
 .welcome__button {
   margin: 1rem;
   text-align: center;
+
+  > div {
+    margin: 10px !important;
+    height: 60px !important;
+
+    > button {
+      > div {
+        height: 100% !important;
+
+        > div {
+          height: 100% !important;
+          padding: 13px !important;
+
+          > span {
+            font-size: 1.2rem !important;
+            padding: 0px 24px !important;
+          }
+        }
+      }
+    }
+  }
 }
 
 .welcome__text-answer {
-  margin: 2rem;
+  margin: 2rem 2rem 1rem 2rem;
 
   > div {
     font-size: 2.5rem;
@@ -131,6 +153,7 @@ html, body {
     margin-left: auto;
     margin-right: auto;
   }
+
   > input {
     font-size: 2.5rem !important;
     text-align: center;
@@ -241,7 +264,24 @@ html, body {
   justify-content: center;
 
   > div {
-    margin: 10px;
+    margin: 10px !important;
+    height: 60px !important;
+
+    > button {
+      > div {
+        height: 100% !important;
+
+        > div {
+          height: 100% !important;
+          padding: 13px !important;
+
+          > span {
+            font-size: 1.2rem !important;
+            padding: 0px 24px !important;
+          }
+        }
+      }
+    }
   }
 }
 
@@ -255,16 +295,17 @@ html, body {
 .react-typeahead-input.react-typeahead-usertext {
   height: 50px;
   background: white !important;
-  width: 300px;
+  width: 500px;
   padding: 10px;
   font-size: 24px;
 }
 
 .react-typeahead-options {
-  margin-left: -300px;
+  margin-left: -500px;
   z-index: 1000;
   margin-top: 50px;
   max-width: 500px;
+  width: 500px;
   padding: 0;
   list-style: none;
   color: #E91E63;
@@ -377,4 +418,25 @@ p {
     text-align: left;
     padding: 5px 5px 10px 0;
   }
+}
+
+.arrow-button__container {
+    width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.arrow-button {
+  display: block;
+  height: 120px;
+  width: 120px;
+  color: white;
+  cursor: pointer;
+}
+
+.svg-icon {
+  fill: currentColor;
+  height: 100%;
+  width: 100%;
 }

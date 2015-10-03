@@ -2,6 +2,7 @@ import { default as React, addons, Component } from 'react/addons'
 import { LeftNav } from 'material-ui'
 import { TextField, RaisedButton } from 'material-ui'
 import Logo from './logo'
+import ArrowRight from './arrow-right'
 
 export default class NameChallenge extends Component {
   constructor(props) {
@@ -29,8 +30,9 @@ export default class NameChallenge extends Component {
               />
           </div>
         </div>
-        <div className="welcome__button" >
-          <RaisedButton label="Proceed" onClick={this.props.onProceed} />
+
+        <div className="arrow-button__container">
+          <a className="arrow-button" onClick={this.props.onProceed}><ArrowRight /></a>
         </div>
       </div>
     )
