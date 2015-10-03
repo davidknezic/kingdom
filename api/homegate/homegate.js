@@ -1,15 +1,16 @@
 import express from 'express'
 import superagent from 'superagent'
 
+var authKey = '201a03b2f0ef8b311cdd2157c21c3666'
 let app = express()
 
 //localhost:8001/flats
-//localhost:8001/flats
+//localhost:8001/flats?pagesize=1
 app.get('/flats', [
   function (req, res, next) {
     superagent
       .get('https://api-2445581357976.apicast.io:443/rs/real-estates')
-      .set('auth', '201a03b2f0ef8b311cdd2157c21c3666')
+      .set('auth', authKey)
       .query({ language: 'en' })
       .query({ chooseType: 'rentflat' })
       .query({ sort: 'l' })
