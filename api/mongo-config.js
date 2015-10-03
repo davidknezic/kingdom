@@ -4,7 +4,8 @@ var url = "mongodb://localhost:27017/kingdom"
 
 if(process.env.VCAP_APPLICATION) {
   let appEnv = cfenv.getAppEnv();
-  url = appEnv.getServices('kingdom_mongo')
+  appEnv.getService
+  url = appEnv.getService('kingdom_mongo')['uri'];
 }
 
 export default {
