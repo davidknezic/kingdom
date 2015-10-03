@@ -2,17 +2,18 @@
 applications:
 - name: api
   command: ./node_modules/.bin/babel-node server.js
-  memory: 128M
+  memory: 1024M
   instances: 1
   buildpack: https://github.com/cloudfoundry/nodejs-buildpack
   host: kingdom_api
   domain: scapp.io
 
 - name: frontend
-  command: ./node_modules/.bin/gulp dev
-  memory: 128M
+  command: ./node_modules/.bin/babel-node frontend.js
+  memory: 512M
   instances: 1
   buildpack: https://github.com/cloudfoundry/nodejs-buildpack
   host: kingdom
   domain: scapp.io
+
 ---

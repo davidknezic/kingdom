@@ -5,6 +5,9 @@ import alt from 'alt'
 import mui from 'material-ui'
 import {TextField, RaisedButton} from 'material-ui'
 import NameChallenge from './name-challenge'
+import PersonCountChallenge from './person-count-challenge'
+import SizeChallenge from './size-challenge'
+import StairsChallenge from './stairs-challenge'
 
 export default class Welcome extends React.Component {
 
@@ -56,9 +59,25 @@ export default class Welcome extends React.Component {
       challenge = <NameChallenge ref='nameChallenge'
         onProceed={this._handleProceedToNumberOfPeople}
         onChange={this._handleNameChange}
-        hintText='Gundalf'
+        hintText='Arthur'
         value={this.state.userProfile.name} />
     }
+    else if (this.state.process.processState == 'getNumberOfPeople') {
+      challenge = <PersonCountChallenge
+        onNumberSelected={this._handlePersonCountSelection}
+        userName={this.state.userProfile.name} />
+    }
+    else if (this.state.process.processState == 'getSizePreference') {
+      challenge = <SizeChallenge ref='sizeChallenge'
+        onSizePreferenceSelected={this._handleSizePreferenceSelected}
+        numberOfPeople={this.state.userProfile.numberOfPeople} />
+    }
+    else if (this.state.process.processState == 'getStairsStuff') {
+      challenge = <StairsChallenge
+        onStairsPreferenceSelected={this._handleStairsPreferenceSelected} />
+    }
+
+    console.log(this.state.process.processState)
 
     return (
       <div className="welcome">
@@ -78,6 +97,21 @@ export default class Welcome extends React.Component {
 
   _handleProceedToNumberOfPeople() {
     actions.process.updateProcessState('getNumberOfPeople')
+  }
+
+  _handlePersonCountSelection(count) {
+    actions.userProfile.updateNumberOfPeople(count) //very inconsistent compared to getting the name
+    actions.process.updateProcessState('getSizePreference')
+  }
+
+  _handleSizePreferenceSelected(preference) {
+    actions.userProfile.updateSizePreference(preference)
+    actions.process.updateProcessState('getStairsStuff')
+  }
+
+  _handleStairsPreferenceSelected(preference) {
+    actions.userProfile.updateStairsPreference(preference)
+    actions.process.updateProcessState('getPriceIllusions')
   }
 }
 

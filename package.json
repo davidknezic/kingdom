@@ -22,7 +22,7 @@
     "url": "https://github.com/sventschui/react-starter-kit/issues"
   },
   "homepage": "https://github.com/sventschui/react-starter-kit#readme",
-  "devDependencies": {
+  "dependencies": {
     "alt": "^0.17.3",
     "babel-core": "^5.8.25",
     "babel-plugin-react-transform": "^1.1.1",
@@ -54,9 +54,7 @@
     "superagent": "^1.2.0",
     "superagent-promise": "^1.0.3",
     "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
-  },
-  "dependencies": {
+    "vinyl-source-stream": "^1.1.0",
     "babel": "^5.8.23",
     "body-parser": "^1.14.1",
     "colors": "^1.1.2",
