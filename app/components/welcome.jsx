@@ -107,8 +107,6 @@ export default class Welcome extends React.Component {
       challenge = <FinishChallenge />
     }
 
-    console.log(this.state.process.processState)
-
     return (
       <div className="welcome">
         {
