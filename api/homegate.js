@@ -1,6 +1,7 @@
 import express from 'express'
 import moment from 'moment'
 import superagent from './utils/superagent'
+import {MongoClient} from 'mongodb'
 
 import pointsInPolygon from './utils/point-in-polygon'
 
@@ -9,46 +10,54 @@ import heatmap from './arrlee/heatmap'
 var authKey = '201a03b2f0ef8b311cdd2157c21c3666'
 let app = express()
 
-app.get('/flats-in-location-to', (req, res, next) => {
+app.get('/flats', (req, res, next) => {
 
   if(req.query.station) {
+
+    if(!req.query.roomFrom) {
+      res.end({error: "roomFrom missing"})
+    }
+
+    if(!req.query.roomTo) {
+      res.end({error: "roomTo missing"})
+    }
+
+    if(!req.query.priceFrom) {
+      res.end({error: "priceFrom missing"})
+    }
+
+    if(!req.query.priceTo) {
+      res.end({error: "priceTo missing"})
+    }
 
     if(!Array.isArray(req.query.station)) {
       req.query.station = [ req.query.station ];
     }
 
-    function query(page, flats) {
+    // Connection URL
+    var url = 'mongodb://localhost:27017/kingdom';
 
-      superagent
-        .get('https://api-2445581357976.apicast.io:443/rs/real-estates')
-        .set('auth', authKey)
-        .query({ language: 'en' })
-        .query({ chooseType: 'rentflat' })
-        .query({ sort: 'l' })
-        .query({ rentFrom: 1500 })
-        .query({ rentTo: 2300 })
-        .query({ roomsFrom: '3.5' })
-        .query({ roomsTo: '4.5' })
-        .query({ page: !page ? 1 : page })
-        .query({ numberResults: 1000 })
-        .end(function(err, result){
-          if (result.ok) {
+    // Use connect method to connect to the Server
+    MongoClient.connect(url, function(err, db) {
 
-            flats = flats.concat(result.body.items);
+      var flats = db.collection('flats');
 
-            if(result.body.pageCount > page) {
-              query(page+1, flats);
-            } else {
-              doIt(req.query.station, flats).then((data) => { res.send(data) })
-            }
+      flats.find({
+        sellingPrice: {
+          '$gt': parseInt(req.query.priceFrom, 10),
+          '$lt': parseInt(req.query.priceTo, 10)
+        },
+        numberRooms: {
+          '$gte': parseFloat(req.query.roomFrom),
+          '$lte': parseFloat(req.query.roomTo)
+        }
+      }).toArray((err, data) => {
+        doIt(req.query.station, data).then((data) => {
+          res.send(data);
+        });
+      });
 
-          } else {
-            res.send(err)
-          }
-        })
-    }
-
-    query(1, []);
+    })
 
   } else {
     res.send({ error: "you missed to send stations" });
@@ -143,27 +152,6 @@ function doIt(stations, flats) {
   });
 
 }
-
-//localhost:8001/flats
-//localhost:8001/flats?pagesize=1
-app.get('/flats', [
-  function (req, res, next) {
-    superagent
-      .get('https://api-2445581357976.apicast.io:443/rs/real-estates')
-      .set('auth', authKey)
-      .query({ language: 'en' })
-      .query({ chooseType: 'rentflat' })
-      .query({ sort: 'l' })
-      .query({ numberResults: (req.query.pagesize? req.query.pagesize: 10) })
-      .end(function(err, result){
-         if (result.ok) {
-           res.send(result.body)
-         } else {
-           res.send(err)
-         }
-      })
-  }
-])
 
 //http://localhost:8001/flats/105321232
 app.get('/flats/:id', [

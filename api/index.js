@@ -2,6 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import homegate from './homegate'
 import arrlee from './arrlee'
+import meetups from './meetups'
 
 let app = express()
 
@@ -18,5 +19,7 @@ app.all('*', function (req, res, next) {
 app.use(homegate)
 
 app.use(arrlee)
+
+app.use(meetups);
 
 export default app
