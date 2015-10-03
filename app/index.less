@@ -1,3 +1,91 @@
 body {
   margin: 0;
+  font-family: 'Roboto', 'sans';
+  font-size: 16px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+.stage {
+  height: 100%;
+}
+
+.app {
+  height: 100%;
+}
+
+.main {
+  height: 100%;
+}
+
+.welcome {
+  min-height: 100%;
+  background: #E91E63;
+  overflow: hidden;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.welcome__logo {
+  display: block;
+  width: 180px;
+  height: 180px;
+  background-color: #C2185B;
+  border-radius: 50%;
+  padding: 20px;
+  fill: white;
+  margin: 0 auto;
+  margin-top: 1.75rem;
+  margin-bottom: 1.75rem;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.16), 0 3px 10px rgba(0, 0, 0, 0.23);
+}
+
+.welcome__h1 {
+  font-size: 1.5rem;
+  margin: 1rem;
+  text-align: center;
+}
+
+.welcome__h2 {
+  font-size: 1.5rem;
+  margin: .5rem 1rem 2rem;
+  text-align: center;
+}
+
+.welcome__name-challenge {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.welcome__button {
+  margin: 1rem;
+  text-align: center;
+}
+
+.welcome__continue-hint__highlight {
+  color: #2c3e50;
+}
+
+.main {
+  display: flex;
+  height: 100%;
+  align-items: stretch;
+}
+
+.main__sidebar {
+  flex: 0.75;
+  max-width: 400px;
+  background: white;
+}
+
+.main__map {
+  flex: 1;
 }
