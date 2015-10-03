@@ -13,6 +13,8 @@ let app = express()
 
 app.get('/flats', (req, res, next) => {
 
+  console.log('processing', '/flats'.cyan)
+
   if(req.query.station) {
 
     if(!req.query.roomFrom) {
@@ -39,7 +41,7 @@ app.get('/flats', (req, res, next) => {
 
       var flats = db.collection('flats');
 
-      flats.find({
+      var search = {
         sellingPrice: {
           '$gt': parseInt(req.query.priceFrom, 10),
           '$lt': parseInt(req.query.priceTo, 10)
@@ -48,7 +50,10 @@ app.get('/flats', (req, res, next) => {
           '$gte': parseFloat(req.query.roomFrom),
           '$lte': parseFloat(req.query.roomTo)
         }
-      }).toArray((err, data) => {
+      };
+
+      flats.find(search).toArray((err, data) => {
+        console.log((data.length+'').cyan, 'flats match search criteria', JSON.stringify(search).blue)
         doIt(req.query.station, data).then((data) => {
           res.send(data);
         });
@@ -84,8 +89,11 @@ function doIt(stations, flats) {
 
   return Promise.all(heatmapPromises).then((heatmaps) => {
 
-    // TODO: use forEach
+    console.log('loaded', (heatmaps.length+'').cyan, 'heatmaps')
+
     heatmaps.forEach((heatmap) => {
+
+      console.log('processing heatmap with uic', (heatmap.start[0].uic+'').cyan)
 
       var flatsToCheckInHeatmap = flats.slice();
 
@@ -107,7 +115,7 @@ function doIt(stations, flats) {
 
           var inclusion = polygon.shift();
 
-          if(inclusion ==0 ) {
+          if(inclusion == 0) {
             return true;
           }
 
@@ -121,6 +129,7 @@ function doIt(stations, flats) {
               if(!flatsToCheckInHeatmap[l].area) {
                 flatsToCheckInHeatmap[l].area = [];
               }
+
               flatsToCheckInHeatmap[l].area[heatmap.start[0].uic] = {
                 min: area.min,
                 max: area.max
@@ -153,6 +162,8 @@ function doIt(stations, flats) {
 //http://localhost:8001/flats/105321232
 app.get('/flats/:id', [
   function (req, res, next) {
+    console.log('processing', ('/flats/'+req.params.id).cyan)
+
     superagent
       .get('https://api-2445581357976.apicast.io:443/rs/real-estates/' + req.params.id)
       .set('auth', authKey)
