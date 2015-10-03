@@ -12,7 +12,6 @@ class ProcessStore {
   }
 
   onUpdateProcessState(processState) {
-    console.log(processState)
     this.setState({
       processState: processState
     })
