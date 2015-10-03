@@ -84,8 +84,7 @@ app.get('/flats', (req, res, next) => {
       }).toArray((err, data) => {
         console.log((data.length+'').cyan, 'flats match search criteria', JSON.stringify(search).blue)
         doIt(req.query.station, data).then((data) => {
-          console.log('finish')
-          res.end(data);
+          res.send(data);
         });
       });
 
