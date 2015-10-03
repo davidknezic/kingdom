@@ -19,7 +19,7 @@ export default class PersonCountChallenge extends Component {
       <div>
         <Logo />
         <div className="welcome__name-challenge">
-          <span className="welcome__h1">So tell me {this.props.userName}. How many are you?</span>
+          <span className="welcome__h1">So tell me {this.props.userName}. How many people are you in total?</span>
         </div>
         <div className="button__row" >
           <RaisedButton label="1" onClick={this._oneSelected} />

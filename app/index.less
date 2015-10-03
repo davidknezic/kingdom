@@ -97,6 +97,7 @@ html, body {
   max-width: 700px;
   text-align: center;
   font-size: 1.4rem;
+  margin: 2rem;
 }
 
 .welcome__h2 {
@@ -118,10 +119,31 @@ html, body {
 .welcome__button {
   margin: 1rem;
   text-align: center;
+
+  > div {
+    margin: 10px !important;
+    height: 60px !important;
+
+    > button {
+      > div {
+        height: 100% !important;
+
+        > div {
+          height: 100% !important;
+          padding: 13px !important;
+
+          > span {
+            font-size: 1.2rem !important;
+            padding: 0px 24px !important;
+          }
+        }
+      }
+    }
+  }
 }
 
 .welcome__text-answer {
-  margin: 2rem;
+  margin: 2rem 2rem 1rem 2rem;
 
   > div {
     font-size: 2.5rem;
@@ -131,6 +153,7 @@ html, body {
     margin-left: auto;
     margin-right: auto;
   }
+
   > input {
     font-size: 2.5rem !important;
     text-align: center;
@@ -219,6 +242,16 @@ html, body {
 .sidebar__add-icon {
   width: 100% !important;
   height: 100% !important;
+
+  .bg{fill:#37474F;}
+  .border{fill:#37474F;}
+  .symbol{fill:#B0BEC5;}
+}
+
+.sidebar__add-icon:hover {
+  .bg{fill:#B0BEC5;}
+  .border{fill:#37474F;}
+  .symbol{fill:#37474F;}
 }
 
 .sidebar__add-title {
@@ -231,7 +264,24 @@ html, body {
   justify-content: center;
 
   > div {
-    margin: 10px;
+    margin: 10px !important;
+    height: 60px !important;
+
+    > button {
+      > div {
+        height: 100% !important;
+
+        > div {
+          height: 100% !important;
+          padding: 13px !important;
+
+          > span {
+            font-size: 1.2rem !important;
+            padding: 0px 24px !important;
+          }
+        }
+      }
+    }
   }
 }
 
@@ -245,16 +295,17 @@ html, body {
 .react-typeahead-input.react-typeahead-usertext {
   height: 50px;
   background: white !important;
-  width: 300px;
+  width: 500px;
   padding: 10px;
   font-size: 24px;
 }
 
 .react-typeahead-options {
-  margin-left: -300px;
+  margin-left: -500px;
   z-index: 1000;
   margin-top: 50px;
   max-width: 500px;
+  width: 500px;
   padding: 0;
   list-style: none;
   color: #E91E63;
@@ -263,6 +314,69 @@ html, body {
     padding: 10px;
     cursor: pointer;
   }
+}
+
+.marker {
+  box-shadow: 0px 0px 4px rgba(0,0,0,0.75);
+  border-radius: 100px
+}
+
+.marker--coop {
+  .bg{fill: #ECEFF1;}
+  .left{fill:#FF5404;}
+  .middle{fill:#DC3002;}
+  .right{fill:#FF8605;}
+}
+
+.marker--coop:hover {
+  .bg{fill:#EF6C00;}
+  .left,.middle,.right{fill:#ECEFF1;}
+}
+
+.marker--castle {
+  .bg{fill:#00E676;}
+  .border{fill:#00E676;}
+  .symbol{fill:#FAFAFA;}
+}
+
+.marker--castle:hover {
+  .bg{fill:#FAFAFA;}
+  .border{fill:#00E676;}
+  .symbol{fill:#00E676;}
+}
+
+.marker--small {
+  .big{fill:#00E676;}
+  .small{fill:#37474F;}
+}
+
+.marker--small:hover {
+  .big{fill:#37474F;}
+  .small{fill:#00E676;}
+}
+
+.marker--migros {
+  .bg{fill:#FAFAFA;}
+  .border{fill:#FF6F00;}
+  .symbol{fill:#FF6F00;}
+}
+
+.marker--migros:hover {
+.bg{fill:#FF6F00;}
+.border{fill:#FAFAFA;}
+.symbol{fill:#FAFAFA;}
+}
+
+.marker--star {
+  .bg{fill:#C51162;}
+  .border{fill:#C51162;}
+  .symbol{fill:#FFEA00;}
+}
+
+.marker--star:hover {
+  .bg{fill:#F06292;}
+  .border{fill:#880E4F;}
+  .symbol{fill:#FFEA00;}
 }
 
 p {
