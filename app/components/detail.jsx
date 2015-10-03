@@ -2,6 +2,7 @@ import { default as React, addons, Component } from 'react/addons'
 import { RaisedButton } from 'material-ui'
 import actions from '../actions'
 import Loading from './loading'
+import _ from 'lodash'
 
 export default class Detail extends Component {
 
@@ -10,15 +11,19 @@ export default class Detail extends Component {
 
     this.state = {
       details: stores.detail.getState(),
+      userProfile: stores.userProfile.getState(),
     };
 
     this.onChangeDetail = this.onChangeDetail.bind(this)
+    this.onChangeUserProfile = this.onChangeUserProfile.bind(this)
 
     stores.detail.listen(this.onChangeDetail)
+    stores.userProfile.listen(this.onChangeUserProfile)
   }
 
   componentWillUnmount() {
     stores.detail.unlisten(this.onChangeDetail)
+    stores.userProfile.unlisten(this.onChangeUserProfile)
   }
 
   onCloseClicked() {
@@ -28,6 +33,12 @@ export default class Detail extends Component {
   onChangeDetail(detail) {
     this.setState({
       details: detail
+    })
+  }
+
+  onChangeUserProfile(userProfile) {
+    this.setState({
+      userProfile: userProfile
     })
   }
 
@@ -66,6 +77,8 @@ export default class Detail extends Component {
       return <div>not ready</div>
     }
 
+    var areas = this.state.details.flat.area;
+
     return (
       <div className="details">
         <div className="details__left" >
@@ -89,6 +102,20 @@ export default class Detail extends Component {
               <th>Size</th>
               <td>{this.state.details.flat.surfaceLiving} m2</td>
             </tr>
+            {
+
+              _.keys(areas).map((key) => {
+                var area = areas[key];
+
+                var perc = area.min / this.state.userProfile.time;
+                return (
+                  <tr style={{color: `hsl(${Math.round(120*perc)}, 100%, 50%)`}}>
+                    <th>{this.state.userProfile.location ? this.state.userProfile.location.name : ''}</th>
+                    <td>{area.min} - {area.max}min</td>
+                  </tr>
+                )
+              })
+            }
           </table>
         </div>
         <div className="details__right" >
