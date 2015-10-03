@@ -14,6 +14,7 @@ class DetailStore {
   onShow(flat) {
     this.setState({
       flat: flat,
+      instagramError: null,
       instagramLoading: true,
     })
   }
@@ -27,12 +28,14 @@ class DetailStore {
   onInstagramCompleted(data) {
     this.setState({
       instagram: data,
+      instagramError: null,
       instagramLoading: false,
     })
   }
 
   onInstagramFailed(err) {
     this.setState({
+      instagram: null,
       instagramError: err,
       instagramLoading: false,
     })

@@ -1,5 +1,8 @@
 {
   "api": {
     "endpoint": "http://localhost:8001"
+  },
+  "mongo": {
+    "url": "mongodb://localhost:27017/kingdom"
   }
 }
