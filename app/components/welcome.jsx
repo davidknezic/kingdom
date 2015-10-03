@@ -1,4 +1,6 @@
 import React, { PropTypes } from 'react'
+import actions from '../actions'
+import stores from '../stores'
 import alt from 'alt'
 import mui from 'material-ui'
 import {TextField, RaisedButton} from 'material-ui'
@@ -7,6 +9,29 @@ export default class Welcome extends React.Component {
 
   constructor() {
     super();
+
+    this.state = {
+      userProfile: stores.userProfile
+    };
+
+    this.onChange = this.onChange.bind(this)
+    this._handleNameChange = this._handleNameChange.bind(this)
+
+    stores.userProfile.listen(this.onChange)
+  }
+
+  componentWillUnmount() {
+    stores.userProfile.unlisten(this.onChange)
+  }
+
+  onChange(store) {
+    this.setState({
+      userProfile: store
+    })
+  }
+
+  shouldComponentUpdate(newState) {
+    return this.state.userProfile != newState.userProfile
   }
 
   render() {
@@ -19,7 +44,13 @@ export default class Welcome extends React.Component {
         <div className="welcome__h2">Let's find your kingdom</div>
         <div className="welcome__name-challenge" >
           <span>First, tell us your name </span>
-          <TextField style={{fontSize: '1.5rem', color: 'white'}} />
+          <TextField
+            hintText='Gandalf'
+            style={{fontSize: '1.5rem', color: 'white'}}
+            value={this.state.userProfile.name}
+            ref='name'
+            onChange={this._handleNameChange}
+            />
         </div>
         <div className="welcome__button" >
           <RaisedButton label="Proceed" />
@@ -28,6 +59,9 @@ export default class Welcome extends React.Component {
     )
   }
 
+  _handleNameChange() {
+    actions.userProfile.updateName(this.refs.name.value)
+  }
 }
 
 Welcome.propTypes = {
