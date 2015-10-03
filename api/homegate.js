@@ -66,17 +66,33 @@ app.get('/flats', (req, res, next) => {
         }
       };
 
-      flats.find(search).toArray((err, data) => {
+      flats.find(search, {
+        advId: true,
+        title: true,
+        street: true,
+        zip: true,
+        geoLocation: true,
+        objectTypeLabel: true,
+        numberRooms: true,
+        floorLabel: true,
+        surfaceLiving: true,
+        currency: true,
+        sellingPrice: true,
+        picFilename1Small: true,
+        picFilename1Medium: true,
+        city: true,
+      }).toArray((err, data) => {
         console.log((data.length+'').cyan, 'flats match search criteria', JSON.stringify(search).blue)
         doIt(req.query.station, data).then((data) => {
-          res.send(data);
+          console.log('finish')
+          res.end(data);
         });
       });
 
     })
 
   } else {
-    res.send({ error: "you missed to send stations" });
+    res.end('{ error: "you missed to send stations" }');
   }
 
 })
@@ -142,7 +158,7 @@ function doIt(stations, flats) {
           flatsToCheckInHeatmap = flatsToCheckInHeatmap.filter((flatToCheck, l) => {
             if(results[l] == 1) {
               if(!flatToCheck.area) {
-                flatToCheck.area = [];
+                flatToCheck.area = {};
               }
 
               flatToCheck.area[uic] = {
@@ -170,6 +186,8 @@ function doIt(stations, flats) {
     })
 
     var hits = flats.filter((flat) => { return !!flat.area });
+
+    console.log((hits.length+'').cyan, 'flats in reachable distance');
 
     return {
       count: hits.length,
