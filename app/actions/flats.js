@@ -14,23 +14,22 @@ class FlatsActions {
       this.currentRequest.abort()
     }
 
-    currentRequest = request
+    this.currentRequest = request
       .get(`${config.api.endpoint}/flats`)
-      .query({'query': {
-        roomFrom: profile.rooms.min,
-        roomTo: profile.rooms.max,
-        areaFrom: profile.area.min,
-        areaTo: profile.area.max,
-        priceFrom: profile.price.min,
-        priceTo: profile.price.max,
-      }})
+      .query({ station: JSON.stringify(profile.location) })
+      .query({ roomFrom: profile.rooms.min })
+      .query({ roomTo: profile.rooms.max })
+      .query({ areaFrom: profile.area.min })
+      .query({ areaTo: profile.area.max })
+      .query({ priceFrom: profile.price.min })
+      .query({ priceTo: profile.price.max })
 
-    currentRequest
+    this.currentRequest
       .then((response) => {
-        currentRequest = null;
+        this.currentRequest = null;
         this.actions.showCompleted(response.body)
       }).catch((err) => {
-        currentRequest = null;
+        this.currentRequest = null;
         this.actions.showFailed(err)
       })
   }
