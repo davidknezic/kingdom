@@ -2,6 +2,8 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import homegate from './homegate'
 import arrlee from './arrlee'
+import meetups from './meetups'
+import instagram from './instagram'
 
 let app = express()
 
@@ -18,5 +20,9 @@ app.all('*', function (req, res, next) {
 app.use(homegate)
 
 app.use(arrlee)
+
+app.use(meetups);
+
+app.use(instagram);
 
 export default app

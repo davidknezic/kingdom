@@ -2,7 +2,7 @@ import React, {PropTypes, Component} from 'react/addons'
 import shouldPureComponentUpdate from 'react-pure-render/function'
 
 import GoogleMap from 'google-map-react'
-import FlatMarker from './markers/flat'
+import CastleMarker from './markers/castle'
 import BriefcaseMarker from './markers/briefcase'
 
 export default class Map extends Component {
@@ -48,7 +48,7 @@ export default class Map extends Component {
 
          {['Foo'].map((title, index) => {
            return (
-              <FlatMarker title={title} lat={47.498820} lng={8.723689} />
+              <CastleMarker title={title} lat={47.498820} lng={8.723689} />
             )
           })}
 
