@@ -58,6 +58,10 @@ export default class LocationFinder extends React.Component {
     })
 
     this._setInputValue(option.name)
+
+    if (this.props.onOptionSelected) {
+      this.props.onOptionSelected(option)
+    }
   }
 
   _setInputValue(value) {

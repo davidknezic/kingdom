@@ -11,7 +11,8 @@ class UserProfileStore {
       numberOfPeople: 1,
       sizePreference: '',
       stairsPreference: '',
-      priceIllusions: ''
+      priceIllusions: '',
+      location: {}
     };
   }
 
@@ -21,7 +22,8 @@ class UserProfileStore {
       numberOfPeople: this.state.numberOfPeople,
       sizePreference: this.state.sizePreference,
       stairsPreference: this.state.stairsPreference,
-      priceIllusions: this.state.priceIllusions
+      priceIllusions: this.state.priceIllusions,
+      location: this.state.location,
     })
   }
 
@@ -31,7 +33,8 @@ class UserProfileStore {
       numberOfPeople: count,
       sizePreference: this.state.sizePreference,
       stairsPreference: this.state.stairsPreference,
-      priceIllusions: this.state.priceIllusions
+      priceIllusions: this.state.priceIllusions,
+      location: this.state.location,
     })
   }
 
@@ -41,7 +44,8 @@ class UserProfileStore {
       numberOfPeople: this.state.numberOfPeople,
       sizePreference: preference,
       stairsPreference: this.state.stairsPreference,
-      priceIllusions: this.state.priceIllusions
+      priceIllusions: this.state.priceIllusions,
+      location: this.state.location,
     })
   }
 
@@ -51,7 +55,8 @@ class UserProfileStore {
       numberOfPeople: this.state.numberOfPeople,
       sizePreference: this.state.sizePreference,
       stairsPreference: preference,
-      priceIllusions: this.state.priceIllusions
+      priceIllusions: this.state.priceIllusions,
+      location: this.state.location,
     })
   }
 
@@ -61,7 +66,19 @@ class UserProfileStore {
       numberOfPeople: this.state.numberOfPeople,
       sizePreference: this.state.sizePreference,
       stairsPreference: this.state.stairsPreference,
-      priceIllusions: illusions
+      priceIllusions: illusions,
+      location: this.state.location,
+    })
+  }
+
+  onUpdateLocation(location) {
+    this.setState({
+      name: this.state.name,
+      numberOfPeople: this.state.numberOfPeople,
+      sizePreference: this.state.sizePreference,
+      stairsPreference: this.state.stairsPreference,
+      priceIllusions: this.state.priceIllusions,
+      location: location,
     })
   }
 
