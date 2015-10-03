@@ -5,6 +5,7 @@ import alt from 'alt'
 import mui from 'material-ui'
 import {TextField, RaisedButton} from 'material-ui'
 import NameChallenge from './name-challenge'
+import PersonCountChallenge from './person-count-challenge'
 
 export default class Welcome extends React.Component {
 
@@ -59,6 +60,11 @@ export default class Welcome extends React.Component {
         hintText='Gundalf'
         value={this.state.userProfile.name} />
     }
+    else if (this.state.process.processState == 'getNumberOfPeople') {
+      challenge = <PersonCountChallenge ref='numberChallenge'
+        onNumberSelected={this._handlePersonCountSelection}
+        userName={this.state.userProfile.name} />
+    }
 
     return (
       <div className="welcome">
@@ -79,6 +85,11 @@ export default class Welcome extends React.Component {
   _handleProceedToNumberOfPeople() {
     actions.process.updateProcessState('getNumberOfPeople')
   }
+
+  _handlePersonCountSelection(count) {
+    console.log(count)
+  }
+
 }
 
 //Welcome.propTypes = {
