@@ -6,7 +6,7 @@ import migros from './migros'
 export default {
   locations,
   flats,
-  userProfile
+  userProfile,
   locations,
   migros
 }
