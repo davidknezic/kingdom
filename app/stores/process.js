@@ -2,18 +2,19 @@ import Immutable from 'immutable'
 import actions from '../actions'
 import alt from '../alt';
 
-class UserProfileStore {
+class ProcessStore {
   constructor() {
-    this.bindActions(actions.userProfile);
+    this.bindActions(actions.process);
 
     this.state = {
-      name: ''
+      processState: 'getName'
     };
   }
 
-  onUpdateName(name) {
+  onUpdateProcessState(processState) {
+    console.log(processState)
     this.setState({
-      name: name
+      processState: processState
     })
   }
 
@@ -22,4 +23,4 @@ class UserProfileStore {
   //}
 }
 
-export default alt.createStore(UserProfileStore);
+export default alt.createStore(ProcessStore);

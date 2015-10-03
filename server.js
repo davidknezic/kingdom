@@ -6,10 +6,12 @@ import api from './api'
 
 import fetchHomegateData from './fetch-homegate'
 
+let port = process.env.PORT || 8001
+
 fetchHomegateData(() => {
 
-  http.createServer(api).listen(8001, '127.0.0.1', function () {
-    console.log(`API server ${'running'.green.bold} on ${'http://127.0.0.1:8001'.cyan}`)
+  http.createServer(api).listen(port, '0.0.0.0', function () {
+    console.log(`API server ${'running'.green.bold} on ${'http://0.0.0.0:'.cyan}${port.cyan}`)
   })
 
 })

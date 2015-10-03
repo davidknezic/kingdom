@@ -4,7 +4,7 @@ import config from '../config'
 class UserProfileActions {
 
   constructor() {
-    this.generateActions('updateName');
+    this.generateActions('updateName')
   }
 }
 

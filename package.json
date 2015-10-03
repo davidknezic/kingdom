@@ -31,6 +31,7 @@
     "classnames": "^2.1.5",
     "del": "^2.0.2",
     "fbjs": "^0.2.1",
+    "geolib": "^2.0.18",
     "google-map-react": "^0.5.9",
     "gulp": "^3.9.0",
     "gulp-less": "^3.0.3",
@@ -39,6 +40,7 @@
     "gulp-watch": "^4.3.4",
     "gulp-webserver": "^0.9.1",
     "immutable": "^3.7.4",
+    "lodash": "^3.10.1",
     "material-ui": "^0.12.1",
     "merge-stream": "^0.1.8",
     "react": "^0.13.3",
@@ -55,6 +57,7 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
+    "babel": "^5.8.23",
     "body-parser": "^1.14.1",
     "colors": "^1.1.2",
     "express": "^4.13.3",
