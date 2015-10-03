@@ -36,7 +36,7 @@ export default class Detail extends Component {
 
     if(!this.state.details || this.state.details.instagramLoading) {
       instagram = (
-        <div>loading instahype</div>
+        <Loading />
       )
     } else if(this.state.details.instagramError != null) {
         instagram = (
