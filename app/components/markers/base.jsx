@@ -4,8 +4,8 @@ import shouldPureComponentUpdate from 'react-pure-render/function';
 export default class BaseMarker extends React.Component {
 
   static defaultProps = {
-    size: { width: 62, height: 60 },
-    origin: { x: 15 / 62, y: 1 },
+    size: { width: 48, height: 48 },
+    origin: { x: 0, y: 0 },
   }
 
   shouldComponentUpdate = shouldPureComponentUpdate
