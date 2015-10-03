@@ -42,6 +42,7 @@
     "merge-stream": "^0.1.8",
     "react": "^0.13.3",
     "react-dom": "^0.14.0-rc1",
+    "react-google-maps": "^3.0.0",
     "react-proxy": "^1.1.1",
     "react-tap-event-plugin": "^0.1.8",
     "require-dir": "^0.3.0",
