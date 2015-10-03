@@ -12,6 +12,7 @@ import PriceChallenge from './price-challenge'
 import LocationChallenge from './location-challenge'
 import TimeChallenge from './time-challenge'
 import StoreChallenge from './store-challenge'
+import FinishChallenge from './finish-challenge'
 import Home from './home'
 
 export default class Welcome extends React.Component {
@@ -103,6 +104,10 @@ export default class Welcome extends React.Component {
       challenge = <StoreChallenge
         onStoreSelected={this._handleStoreSelected} />
     }
+    else if (this.state.process.processState == 'finish')
+    {
+      challenge = <FinishChallenge />
+    }
 
     console.log(this.state.process.processState)
 
@@ -162,10 +167,7 @@ export default class Welcome extends React.Component {
 
   _handleStoreSelected(store) {
     actions.userProfile.updateStore(store)
-    actions.process.updateProcessState('showResults')
+    actions.process.updateProcessState('finish')
+    actions.flats.show(stores.userProfile.getState())
   }
 }
-
-//Welcome.propTypes = {
-//  onProceed: PropTypes.func.isRequired,
-//}
