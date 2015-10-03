@@ -16,7 +16,7 @@ class DetailActions {
     }
 
     this.currentInstagramRequest = request
-      .get(`${config.api.endpoint}/instagram/media/find`)
+      .get(`${config.api.endpoint}/instagram/media/search`)
       .query({'lat': flat.lat})
       .query({'lng': flat.lng});
 

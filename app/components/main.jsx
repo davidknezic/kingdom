@@ -51,9 +51,7 @@ export default class Main extends React.Component {
           title="Flat"
           autoDetectWindowHeight={true}
           autoScrollBodyContent={true}>
-          <div style={{height: '2000px'}}>
-            <Detail />
-          </div>
+          <Detail />
         </Dialog>
       </div>
     )
