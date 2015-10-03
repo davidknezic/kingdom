@@ -2,6 +2,7 @@ import express from 'express'
 import moment from 'moment'
 import superagent from './utils/superagent'
 import {MongoClient} from 'mongodb'
+import mongoConfig from './mongo-config'
 
 import pointsInPolygon from './utils/point-in-polygon'
 
@@ -34,11 +35,7 @@ app.get('/flats', (req, res, next) => {
       req.query.station = [ req.query.station ];
     }
 
-    // Connection URL
-    var url = 'mongodb://localhost:27017/kingdom';
-
-    // Use connect method to connect to the Server
-    MongoClient.connect(url, function(err, db) {
+    MongoClient.connect(mongoConfig.url, function(err, db) {
 
       var flats = db.collection('flats');
 
@@ -124,7 +121,7 @@ function doIt(stations, flats) {
               if(!flatsToCheckInHeatmap[l].area) {
                 flatsToCheckInHeatmap[l].area = [];
               }
-              flatsToCheckInHeatmap[l].area[i] = {
+              flatsToCheckInHeatmap[l].area[heatmap.start[0].uic] = {
                 min: area.min,
                 max: area.max
               }
