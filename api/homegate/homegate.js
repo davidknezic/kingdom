@@ -19,8 +19,24 @@ app.get('/flats', [
          if (result.ok) {
            res.send(result)
          } else {
-           console.log(err)
-           res.send(fail)
+           res.send(err)
+         }
+      })
+  }
+])
+
+//http://localhost:8001/flats/105321232
+app.get('/flats/:id', [
+  function (req, res, next) {
+    superagent
+      .get('https://api-2445581357976.apicast.io:443/rs/real-estates/' + req.params.id)
+      .set('auth', authKey)
+      .query({ language: 'en' })
+      .end(function(err, result){
+         if (result.ok) {
+           res.send(result)
+         } else {
+           res.send(err)
          }
       })
   }
