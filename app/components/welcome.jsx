@@ -11,6 +11,7 @@ import StairsChallenge from './stairs-challenge'
 import PriceChallenge from './price-challenge'
 import LocationChallenge from './location-challenge'
 import TimeChallenge from './time-challenge'
+import StoreChallenge from './store-challenge'
 
 export default class Welcome extends React.Component {
   constructor() {
@@ -97,7 +98,8 @@ export default class Welcome extends React.Component {
     }
     else if (this.state.process.processState == 'getStore')
     {
-      
+      challenge = <StoreChallenge
+        onStoreSelected={this._handleStoreSelected} />
     }
 
     console.log(this.state.process.processState)
@@ -154,6 +156,11 @@ export default class Welcome extends React.Component {
   _handleTimeSelected(time) {
     actions.userProfile.updateTime(time)
     actions.process.updateProcessState('getStore')
+  }
+
+  _handleStoreSelected(store) {
+    actions.userProfile.updateStore(store)
+    actions.process.updateProcessState('showResults')
   }
 }
 
