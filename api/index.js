@@ -1,5 +1,6 @@
 import express from 'express'
 import bodyParser from 'body-parser'
+import sample from './sample'
 
 let app = express()
 
@@ -13,8 +14,10 @@ app.all('*', function (req, res, next) {
   next()
 })
 
-app.get('/', function (req, res) {
+app.get('/test', function (req, res) {
   res.send('Hello World!')
 })
+
+app.use(sample)
 
 export default app
