@@ -23,6 +23,11 @@ class UserProfileStore {
         min: null,
         max: null
       },
+
+      price: {
+        min: null,
+        max: null
+      }
     }
   }
 
@@ -36,6 +41,7 @@ class UserProfileStore {
       location: this.state.location,
       area: this.state.area,
       rooms: this.state.rooms,
+      price: this.state.price,
     })
   }
 
@@ -54,7 +60,8 @@ class UserProfileStore {
       rooms: {
         min: minRooms,
         max: maxRooms
-      }
+      },
+      price: this.state.price,
     })
   }
 
@@ -82,6 +89,7 @@ class UserProfileStore {
         max: maxArea
       },
       rooms: this.state.rooms,
+      price: this.state.price,
     })
   }
 
@@ -99,14 +107,22 @@ class UserProfileStore {
       location: this.state.location,
       area: this.state.area,
       rooms: this.state.rooms,
+      price: this.state.price,
     })
   }
 
   onUpdatePriceIllusions(illusions) {
-    if (preference == 'low') {
-    } else if (preference == 'mid') {
-    } else if (preference == 'high') {
+    var tmpPrice;
+    if (illusions == 'low') {
+      tmpPrice = illusions * 0.8
+    } else if (illusions == 'mid') {
+      tmpPrice = illusions
+    } else if (illusions == 'high') {
+      tmpPrice = illusions * 1.2
     }
+
+    let minPrice = tmpPrice * 0.7
+    let maxPrice = tmpPrice * 1.1
 
     this.setState({
       name: this.state.name,
@@ -117,6 +133,10 @@ class UserProfileStore {
       location: this.state.location,
       area: this.state.area,
       rooms: this.state.rooms,
+      price: {
+        min: minPrice,
+        max: maxPrice
+      },
     })
   }
 
@@ -130,6 +150,7 @@ class UserProfileStore {
       location: location,
       area: this.state.area,
       rooms: this.state.rooms,
+      price: this.state.price,
     })
   }
 }
