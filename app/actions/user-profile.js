@@ -4,7 +4,11 @@ import config from '../config'
 class UserProfileActions {
 
   constructor() {
-    this.generateActions('updateName', 'updateNumberOfPeople', 'updateSizePreference')
+    this.generateActions('updateName',
+      'updateNumberOfPeople',
+      'updateSizePreference',
+      'updateStairsPreference'
+    )
   }
 }
 

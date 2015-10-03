@@ -7,6 +7,7 @@ import {TextField, RaisedButton} from 'material-ui'
 import NameChallenge from './name-challenge'
 import PersonCountChallenge from './person-count-challenge'
 import SizeChallenge from './size-challenge'
+import StairsChallenge from './stairs-challenge'
 
 export default class Welcome extends React.Component {
 
@@ -71,9 +72,12 @@ export default class Welcome extends React.Component {
         onSizePreferenceSelected={this._handleSizePreferenceSelected}
         numberOfPeople={this.state.userProfile.numberOfPeople} />
     }
-    else {
-      console.log(this.state.userProfile.sizePreference)
+    else if (this.state.process.processState == 'getStairsStuff') {
+      challenge = <StairsChallenge
+        onStairsPreferenceSelected={this._handleStairsPreferenceSelected} />
     }
+
+    console.log(this.state.process.processState)
 
     return (
       <div className="welcome">
@@ -103,6 +107,11 @@ export default class Welcome extends React.Component {
   _handleSizePreferenceSelected(preference) {
     actions.userProfile.updateSizePreference(preference)
     actions.process.updateProcessState('getStairsStuff')
+  }
+
+  _handleStairsPreferenceSelected(preference) {
+    actions.userProfile.updateStairsPreference(preference)
+    actions.process.updateProcessState('getPriceIllusions')
   }
 }
 

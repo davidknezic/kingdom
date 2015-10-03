@@ -8,7 +8,9 @@ class UserProfileStore {
 
     this.state = {
       name: '',
-      numberOfPeople: 1
+      numberOfPeople: 1,
+      sizePreference: '',
+      stairsPreference: ''
     };
   }
 
@@ -16,7 +18,8 @@ class UserProfileStore {
     this.setState({
       name: name,
       numberOfPeople: this.state.numberOfPeople,
-      sizePreference: this.state.sizePreference
+      sizePreference: this.state.sizePreference,
+      stairsPreference: this.state.stairsPreference
     })
   }
 
@@ -24,7 +27,8 @@ class UserProfileStore {
     this.setState({
       name: this.state.name,
       numberOfPeople: count,
-      sizePreference: this.state.sizePreference
+      sizePreference: this.state.sizePreference,
+      stairsPreference: this.state.stairsPreference
     })
   }
 
@@ -32,7 +36,17 @@ class UserProfileStore {
     this.setState({
       name: this.state.name,
       numberOfPeople: this.state.numberOfPeople,
-      sizePreference: preference
+      sizePreference: preference,
+      stairsPreference: this.state.stairsPreference
+    })
+  }
+
+  onUpdateStairsPreference(preference) {
+    this.setState({
+      name: this.state.name,
+      numberOfPeople: this.state.numberOfPeople,
+      sizePreference: this.state.sizePreference,
+      stairsPreference: preference
     })
   }
 
