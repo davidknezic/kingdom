@@ -20,27 +20,27 @@ app.get('/flats', (req, res, next) => {
     console.log(req.query)
 
     if(!req.query.roomFrom) {
-      res.end({error: "roomFrom missing"})
+      res.end('{error: "roomFrom missing"}')
     }
 
     if(!req.query.roomTo) {
-      res.end({error: "roomTo missing"})
+      res.end('{error: "roomTo missing"}')
     }
 
     if(!req.query.areaFrom) {
-      res.end({error: "areaFrom missing"})
+      res.end('{error: "areaFrom missing"}')
     }
 
     if(!req.query.areaTo) {
-      res.end({error: "areaTo missing"})
+      res.end('{error: "areaTo missing"}')
     }
 
     if(!req.query.priceFrom) {
-      res.end({error: "priceFrom missing"})
+      res.end('{error: "priceFrom missing"}')
     }
 
     if(!req.query.priceTo) {
-      res.end({error: "priceTo missing"})
+      res.end('{error: "priceTo missing"}')
     }
 
     if(!Array.isArray(req.query.station)) {
@@ -107,7 +107,9 @@ function doIt(stations, flats) {
 
     heatmaps.forEach((heatmap) => {
 
-      console.log('processing heatmap with uic', (heatmap.start[0].uic+'').cyan)
+      var uic = heatmap.start[0].uic+'';
+
+      console.log('processing heatmap with uic', uic.cyan)
 
       var flatsToCheckInHeatmap = flats.slice();
 
@@ -137,21 +139,23 @@ function doIt(stations, flats) {
             return flat.geoLocation.split(',')
           }), polygon);
 
-          for(var l = 0; l < flatsToCheckInHeatmap.length; l++) {
-
+          flatsToCheckInHeatmap = flatsToCheckInHeatmap.filter((flatToCheck, l) => {
             if(results[l] == 1) {
-              if(!flatsToCheckInHeatmap[l].area) {
-                flatsToCheckInHeatmap[l].area = [];
+              if(!flatToCheck.area) {
+                flatToCheck.area = [];
               }
 
-              flatsToCheckInHeatmap[l].area[heatmap.start[0].uic] = {
+              flatToCheck.area[uic] = {
                 min: area.min,
                 max: area.max
               }
 
-              flatsToCheckInHeatmap.splice(l,1)
+              return false;
             }
-          }
+
+            return true;
+
+          })
 
           return true;
 
@@ -161,14 +165,17 @@ function doIt(stations, flats) {
 
       })
 
+      console.log('processing heatmap with uic', (heatmap.start[0].uic+'').cyan, 'finished')
+
     })
 
     var hits = flats.filter((flat) => { return !!flat.area });
 
-    return({
+    return {
       count: hits.length,
       hits: hits
-    });
+    }
+
   });
 
 }
