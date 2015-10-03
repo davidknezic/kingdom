@@ -3,7 +3,9 @@ import actions from '../actions'
 import stores from '../stores'
 import alt from 'alt'
 import mui from 'material-ui'
-import {Table,TableHeader,TableBody,TableRow,TableHeaderColumn,TableRowColumn,TextField} from 'material-ui'
+import {Table,TableHeader,TableBody,TableRow,TableHeaderColumn,TableRowColumn,TextField, AppBar} from 'material-ui'
+
+import Welcome from './welcome'
 
 export default class Main extends React.Component {
 
@@ -39,42 +41,15 @@ export default class Main extends React.Component {
 
   render() {
     return (
-      <main id="main-container">
-        <TextField
-          hintText="Search text"
-          ref="searchField"
-          onChange={this._onSearchChange.bind(this)} />
-        {() => {
-          if(this.state.locations) {
-            return (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHeaderColumn>Name</TableHeaderColumn>
-                    <TableHeaderColumn>Score</TableHeaderColumn>
-                    <TableHeaderColumn>coordinate</TableHeaderColumn>
-                    <TableHeaderColumn>distance</TableHeaderColumn>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {this.state.locations.stations ? this.state.locations.stations.map((station) => {
-                    return (
-                      <TableRow selected={true} key={station.name}>
-                        <TableRowColumn>{station.name}</TableRowColumn>
-                        <TableRowColumn>{station.score}</TableRowColumn>
-                        <TableRowColumn>{station.coordinate.x} / {station.coordinate.y}</TableRowColumn>
-                        <TableRowColumn>{station.distance}</TableRowColumn>
-                      </TableRow>
-                    )
-                  }) : null}
-                </TableBody>
-              </Table>
-            )
-          } else {
-            return (<div>...</div>)
-          }
-        }()}
-      </main>
+      <div className="main">
+        <div className="main__sidebar" >
+          <AppBar
+            title="Hello"
+            showMenuIconButton={false} />
+        </div>
+        <div className="main__map" >
+        </div>
+      </div>
     )
   }
 

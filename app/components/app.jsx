@@ -13,10 +13,7 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <AppBar
-          title="Title"
-          showMenuIconButton={false} />
+      <div className="app">
         <Main />
       </div>
     )
