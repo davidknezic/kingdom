@@ -2,7 +2,6 @@ import { default as React, addons, Component } from 'react/addons'
 import { RaisedButton } from 'material-ui'
 import actions from '../actions'
 import Loading from './loading'
-import Carousel from 'react-responsive-carousel'
 
 export default class Detail extends Component {
 
