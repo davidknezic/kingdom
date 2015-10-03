@@ -7,7 +7,8 @@ class UserProfileActions {
     this.generateActions('updateName',
       'updateNumberOfPeople',
       'updateSizePreference',
-      'updateStairsPreference'
+      'updateStairsPreference',
+      'updatePriceIllusions'
     )
   }
 }

@@ -10,7 +10,8 @@ class UserProfileStore {
       name: '',
       numberOfPeople: 1,
       sizePreference: '',
-      stairsPreference: ''
+      stairsPreference: '',
+      priceIllusions: ''
     };
   }
 
@@ -19,7 +20,8 @@ class UserProfileStore {
       name: name,
       numberOfPeople: this.state.numberOfPeople,
       sizePreference: this.state.sizePreference,
-      stairsPreference: this.state.stairsPreference
+      stairsPreference: this.state.stairsPreference,
+      priceIllusions: this.state.priceIllusions
     })
   }
 
@@ -28,7 +30,8 @@ class UserProfileStore {
       name: this.state.name,
       numberOfPeople: count,
       sizePreference: this.state.sizePreference,
-      stairsPreference: this.state.stairsPreference
+      stairsPreference: this.state.stairsPreference,
+      priceIllusions: this.state.priceIllusions
     })
   }
 
@@ -37,7 +40,8 @@ class UserProfileStore {
       name: this.state.name,
       numberOfPeople: this.state.numberOfPeople,
       sizePreference: preference,
-      stairsPreference: this.state.stairsPreference
+      stairsPreference: this.state.stairsPreference,
+      priceIllusions: this.state.priceIllusions
     })
   }
 
@@ -46,7 +50,18 @@ class UserProfileStore {
       name: this.state.name,
       numberOfPeople: this.state.numberOfPeople,
       sizePreference: this.state.sizePreference,
-      stairsPreference: preference
+      stairsPreference: preference,
+      priceIllusions: this.state.priceIllusions
+    })
+  }
+
+  onUpdatePriceIllusions(illusions) {
+    this.setState({
+      name: this.state.name,
+      numberOfPeople: this.state.numberOfPeople,
+      sizePreference: this.state.sizePreference,
+      stairsPreference: this.state.stairsPreference,
+      priceIllusions: illusions
     })
   }
 

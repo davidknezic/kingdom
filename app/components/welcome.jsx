@@ -8,6 +8,7 @@ import NameChallenge from './name-challenge'
 import PersonCountChallenge from './person-count-challenge'
 import SizeChallenge from './size-challenge'
 import StairsChallenge from './stairs-challenge'
+import PriceChallenge from './price-challenge'
 
 export default class Welcome extends React.Component {
 
@@ -76,6 +77,12 @@ export default class Welcome extends React.Component {
       challenge = <StairsChallenge
         onStairsPreferenceSelected={this._handleStairsPreferenceSelected} />
     }
+    else if (this.state.process.processState == 'getPriceIllusions') {
+      challenge = <PriceChallenge
+        sizePreference={this.state.userProfile.sizePreference}
+        numberOfPeople={this.state.userProfile.numberOfPeople}
+        onPriceIllusionSelected={this._handlePriceIllusionsSelected} />
+    }
 
     console.log(this.state.process.processState)
 
@@ -112,6 +119,11 @@ export default class Welcome extends React.Component {
   _handleStairsPreferenceSelected(preference) {
     actions.userProfile.updateStairsPreference(preference)
     actions.process.updateProcessState('getPriceIllusions')
+  }
+
+  _handlePriceIllusionsSelected(illusions) {
+    actions.userProfile.updatePriceIllusions(illusions)
+    actions.process.updateProcessState('getLocation')
   }
 }
 
