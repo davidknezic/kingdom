@@ -1,6 +1,7 @@
 import superagent from './superagent'
 import {MongoClient} from 'mongodb'
 import assert from 'assert'
+import colors from 'colors'
 
 import mongoConfig from '../mongo-config'
 
@@ -22,14 +23,14 @@ export default function ensureData(cb) {
     flats.find({}).count((err, count) => {
 
       if(count > 1) {
-        console.log('data is there')
+        console.log('Homegate data is cached'.bgGreen.black)
         done();
       } else {
-        console.log('data is not there')
+        console.log('Homegate data is not cached. Start caching...'.bgRed.white)
 
         query(1, [], (data) => {
 
-          console.log('data inserted')
+          console.log('Homegate data caching finished'.bgGreen.black)
 
           var result = flats.insertMany(data, null, (err, result) => {
             done();
