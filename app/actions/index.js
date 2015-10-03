@@ -5,6 +5,7 @@ import process from './process'
 import migros from './migros'
 import meetups from './meetups'
 import meetupCategories from './meetup-categories'
+import locations from './locations'
 
 export default {
   detail,
@@ -14,4 +15,5 @@ export default {
   migros,
   meetups,
   meetupCategories,
+  locations,
 }
