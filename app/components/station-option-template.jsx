@@ -6,7 +6,6 @@ import {
 
 export default class StationOptionTemplate {
   render() {
-    console.log('render', this.props)
     return (
       <div>{this.props.data.name}</div>
     )

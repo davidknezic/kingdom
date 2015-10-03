@@ -9,7 +9,8 @@ class UserProfileActions {
       'updateSizePreference',
       'updateStairsPreference',
       'updatePriceIllusions',
-      'updateLocation'
+      'updateLocation',
+      'updateTime',
     )
   }
 }

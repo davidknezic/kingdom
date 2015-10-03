@@ -10,9 +10,9 @@ import SizeChallenge from './size-challenge'
 import StairsChallenge from './stairs-challenge'
 import PriceChallenge from './price-challenge'
 import LocationChallenge from './location-challenge'
+import TimeChallenge from './time-challenge'
 
 export default class Welcome extends React.Component {
-
   constructor() {
     super();
 
@@ -89,6 +89,16 @@ export default class Welcome extends React.Component {
         onProceed={this._handleLocationCertain}
         onLocationSelected={this._handleLocationSelected} />
     }
+    else if (this.state.process.processState == 'getAnticipatedTravelTime')
+    {
+      challenge = <TimeChallenge
+        locationName={this.state.userProfile.location.name}
+        onTimeSelected={this._handleTimeSelected} />
+    }
+    else if (this.state.process.processState == 'getStore')
+    {
+      
+    }
 
     console.log(this.state.process.processState)
 
@@ -139,6 +149,11 @@ export default class Welcome extends React.Component {
 
   _handleLocationCertain() {
     actions.process.updateProcessState('getAnticipatedTravelTime')
+  }
+
+  _handleTimeSelected(time) {
+    actions.userProfile.updateTime(time)
+    actions.process.updateProcessState('getStore')
   }
 }
 
