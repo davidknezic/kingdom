@@ -6,8 +6,6 @@ import mui from 'material-ui'
 import {Table,TableHeader,TableBody,TableRow,TableHeaderColumn,TableRowColumn,TextField, AppBar} from 'material-ui'
 import classNames from 'classnames'
 
-import Welcome from './welcome'
-
 export default class Main extends React.Component {
 
   constructor() {

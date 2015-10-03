@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import Main from './main.jsx'
+import Welcome from './welcome.jsx'
 import {AppBar,Styles} from 'material-ui'
 import muiTheme from './mui-theme'
 
@@ -14,7 +15,7 @@ export default class App extends React.Component {
   render() {
     return (
       <div className="app">
-        <Main />
+        <Welcome />
       </div>
     )
   }
