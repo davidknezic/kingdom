@@ -7,6 +7,9 @@ let app = express()
 // localhost:8001/stations?query=...
 app.get('/stations', [
   function (req, res, next) {
+
+    console.log('processing', '/stations'.cyan)
+
     station(req.query.query, (err, result) => {
       if (err) {
         res.send(err)

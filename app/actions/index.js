@@ -1,4 +1,5 @@
 import flats from './flats'
+import coop from './coop'
 import detail from './detail'
 import userProfile from './user-profile'
 import process from './process'
@@ -10,6 +11,7 @@ import locations from './locations'
 export default {
   detail,
   flats,
+  coop,
   userProfile,
   process,
   migros,

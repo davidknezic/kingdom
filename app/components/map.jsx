@@ -2,8 +2,13 @@ import React, {PropTypes, Component} from 'react/addons'
 import shouldPureComponentUpdate from 'react-pure-render/function'
 
 import GoogleMap from 'google-map-react'
+
 import CastleMarker from './markers/castle'
+import CastleDecentMarker from './markers/castle-decent'
 import BriefcaseMarker from './markers/briefcase'
+import StarMarker from './markers/star'
+import CoopMarker from './markers/coop'
+import MigrosMarker from './markers/migros'
 
 export default class Map extends Component {
 

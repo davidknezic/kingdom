@@ -6,6 +6,9 @@ let app = express()
 
 app.get('/instagram/media/search', [
   function (req, res, next) {
+
+    console.log('processing', '/instagram/media/search'.cyan)
+
     media(req.query.lat, req.query.lng, (err, result) => {
          if (result.ok) {
            res.send(result.body.data)

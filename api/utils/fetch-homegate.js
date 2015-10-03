@@ -1,15 +1,16 @@
-import superagent from './api/utils/superagent'
+import superagent from './superagent'
 import {MongoClient} from 'mongodb'
 import assert from 'assert'
+import colors from 'colors'
 
-var authKey = '201a03b2f0ef8b311cdd2157c21c3666'
+import mongoConfig from '../mongo-config'
 
-// Connection URL
-var url = 'mongodb://localhost:27017/kingdom';
+let authKey = '201a03b2f0ef8b311cdd2157c21c3666'
 
 export default function ensureData(cb) {
+
   // Use connect method to connect to the Server
-  MongoClient.connect(url, function(err, db) {
+  MongoClient.connect(mongoConfig.url, function(err, db) {
     function done() {
       db.close();
       cb();
@@ -22,14 +23,14 @@ export default function ensureData(cb) {
     flats.find({}).count((err, count) => {
 
       if(count > 1) {
-        console.log('data is there')
+        console.log('Homegate data is cached'.bgGreen.black)
         done();
       } else {
-        console.log('data is not there')
+        console.log('Homegate data is not cached. Start caching...'.bgRed.white)
 
         query(1, [], (data) => {
 
-          console.log('data inserted')
+          console.log('Homegate data caching finished'.bgGreen.black)
 
           var result = flats.insertMany(data, null, (err, result) => {
             done();

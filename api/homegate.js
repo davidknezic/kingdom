@@ -2,6 +2,7 @@ import express from 'express'
 import moment from 'moment'
 import superagent from './utils/superagent'
 import {MongoClient} from 'mongodb'
+import mongoConfig from './mongo-config'
 
 import pointsInPolygon from './utils/point-in-polygon'
 
@@ -12,7 +13,11 @@ let app = express()
 
 app.get('/flats', (req, res, next) => {
 
+  console.log('processing', '/flats'.cyan)
+
   if(req.query.station) {
+
+    console.log(req.query)
 
     if(!req.query.roomFrom) {
       res.end({error: "roomFrom missing"})
@@ -20,6 +25,14 @@ app.get('/flats', (req, res, next) => {
 
     if(!req.query.roomTo) {
       res.end({error: "roomTo missing"})
+    }
+
+    if(!req.query.areaFrom) {
+      res.end({error: "areaFrom missing"})
+    }
+
+    if(!req.query.areaTo) {
+      res.end({error: "areaTo missing"})
     }
 
     if(!req.query.priceFrom) {
@@ -34,15 +47,11 @@ app.get('/flats', (req, res, next) => {
       req.query.station = [ req.query.station ];
     }
 
-    // Connection URL
-    var url = 'mongodb://localhost:27017/kingdom';
-
-    // Use connect method to connect to the Server
-    MongoClient.connect(url, function(err, db) {
+    MongoClient.connect(mongoConfig.url, function(err, db) {
 
       var flats = db.collection('flats');
 
-      flats.find({
+      var search = {
         sellingPrice: {
           '$gt': parseInt(req.query.priceFrom, 10),
           '$lt': parseInt(req.query.priceTo, 10)
@@ -50,8 +59,15 @@ app.get('/flats', (req, res, next) => {
         numberRooms: {
           '$gte': parseFloat(req.query.roomFrom),
           '$lte': parseFloat(req.query.roomTo)
+        },
+        surfaceLiving: {
+          '$gte': parseFloat(req.query.areaFrom),
+          '$lte': parseFloat(req.query.areaTo)
         }
-      }).toArray((err, data) => {
+      };
+
+      flats.find(search).toArray((err, data) => {
+        console.log((data.length+'').cyan, 'flats match search criteria', JSON.stringify(search).blue)
         doIt(req.query.station, data).then((data) => {
           res.send(data);
         });
@@ -87,8 +103,11 @@ function doIt(stations, flats) {
 
   return Promise.all(heatmapPromises).then((heatmaps) => {
 
-    // TODO: use forEach
+    console.log('loaded', (heatmaps.length+'').cyan, 'heatmaps')
+
     heatmaps.forEach((heatmap) => {
+
+      console.log('processing heatmap with uic', (heatmap.start[0].uic+'').cyan)
 
       var flatsToCheckInHeatmap = flats.slice();
 
@@ -110,7 +129,7 @@ function doIt(stations, flats) {
 
           var inclusion = polygon.shift();
 
-          if(inclusion ==0 ) {
+          if(inclusion == 0) {
             return true;
           }
 
@@ -124,7 +143,8 @@ function doIt(stations, flats) {
               if(!flatsToCheckInHeatmap[l].area) {
                 flatsToCheckInHeatmap[l].area = [];
               }
-              flatsToCheckInHeatmap[l].area[i] = {
+
+              flatsToCheckInHeatmap[l].area[heatmap.start[0].uic] = {
                 min: area.min,
                 max: area.max
               }
@@ -156,6 +176,8 @@ function doIt(stations, flats) {
 //http://localhost:8001/flats/105321232
 app.get('/flats/:id', [
   function (req, res, next) {
+    console.log('processing', ('/flats/'+req.params.id).cyan)
+
     superagent
       .get('https://api-2445581357976.apicast.io:443/rs/real-estates/' + req.params.id)
       .set('auth', authKey)

@@ -3,14 +3,14 @@ import request from './utils/request'
 import config from '../config'
 import geolib from 'geolib'
 import _ from 'lodash'
-import migros from '../data/migros.json'
+import coops from '../data/coop.json'
 
-class MigrosActions {
+class CoopActions {
 
   search(center) {
-    let shops = _.filter(migros, (migi) => {
+    let shops = _.filter(coops, (coop) => {
       return geolib.isPointInCircle(
-        { latitude: migi.lat, longitude: migi.lng },
+        { latitude: coop.lat, longitude: coop.lng },
         { latitude: center.lat, longitude: center.lng },
         5000
       )
@@ -20,4 +20,4 @@ class MigrosActions {
   }
 }
 
-export default alt.createActions(MigrosActions)
+export default alt.createActions(CoopActions)
