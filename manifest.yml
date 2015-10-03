@@ -9,7 +9,7 @@ applications:
   domain: scapp.io
 
 - name: frontend
-  command: ./node_modules/.bin/gulp serve build
+  command: ./node_modules/.bin/babel-node frontend.js
   memory: 512M
   instances: 1
   buildpack: https://github.com/cloudfoundry/nodejs-buildpack
