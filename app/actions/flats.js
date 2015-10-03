@@ -5,6 +5,7 @@ import config from '../config'
 class FlatsActions {
 
   constructor() {
+    this.generateActions('showCompleted', 'showFailed')
   }
 
   show(profile) {

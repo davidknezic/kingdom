@@ -35,10 +35,12 @@ class FlatsStore {
   onShowFailed(err) {
     console.log('onShowFailed', err)
     this.setState({
-      categories: null,
+      list: [],
       erro: err,
       isLoading: false,
     })
+
+    actions.process.updateProcessState('showResults')
   }
 }
 
