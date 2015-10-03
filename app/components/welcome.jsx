@@ -37,7 +37,6 @@ export default class Welcome extends React.Component {
   }
 
   onProcessStoreChange(store) {
-    console.log('process store changed')
     this.setState({
       userProfile: this.state.userProfile,
       process: store
@@ -45,8 +44,6 @@ export default class Welcome extends React.Component {
   }
 
   shouldComponentUpdate(newState) {
-    console.log('new state', newState)
-    console.log('old state', this.state)
     return this.state.userProfile != newState.userProfile ||
       this.state.process != newState.process
   }
