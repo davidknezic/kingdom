@@ -10,7 +10,9 @@ let b = browserify({
   entries: 'app/index.jsx',
   extensions: ['.jsx'],
   debug: true,
-  transform: [babelify]
+  transform: [babelify.configure({
+    stage: 0
+  })]
 })
 
 gulp.task('scripts', function () {
