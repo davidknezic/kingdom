@@ -40,13 +40,11 @@ export default class Welcome extends React.Component {
   onUserProfileChange(store) {
     this.setState({
       userProfile: store,
-      process: this.state.process
     })
   }
 
   onProcessStoreChange(store) {
     this.setState({
-      userProfile: this.state.userProfile,
       process: store
     })
   }
@@ -108,8 +106,6 @@ export default class Welcome extends React.Component {
     {
       challenge = <FinishChallenge />
     }
-
-    console.log(this.state.process.processState)
 
     return (
       <div className="welcome">

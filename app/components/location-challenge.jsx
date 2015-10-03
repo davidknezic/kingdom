@@ -19,8 +19,8 @@ export default class LocationChallenge extends Component {
         </div>
         <LocationFinder onOptionSelected={this.props.onLocationSelected} />
 
-        <div className="arrow-button__container">
-          <a className="arrow-button" onClick={this.props.onProceed}><ArrowRight /></a>
+        <div className="welcome__button" >
+          <RaisedButton label="Proceed" onClick={this.props.onProceed} />
         </div>
       </div>
     )
