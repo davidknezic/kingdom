@@ -1,14 +1,15 @@
 import React, { PropTypes } from 'react'
-import Main from './main.jsx'
-import {AppBar,Styles} from 'material-ui'
+import Main from './main'
+import Map from './map'
+import { AppBar, Styles } from 'material-ui'
 import muiTheme from './mui-theme'
 
 export default class App extends React.Component {
 
   getChildContext() {
     return {
-      muiTheme: Styles.ThemeManager.getMuiTheme(muiTheme),
-    };
+      muiTheme: Styles.ThemeManager.getMuiTheme(muiTheme)
+    }
   }
 
   render() {
@@ -21,5 +22,5 @@ export default class App extends React.Component {
 }
 
 App.childContextTypes = {
-  muiTheme: React.PropTypes.object,
+  muiTheme: React.PropTypes.object
 }
