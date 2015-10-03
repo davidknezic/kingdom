@@ -26,15 +26,13 @@ export default class Main extends React.Component {
   }
 
   onChangeDetail(detail) {
-    var toggle = null
-
-    if (detail.flat != null) {
-      toggle = this.refs.detail.show
-    } else {
-      toggle = this.refs.detail.dismiss
+    if (!detail.loading) {
+      if(!this.refs.detail.isOpen()) {
+        this.refs.detail.show()
+      }
+    } else if(this.refs.detail.isOpen()) {
+      this.refs.detail.dismiss()
     }
-
-    toggle()
   }
 
   render() {
@@ -48,10 +46,11 @@ export default class Main extends React.Component {
         </div>
         <Dialog
           ref="detail"
-          title="Flat"
           autoDetectWindowHeight={true}
           autoScrollBodyContent={true}>
-          <Detail />
+          <div>
+            <Detail />
+          </div>
         </Dialog>
       </div>
     )

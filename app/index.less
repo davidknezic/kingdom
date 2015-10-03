@@ -37,8 +37,14 @@ html, body {
 .instagram {
   margin: 0 -10px;
 }
+
 .instagram__image {
   padding: 10px;
+}
+
+.instagram__headline {
+  margin: 1.5rem 0 .5rem 0;
+  padding: 0 10px;
 }
 
 .welcome {
@@ -48,27 +54,49 @@ html, body {
   color: white;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
+}
+
+.welcome__container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .welcome__logo {
   display: block;
-  width: 180px;
-  height: 180px;
+  width: 6rem;
+  height: 6rem;
   background-color: #C2185B;
   border-radius: 50%;
   padding: 20px;
   fill: white;
   margin: 0 auto;
-  margin-top: 1.75rem;
-  margin-bottom: 1.75rem;
+  margin-top: 3rem;
+  margin-bottom: 9rem;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.16), 0 3px 10px rgba(0, 0, 0, 0.23);
 }
 
+.welcome__logo--large {
+  width: 12rem;
+  height: 12rem;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
 .welcome__h1 {
-  font-size: 1.5rem;
-  margin: 1rem;
+  display: block;
+  max-width: 1000px;
   text-align: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.welcome__introduction {
+  max-width: 700px;
+  text-align: center;
+  font-size: 1.4rem;
 }
 
 .welcome__h2 {
@@ -80,11 +108,37 @@ html, body {
 .welcome__name-challenge {
   font-size: 1.5rem;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  align-items: center;
+  flex-direction: column;
 }
 
 .welcome__button {
   margin: 1rem;
   text-align: center;
+}
+
+.welcome__text-answer {
+  margin: 2rem;
+
+  > div {
+    font-size: 2.5rem;
+    text-align: center;
+    left: -1000px;
+    right: -1000px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  > input {
+    font-size: 2.5rem !important;
+    text-align: center;
+  }
+
+  > hr {
+    bottom: 0 !important;
+  }
 }
 
 .welcome__continue-hint__highlight {
@@ -282,4 +336,45 @@ html, body {
   .bg{fill:#F06292;}
   .border{fill:#880E4F;}
   .symbol{fill:#FFEA00;}
+}
+
+p {
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.details {
+  display: flex;
+}
+
+.details__left {
+  flex: 1;
+  padding-right: 20px;
+}
+
+.details__title {
+  margin-top: 0;
+}
+
+.details__right {
+  flex: 0.75;
+  max-width: 280px;
+}
+
+.details__image {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.details__cloze {
+  text-align: right;
+}
+
+.details__table {
+  width: 100%;
+
+  td, th {
+    text-align: left;
+    padding: 5px 5px 10px 0;
+  }
 }

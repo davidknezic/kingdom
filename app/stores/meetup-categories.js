@@ -27,6 +27,7 @@ class MeetupCategoriesStore {
   }
 
   onFetchFailed(err) {
+    console.log('onFetchFailed', err)
     this.setState({
       error: err,
       isLoading: false,

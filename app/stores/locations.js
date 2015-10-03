@@ -29,6 +29,7 @@ class LocationsStore {
   }
 
   onFetchFailed(err) {
+    console.log('onFetchFailed', err)
     this.setState({
       stations: [],
       error: err,

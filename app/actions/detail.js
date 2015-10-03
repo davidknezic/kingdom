@@ -5,7 +5,7 @@ import config from '../config'
 class DetailActions {
 
   constructor() {
-    this.generateActions('instagramCompleted', 'instagramFailed')
+    this.generateActions('instagramCompleted', 'instagramFailed', 'showCompleted', 'showFailed')
   }
 
   show(flat) {
@@ -15,10 +15,31 @@ class DetailActions {
       this.currentInstagramRequest.abort();
     }
 
+    if(this.currentRequest) {
+      this.currentRequest.abort();
+    }
+
+    var coords = flat.geoLocation.split(',');
+
+    var lng = coords[0];
+    var lat = coords[1];
+
+    this.currentRequest = request
+      .get(`${config.api.endpoint}/flats/${flat.advId}`);
+
+    this.currentRequest
+      .then((response) => {
+        this.currentRequest = null;
+        this.actions.showCompleted(response.body);
+      }).catch((err) => {
+        this.currentRequest = null;
+        this.actions.showFailed(err);
+      })
+
     this.currentInstagramRequest = request
       .get(`${config.api.endpoint}/instagram/media/search`)
-      .query({'lat': flat.lat})
-      .query({'lng': flat.lng});
+      .query({'lat': lat})
+      .query({'lng': lng});
 
     this.currentInstagramRequest
       .then((response) => {

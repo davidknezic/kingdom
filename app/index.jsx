@@ -9,4 +9,3 @@ React.render(
 window.actions = require('./actions')
 window.stores = require('./stores')
 
-actions.process.updateProcessState('showResults')
