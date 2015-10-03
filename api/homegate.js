@@ -1,5 +1,5 @@
 import express from 'express'
-import superagent from 'superagent'
+import superagent from './superagent'
 
 var authKey = '201a03b2f0ef8b311cdd2157c21c3666'
 let app = express()
@@ -17,7 +17,7 @@ app.get('/flats', [
       .query({ numberResults: (req.query.pagesize? req.query.pagesize: 10) })
       .end(function(err, result){
          if (result.ok) {
-           res.send(result)
+           res.send(result.body)
          } else {
            res.send(err)
          }
@@ -34,7 +34,7 @@ app.get('/flats/:id', [
       .query({ language: 'en' })
       .end(function(err, result){
          if (result.ok) {
-           res.send(result)
+           res.send(result.body)
          } else {
            res.send(err)
          }
