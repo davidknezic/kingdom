@@ -1,5 +1,7 @@
+import flats from './flats'
 import locations from './locations'
 
 export default {
-  locations,
+  flats,
+  locations
 }
