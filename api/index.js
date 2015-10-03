@@ -3,6 +3,7 @@ import bodyParser from 'body-parser'
 import homegate from './homegate'
 import arrlee from './arrlee'
 import meetups from './meetups'
+import instagram from './instagram'
 
 let app = express()
 
@@ -21,5 +22,7 @@ app.use(homegate)
 app.use(arrlee)
 
 app.use(meetups);
+
+app.use(instagram);
 
 export default app
