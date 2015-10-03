@@ -22,12 +22,6 @@ app.get('/flats', [
            res.send(fail)
          }
       })
-    /*res.send({
-      name: req.user.name,
-      first_name: req.user.firstName,
-      last_name: req.user.lastName,
-      email: req.user.email
-    })*/
   }
 ])
 
