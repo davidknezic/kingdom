@@ -1,6 +1,6 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import sample from './sample'
+import homegate from './homegate'
 
 let app = express()
 
@@ -18,6 +18,6 @@ app.get('/test', function (req, res) {
   res.send('Hello World!')
 })
 
-app.use(sample)
+app.use(homegate)
 
 export default app
