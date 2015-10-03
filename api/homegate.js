@@ -11,6 +11,23 @@ import heatmap from './arrlee/heatmap'
 var authKey = '201a03b2f0ef8b311cdd2157c21c3666'
 let app = express()
 
+app.get('/flats/:id', (req, res, next) => {
+
+  console.log('processing', ('/flats/'+req.params.id).cyan)
+
+  superagent
+    .get('https://api-2445581357976.apicast.io:443/rs/real-estates/' + req.params.id)
+    .set('auth', authKey)
+    .query({ language: 'en' })
+    .end(function(err, result) {
+       if (result.ok) {
+         res.send(result.body)
+       } else {
+         res.send(err)
+      }
+    })
+});
+
 app.get('/flats', (req, res, next) => {
 
   console.log('processing', '/flats'.cyan)
