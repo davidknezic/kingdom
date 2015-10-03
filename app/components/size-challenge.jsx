@@ -1,6 +1,7 @@
 import { default as React, addons, Component } from 'react/addons'
 import { LeftNav } from 'material-ui'
 import { RaisedButton } from 'material-ui'
+import Logo from './logo'
 
 export default class SizeChallenge extends Component {
   constructor(props) {
@@ -17,14 +18,13 @@ export default class SizeChallenge extends Component {
   render() {
     return (
       <div>
+        <Logo />
         <div className="welcome__name-challenge">
-          <span>Sweet. So tell me, do you like it spacey or cozy?</span>
-          <br />
-          <span>Allright! So, do you {this.props.numberOfPeople > 1 ? 'guys ' : ''}like it spacey or cozy?</span>
+          <span className="welcome__h1">Sweet. So tell me, how do you like it?</span>
         </div>
         <div className="button__row" >
           <RaisedButton label="cozy" onClick={this._cozySelected} />
-          <RaisedButton label="spacey" onClick={this._spaceySelected} />
+          <RaisedButton label="spacy" onClick={this._spaceySelected} />
         </div>
       </div>
     )

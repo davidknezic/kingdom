@@ -48,27 +48,49 @@ html, body {
   color: white;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
+}
+
+.welcome__container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .welcome__logo {
   display: block;
-  width: 180px;
-  height: 180px;
+  width: 6rem;
+  height: 6rem;
   background-color: #C2185B;
   border-radius: 50%;
   padding: 20px;
   fill: white;
   margin: 0 auto;
-  margin-top: 1.75rem;
-  margin-bottom: 1.75rem;
+  margin-top: 3rem;
+  margin-bottom: 9rem;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.16), 0 3px 10px rgba(0, 0, 0, 0.23);
 }
 
+.welcome__logo--large {
+  width: 12rem;
+  height: 12rem;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
 .welcome__h1 {
-  font-size: 1.5rem;
-  margin: 1rem;
+  display: block;
+  max-width: 1000px;
   text-align: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.welcome__introduction {
+  max-width: 700px;
+  text-align: center;
+  font-size: 1.4rem;
 }
 
 .welcome__h2 {
@@ -80,11 +102,37 @@ html, body {
 .welcome__name-challenge {
   font-size: 1.5rem;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  align-items: center;
+  flex-direction: column;
 }
 
 .welcome__button {
   margin: 1rem;
   text-align: center;
+}
+
+.welcome__text-answer {
+  margin: 2rem;
+
+  > div {
+    font-size: 2.5rem;
+    text-align: center;
+    left: -1000px;
+    right: -1000px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  > input {
+    font-size: 2.5rem !important;
+    text-align: center;
+  }
+
+  > hr {
+    bottom: 0 !important;
+  }
 }
 
 .welcome__continue-hint__highlight {

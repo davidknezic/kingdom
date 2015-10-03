@@ -7,7 +7,7 @@ class ProcessStore {
     this.bindActions(actions.process);
 
     this.state = {
-      processState: 'getName'
+      processState: 'home'
     };
   }
 
