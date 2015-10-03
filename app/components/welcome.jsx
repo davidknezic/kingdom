@@ -9,9 +9,11 @@ import PersonCountChallenge from './person-count-challenge'
 import SizeChallenge from './size-challenge'
 import StairsChallenge from './stairs-challenge'
 import PriceChallenge from './price-challenge'
+import LocationChallenge from './location-challenge'
+import TimeChallenge from './time-challenge'
+import StoreChallenge from './store-challenge'
 
 export default class Welcome extends React.Component {
-
   constructor() {
     super();
 
@@ -83,6 +85,22 @@ export default class Welcome extends React.Component {
         numberOfPeople={this.state.userProfile.numberOfPeople}
         onPriceIllusionSelected={this._handlePriceIllusionsSelected} />
     }
+    else if (this.state.process.processState == 'getLocation') {
+      challenge = <LocationChallenge
+        onProceed={this._handleLocationCertain}
+        onLocationSelected={this._handleLocationSelected} />
+    }
+    else if (this.state.process.processState == 'getAnticipatedTravelTime')
+    {
+      challenge = <TimeChallenge
+        locationName={this.state.userProfile.location.name}
+        onTimeSelected={this._handleTimeSelected} />
+    }
+    else if (this.state.process.processState == 'getStore')
+    {
+      challenge = <StoreChallenge
+        onStoreSelected={this._handleStoreSelected} />
+    }
 
     console.log(this.state.process.processState)
 
@@ -91,6 +109,7 @@ export default class Welcome extends React.Component {
         <svg className="welcome__logo" viewBox="0 0 100 100" dangerouslySetInnerHTML={{__html: useTag }} />
         <div className="welcome__h1">Your home is your castle, your block is your kingdom.</div>
         <div className="welcome__h2">Let's find your kingdom</div>
+
         {
           challenge
         }
@@ -124,6 +143,24 @@ export default class Welcome extends React.Component {
   _handlePriceIllusionsSelected(illusions) {
     actions.userProfile.updatePriceIllusions(illusions)
     actions.process.updateProcessState('getLocation')
+  }
+
+  _handleLocationSelected(location) {
+    actions.userProfile.updateLocation(location)
+  }
+
+  _handleLocationCertain() {
+    actions.process.updateProcessState('getAnticipatedTravelTime')
+  }
+
+  _handleTimeSelected(time) {
+    actions.userProfile.updateTime(time)
+    actions.process.updateProcessState('getStore')
+  }
+
+  _handleStoreSelected(store) {
+    actions.userProfile.updateStore(store)
+    actions.process.updateProcessState('showResults')
   }
 }
 

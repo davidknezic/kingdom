@@ -12,6 +12,7 @@ class UserProfileStore {
       sizePreference: '',
       stairsPreference: '',
       priceIllusions: '',
+      location: {},
 
       area: {
         min: null,
@@ -22,6 +23,13 @@ class UserProfileStore {
         min: null,
         max: null
       },
+
+      price: {
+        min: null,
+        max: null
+      },
+      time: 0,
+      store: '',
     }
   }
 
@@ -32,8 +40,12 @@ class UserProfileStore {
       sizePreference: this.state.sizePreference,
       stairsPreference: this.state.stairsPreference,
       priceIllusions: this.state.priceIllusions,
+      location: this.state.location,
       area: this.state.area,
       rooms: this.state.rooms,
+      price: this.state.price,
+      time: this.state.time,
+      store: this.state.store,
     })
   }
 
@@ -47,11 +59,15 @@ class UserProfileStore {
       sizePreference: this.state.sizePreference,
       stairsPreference: this.state.stairsPreference,
       priceIllusions: this.state.priceIllusions,
+      location: this.state.location,
       area: this.state.area,
       rooms: {
         min: minRooms,
         max: maxRooms
-      }
+      },
+      price: this.state.price,
+      time: this.state.time,
+      store: this.state.store,
     })
   }
 
@@ -73,11 +89,15 @@ class UserProfileStore {
       sizePreference: preference,
       stairsPreference: this.state.stairsPreference,
       priceIllusions: this.state.priceIllusions,
+      location: this.state.location,
       area: {
         min: minArea,
         max: maxArea
       },
       rooms: this.state.rooms,
+      price: this.state.price,
+      time: this.state.time,
+      store: this.state.store,
     })
   }
 
@@ -92,16 +112,27 @@ class UserProfileStore {
       sizePreference: this.state.sizePreference,
       stairsPreference: preference,
       priceIllusions: this.state.priceIllusions,
+      location: this.state.location,
       area: this.state.area,
       rooms: this.state.rooms,
+      price: this.state.price,
+      time: this.state.time,
+      store: this.state.store,
     })
   }
 
   onUpdatePriceIllusions(illusions) {
-    if (preference == 'low') {
-    } else if (preference == 'mid') {
-    } else if (preference == 'high') {
+    var tmpPrice;
+    if (illusions == 'low') {
+      tmpPrice = illusions * 0.8
+    } else if (illusions == 'mid') {
+      tmpPrice = illusions
+    } else if (illusions == 'high') {
+      tmpPrice = illusions * 1.2
     }
+
+    let minPrice = tmpPrice * 0.7
+    let maxPrice = tmpPrice * 1.1
 
     this.setState({
       name: this.state.name,
@@ -109,8 +140,63 @@ class UserProfileStore {
       sizePreference: this.state.sizePreference,
       stairsPreference: this.state.stairsPreference,
       priceIllusions: illusions,
+      location: this.state.location,
       area: this.state.area,
       rooms: this.state.rooms,
+      price: {
+        min: minPrice,
+        max: maxPrice
+      },
+      time: this.state.time,
+      store: this.state.store,
+    })
+  }
+
+  onUpdateLocation(location) {
+    this.setState({
+      name: this.state.name,
+      numberOfPeople: this.state.numberOfPeople,
+      sizePreference: this.state.sizePreference,
+      stairsPreference: this.state.stairsPreference,
+      priceIllusions: this.state.priceIllusions,
+      location: location,
+      area: this.state.area,
+      rooms: this.state.rooms,
+      price: this.state.price,
+      time: this.state.time,
+      store: this.state.store,
+    })
+  }
+
+  onUpdateTime(time) {
+    this.setState({
+      name: this.state.name,
+      numberOfPeople: this.state.numberOfPeople,
+      sizePreference: this.state.sizePreference,
+      stairsPreference: this.state.stairsPreference,
+      priceIllusions: this.state.priceIllusions,
+      location: this.state.location,
+      area: this.state.area,
+      rooms: this.state.rooms,
+      price: this.state.price,
+      time: time,
+      store: this.state.store,
+    })
+  }
+
+  onUpdateStore(store) {
+    this.setState({
+      name: this.state.name,
+      numberOfPeople: this.state.numberOfPeople,
+      sizePreference: this.state.sizePreference,
+      stairsPreference: this.state.stairsPreference,
+      priceIllusions: this.state.priceIllusions,
+      location: this.state.location,
+      area: this.state.area,
+      rooms: this.state.rooms,
+      price: this.state.price,
+      time: this.state.time,
+      store: store,
     })
   }
 }

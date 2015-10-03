@@ -13,32 +13,34 @@ let app = express()
 
 app.get('/flats', (req, res, next) => {
 
+  console.log('processing', '/flats'.cyan)
+
   if(req.query.station) {
 
     console.log(req.query)
 
     if(!req.query.roomFrom) {
-      res.end({error: "roomFrom missing"})
+      res.end('{error: "roomFrom missing"}')
     }
 
     if(!req.query.roomTo) {
-      res.end({error: "roomTo missing"})
+      res.end('{error: "roomTo missing"}')
     }
 
     if(!req.query.areaFrom) {
-      res.end({error: "areaFrom missing"})
+      res.end('{error: "areaFrom missing"}')
     }
 
     if(!req.query.areaTo) {
-      res.end({error: "areaTo missing"})
+      res.end('{error: "areaTo missing"}')
     }
 
     if(!req.query.priceFrom) {
-      res.end({error: "priceFrom missing"})
+      res.end('{error: "priceFrom missing"}')
     }
 
     if(!req.query.priceTo) {
-      res.end({error: "priceTo missing"})
+      res.end('{error: "priceTo missing"}')
     }
 
     if(!Array.isArray(req.query.station)) {
@@ -49,7 +51,7 @@ app.get('/flats', (req, res, next) => {
 
       var flats = db.collection('flats');
 
-      flats.find({
+      var search = {
         sellingPrice: {
           '$gt': parseInt(req.query.priceFrom, 10),
           '$lt': parseInt(req.query.priceTo, 10)
@@ -62,7 +64,25 @@ app.get('/flats', (req, res, next) => {
           '$gte': parseFloat(req.query.areaFrom),
           '$lte': parseFloat(req.query.areaTo)
         }
+      };
+
+      flats.find(search, {
+        advId: true,
+        title: true,
+        street: true,
+        zip: true,
+        geoLocation: true,
+        objectTypeLabel: true,
+        numberRooms: true,
+        floorLabel: true,
+        surfaceLiving: true,
+        currency: true,
+        sellingPrice: true,
+        picFilename1Small: true,
+        picFilename1Medium: true,
+        city: true,
       }).toArray((err, data) => {
+        console.log((data.length+'').cyan, 'flats match search criteria', JSON.stringify(search).blue)
         doIt(req.query.station, data).then((data) => {
           res.send(data);
         });
@@ -71,7 +91,7 @@ app.get('/flats', (req, res, next) => {
     })
 
   } else {
-    res.send({ error: "you missed to send stations" });
+    res.end('{ error: "you missed to send stations" }');
   }
 
 })
@@ -98,8 +118,13 @@ function doIt(stations, flats) {
 
   return Promise.all(heatmapPromises).then((heatmaps) => {
 
-    // TODO: use forEach
+    console.log('loaded', (heatmaps.length+'').cyan, 'heatmaps')
+
     heatmaps.forEach((heatmap) => {
+
+      var uic = heatmap.start[0].uic+'';
+
+      console.log('processing heatmap with uic', uic.cyan)
 
       var flatsToCheckInHeatmap = flats.slice();
 
@@ -121,7 +146,7 @@ function doIt(stations, flats) {
 
           var inclusion = polygon.shift();
 
-          if(inclusion ==0 ) {
+          if(inclusion == 0) {
             return true;
           }
 
@@ -129,20 +154,23 @@ function doIt(stations, flats) {
             return flat.geoLocation.split(',')
           }), polygon);
 
-          for(var l = 0; l < flatsToCheckInHeatmap.length; l++) {
-
+          flatsToCheckInHeatmap = flatsToCheckInHeatmap.filter((flatToCheck, l) => {
             if(results[l] == 1) {
-              if(!flatsToCheckInHeatmap[l].area) {
-                flatsToCheckInHeatmap[l].area = [];
+              if(!flatToCheck.area) {
+                flatToCheck.area = {};
               }
-              flatsToCheckInHeatmap[l].area[heatmap.start[0].uic] = {
+
+              flatToCheck.area[uic] = {
                 min: area.min,
                 max: area.max
               }
 
-              flatsToCheckInHeatmap.splice(l,1)
+              return false;
             }
-          }
+
+            return true;
+
+          })
 
           return true;
 
@@ -152,14 +180,19 @@ function doIt(stations, flats) {
 
       })
 
+      console.log('processing heatmap with uic', (heatmap.start[0].uic+'').cyan, 'finished')
+
     })
 
     var hits = flats.filter((flat) => { return !!flat.area });
 
-    return({
+    console.log((hits.length+'').cyan, 'flats in reachable distance');
+
+    return {
       count: hits.length,
       hits: hits
-    });
+    }
+
   });
 
 }
@@ -167,6 +200,8 @@ function doIt(stations, flats) {
 //http://localhost:8001/flats/105321232
 app.get('/flats/:id', [
   function (req, res, next) {
+    console.log('processing', ('/flats/'+req.params.id).cyan)
+
     superagent
       .get('https://api-2445581357976.apicast.io:443/rs/real-estates/' + req.params.id)
       .set('auth', authKey)
