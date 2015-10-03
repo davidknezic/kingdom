@@ -1,7 +1,6 @@
 import superagent from '../utils/superagent'
 
 export default function(cat, cb) {
-  console.log(cat);
   return superagent
     .get('https://api.meetup.com/find/groups')
     .set('accept', 'application/json')
