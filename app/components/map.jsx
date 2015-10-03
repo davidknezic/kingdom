@@ -46,10 +46,16 @@ export default class Map extends Component {
          onChildMouseEnter={this.onChildMouseEnter}
          onChildMouseLeave={this.onChildMouseLeave}>
 
-         {['Foo','Bar','baz'].map((title, index) => {
+         {['Foo'].map((title, index) => {
            return (
               <FlatMarker title={title} lat={47.498820} lng={8.723689} />
             )
+          })}
+
+          {['Foo'].map((title, index) => {
+            return (
+               <BriefcaseMarker title={title} lat={47.50696} lng={8.70872} />
+             )
           })}
       </GoogleMap>
     )

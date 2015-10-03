@@ -6,6 +6,7 @@ gulp.task('serve', function () {
     .pipe(webserver({
       livereload: true,
       host: '0.0.0.0',
+      port: process.env.PORT || 80,
       fallback: 'index.html'
     }))
 })
