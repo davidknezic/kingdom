@@ -44,33 +44,35 @@ app.get('/flats', (req, res, next) => {
 
       var flats = db.collection('flats');
 
-      var search = {
-        sellingPrice: {},
-        numberRooms: {},
-        surfaceLiving: {},
-      }
+      var search = {}
 
       if (req.query.priceFrom && req.query.priceFrom != 'NaN') {
+        search.sellingPrice = search.sellingPrice || {}
         search.sellingPrice['$gte'] = parseInt(req.query.priceFrom, 10)
       }
 
       if (req.query.priceTo && req.query.priceTo != 'NaN') {
+        search.sellingPrice = search.sellingPrice || {}
         search.sellingPrice['$lte'] = parseInt(req.query.priceTo, 10)
       }
 
       if (req.query.roomFrom) {
+        search.numberRooms = search.numberRooms || {}
         search.numberRooms['$gte'] = parseFloat(req.query.roomFrom)
       }
 
       if (req.query.roomTo) {
+        search.numberRooms = search.numberRooms || {}
         search.numberRooms['$lte'] = parseFloat(req.query.roomTo)
       }
 
       if (req.query.areaFrom) {
+        search.surfaceLiving = search.surfaceLiving || {}
         search.surfaceLiving['$gte'] = parseFloat(req.query.areaFrom)
       }
 
       if (req.query.areaTo) {
+        search.surfaceLiving = search.surfaceLiving || {}
         search.surfaceLiving['$lte'] = parseFloat(req.query.areaTo)
       }
 
@@ -91,9 +93,17 @@ app.get('/flats', (req, res, next) => {
         city: true,
       }).toArray((err, data) => {
         console.log((data.length+'').cyan, 'flats match search criteria', JSON.stringify(search).blue)
-        doIt(req.query.station, data).then((data) => {
-          res.send(data);
-        });
+
+        if (data.length == 0) {
+          console.log('nothing found, responding with 404');
+
+          res.status(404)
+          res.send('[]')
+        } else {
+          doIt(req.query.station, data).then((data) => {
+            res.send(data);
+          });
+        }
       });
 
     })
@@ -105,9 +115,12 @@ app.get('/flats', (req, res, next) => {
 })
 
 function doIt(stations, flats) {
+  console.log('now doing it these stations ' + stations.toString())
+
   var heatmapPromises = [];
 
   for(var i = 0; i < stations.length; i++) {
+    console.log((i+1) + '. station is ' + stations[i].toString())
 
     var station = JSON.parse(stations[i]);
     var date = moment().day(-6).toDate();
