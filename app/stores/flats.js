@@ -11,9 +11,6 @@ class FlatsStore {
     }
   }
 
-  output(state) {
-    return Immutable.fromJS(state)
-  }
 }
 
 export default alt.createStore(FlatsStore)

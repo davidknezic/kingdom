@@ -12,10 +12,6 @@ class MigrosStore {
       shops: shops
     })
   }
-
-  output(state) {
-    return Immutable.fromJS(state)
-  }
 }
 
 export default alt.createStore(MigrosStore)

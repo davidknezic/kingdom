@@ -15,8 +15,6 @@ class DetailActions {
       this.currentInstagramRequest.abort();
     }
 
-    this.dispatch();
-
     this.currentInstagramRequest = request
       .get(`${config.api.endpoint}/instagram/media/find`)
       .query({'lat': flat.lat})
