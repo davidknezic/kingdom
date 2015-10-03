@@ -6,6 +6,7 @@ import mui from 'material-ui'
 import {TextField, RaisedButton} from 'material-ui'
 import NameChallenge from './name-challenge'
 import PersonCountChallenge from './person-count-challenge'
+import SizeChallenge from './size-challenge'
 
 export default class Welcome extends React.Component {
 
@@ -57,13 +58,21 @@ export default class Welcome extends React.Component {
       challenge = <NameChallenge ref='nameChallenge'
         onProceed={this._handleProceedToNumberOfPeople}
         onChange={this._handleNameChange}
-        hintText='Gundalf'
+        hintText='Arthur'
         value={this.state.userProfile.name} />
     }
     else if (this.state.process.processState == 'getNumberOfPeople') {
-      challenge = <PersonCountChallenge ref='numberChallenge'
+      challenge = <PersonCountChallenge
         onNumberSelected={this._handlePersonCountSelection}
         userName={this.state.userProfile.name} />
+    }
+    else if (this.state.process.processState == 'getSizePreference') {
+      challenge = <SizeChallenge ref='sizeChallenge'
+        onSizePreferenceSelected={this._handleSizePreferenceSelected}
+        numberOfPeople={this.state.userProfile.numberOfPeople} />
+    }
+    else {
+      console.log(this.state.userProfile.sizePreference)
     }
 
     return (
@@ -87,9 +96,14 @@ export default class Welcome extends React.Component {
   }
 
   _handlePersonCountSelection(count) {
-    console.log(count)
+    actions.userProfile.updateNumberOfPeople(count) //very inconsistent compared to getting the name
+    actions.process.updateProcessState('getSizePreference')
   }
 
+  _handleSizePreferenceSelected(preference) {
+    actions.userProfile.updateSizePreference(preference)
+    actions.process.updateProcessState('getStairsStuff')
+  }
 }
 
 //Welcome.propTypes = {

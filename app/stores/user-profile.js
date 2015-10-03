@@ -7,13 +7,32 @@ class UserProfileStore {
     this.bindActions(actions.userProfile);
 
     this.state = {
-      name: ''
+      name: '',
+      numberOfPeople: 1
     };
   }
 
   onUpdateName(name) {
     this.setState({
-      name: name
+      name: name,
+      numberOfPeople: this.state.numberOfPeople,
+      sizePreference: this.state.sizePreference
+    })
+  }
+
+  onUpdateNumberOfPeople(count) {
+    this.setState({
+      name: this.state.name,
+      numberOfPeople: count,
+      sizePreference: this.state.sizePreference
+    })
+  }
+
+  onUpdateSizePreference(preference) {
+    this.setState({
+      name: this.state.name,
+      numberOfPeople: this.state.numberOfPeople,
+      sizePreference: preference
     })
   }
 
