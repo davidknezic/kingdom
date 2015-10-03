@@ -2,6 +2,8 @@ import React, { PropTypes } from 'react'
 import actions from '../actions'
 import stores from '../stores'
 import alt from 'alt'
+import Map from './map'
+import Side from './side'
 import mui from 'material-ui'
 import {Table,TableHeader,TableBody,TableRow,TableHeaderColumn,TableRowColumn,TextField, AppBar} from 'material-ui'
 
@@ -47,10 +49,10 @@ export default class Main extends React.Component {
             title="Hello"
             showMenuIconButton={false} />
         </div>
-        <div className="main__map" >
+        <div className="main__map">
+          <Map />
         </div>
       </div>
     )
   }
-
 }
