@@ -3,6 +3,7 @@ import { LeftNav } from 'material-ui'
 import { RaisedButton } from 'material-ui'
 import LocationFinder from './location-finder'
 import Logo from './logo'
+import ArrowRight from './arrow-right'
 
 export default class LocationChallenge extends Component {
   constructor(props) {
@@ -17,8 +18,9 @@ export default class LocationChallenge extends Component {
           <span className="welcome__h1">Understood. Where do you go often? Maybe a place like work...</span>
         </div>
         <LocationFinder onOptionSelected={this.props.onLocationSelected} />
-        <div className="welcome__button" >
-          <RaisedButton label="Proceed" onClick={this.props.onProceed} />
+
+        <div className="arrow-button__container">
+          <a className="arrow-button" onClick={this.props.onProceed}><ArrowRight /></a>
         </div>
       </div>
     )

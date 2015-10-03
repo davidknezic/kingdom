@@ -24,7 +24,7 @@ export default class SizeChallenge extends Component {
         </div>
         <div className="button__row" >
           <RaisedButton label="cozy" onClick={this._cozySelected} />
-          <RaisedButton label="spacy" onClick={this._spaceySelected} />
+          <RaisedButton label="spacious" onClick={this._spaceySelected} />
         </div>
       </div>
     )
