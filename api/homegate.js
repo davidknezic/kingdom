@@ -16,9 +16,9 @@ app.get('/flats/:id', (req, res, next) => {
   console.log('processing', ('/flats/'+req.params.id).cyan)
 
   superagent
-    .get('https://api-2445581357976.apicast.io:443/rs/real-estates/' + req.params.id)
-    .set('auth', authKey)
-    .query({ language: 'en' })
+    .get('http://52.28.2.62/rs/real-estates/' + req.params.id)
+    .query({ lan: 'en' })
+    .query({ cli: 'mobile' })
     .end(function(err, result) {
        if (result.ok) {
          res.send(result.body)

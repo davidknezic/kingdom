@@ -28,8 +28,6 @@ class FlatsStore {
       erro: null,
       isLoading: false,
     })
-
-    actions.process.updateProcessState('showResults')
   }
 
   onShowFailed(err) {
@@ -39,8 +37,6 @@ class FlatsStore {
       erro: err,
       isLoading: false,
     })
-
-    actions.process.updateProcessState('showResults')
   }
 }
 

@@ -1,13 +1,37 @@
 import { default as React, addons, Component } from 'react/addons'
 import { LeftNav } from 'material-ui'
-import { FloatingActionButton, TextField, RaisedButton, DropDownMenu, AppBar, Styles } from 'material-ui'
+import { FloatingActionButton, TextField, RaisedButton, DropDownMenu, AppBar, Styles, FontIcon, FlatButton } from 'material-ui'
 import classNames from 'classnames'
 
 const ThemeManager = Styles.ThemeManager
 
 export default class NameChallenge extends Component {
+
   constructor(props) {
-    super(props)
+    super(props);
+
+    this.state = {
+      flats: stores.flats.getState(),
+      userProfile: stores.userProfile.getState(),
+    };
+
+    this.onChangeUserProfile = this.onChangeUserProfile.bind(this)
+    this.onChangeFlats = this.onChangeFlats.bind(this)
+
+    stores.userProfile.listen(this.onChangeUserProfile)
+    stores.flats.listen(this.onChangeFlats)
+  }
+
+  onChangeUserProfile(userProfile) {
+    this.setState({
+      userProfile: userProfile
+    })
+  }
+
+  onChangeFlats(flats) {
+    this.setState({
+      flats: flats
+    })
   }
 
   getValue() {
@@ -32,30 +56,118 @@ export default class NameChallenge extends Component {
           title="Hello"
           showMenuIconButton={false} />
 
+        {() => {
+          if(this.state.flats && this.state.flats.list && this.state.flats.list.length) {
+            return (<div>{this.state.flats.list.length} Ergebnisse</div>)
+          }
+        }}
+
         <div className="sidebar__item" >
           <div className="sidebar__item__title" >
-            <div className="sidebar__item__title__text" >Show meetups</div>
-            <div className="sidebar__item__title__action" >
+            <div className="sidebar__item__title__icon" >
+              <FontIcon className="material-icons" color="#333333">group</FontIcon>
             </div>
+            <div className="sidebar__item__title__text" >Number of people</div>
           </div>
-          <DropDownMenu menuItems={menuItems} />
-
+          <div className={classNames({'sidebar__item__content': true, 'sidebar__item__content--active': true})} >
+            <DropDownMenu menuItems={[1,2,3,4,5,6].map((val) => { return { payload: val, text: val } })} />
+          </div>
         </div>
 
-        {['Foo','Bar','baz'].map((title, index) => {
-          var classes = classNames({ 'sidebar__item__content': true, 'sidebar__item__content--active': index == 0 });
-
-          return (
-            <div className="sidebar__item" >
-              <div className="sidebar__item__title" >
-                <div className="sidebar__item__title__text" >{title}</div>
-                <svg className="sidebar__item__title__action" viewBox="0 0 100 100" dangerouslySetInnerHTML={{__html: editSvg }} />
-                <svg className="sidebar__item__title__action" viewBox="0 0 100 100" dangerouslySetInnerHTML={{__html: deleteSvg }} />
-              </div>
-              <div className={classes} >..</div>
+        <div className="sidebar__item" >
+          <div className="sidebar__item__title" >
+            <div className="sidebar__item__title__icon" >
+              <FontIcon className="material-icons" color="#333333">add</FontIcon>
             </div>
-          )
-        })}
+            <div className="sidebar__item__title__text" >Size pref</div>
+          </div>
+          <div className={classNames({'sidebar__item__content': true, 'sidebar__item__content--active': true})} >
+            <DropDownMenu menuItems={['spacey', 'cozy'].map((val) => { return { payload: val, text: val } })} />
+          </div>
+        </div>
+
+        <div className="sidebar__item" >
+          <div className="sidebar__item__title" >
+            <div className="sidebar__item__title__icon" >
+              <FontIcon className="material-icons" color="#333333">terraine</FontIcon>
+            </div>
+            <div className="sidebar__item__title__text" >Stairs pref</div>
+          </div>
+          <div className={classNames({'sidebar__item__content': true, 'sidebar__item__content--active': true})} >
+            <DropDownMenu menuItems={['rage', 'workout'].map((val) => { return { payload: val, text: val } })} />
+          </div>
+        </div>
+
+        <div className="sidebar__item" >
+          <div className="sidebar__item__title" >
+            <div className="sidebar__item__title__icon" >
+              <FontIcon className="material-icons" color="#333333">attachmoney</FontIcon>
+            </div>
+            <div className="sidebar__item__title__text" >Price pref</div>
+          </div>
+          <div className={classNames({'sidebar__item__content': true, 'sidebar__item__content--active': true})} >
+            <DropDownMenu menuItems={['low', 'mid', 'high'].map((val) => { return { payload: val, text: val } })} />
+          </div>
+        </div>
+
+        <div className="sidebar__item" >
+          <div className="sidebar__item__title" >
+            <div className="sidebar__item__title__icon" >
+              <FontIcon className="material-icons" color="#333333">store</FontIcon>
+            </div>
+            <div className="sidebar__item__title__text" >Store pref</div>
+          </div>
+          <div className={classNames({'sidebar__item__content': true, 'sidebar__item__content--active': true})} >
+            <DropDownMenu menuItems={['coop', 'migros'].map((val) => { return { payload: val, text: val } })} />
+          </div>
+        </div>
+
+        {
+          (() => {
+            if(this.state.userProfile.meetupCategory) {
+              return (
+                <div className="sidebar__item" >
+                  <div className="sidebar__item__title" >
+                    <div className="sidebar__item__title__icon" >
+                      <FontIcon className="material-icons" color="#333333">groups</FontIcon>
+                    </div>
+                    <div className="sidebar__item__title__text" >Meetups</div>
+                    <FontIcon className="sidebar__item__title__action material-icons" color="#333333">delete</FontIcon>
+                  </div>
+                  <div className={{'sidebar__item__content': true, 'sidebar__item__content--active': true}} >
+                    <div className="sidebar__item sidebar__item--sub" >
+                      <div className="sidebar__item__title" >
+                        <div className="sidebar__item__title__text" >
+                          <DropDownMenu menuItems={menuItems} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )
+            }
+          })
+        }
+
+        <div className="sidebar__item" >
+          <div className="sidebar__item__title" >
+            <div className="sidebar__item__title__icon" >
+              <FontIcon className="material-icons" color="#333333">place</FontIcon>
+            </div>
+            <div className="sidebar__item__title__text" >Locations</div>
+            <FontIcon className="sidebar__item__title__action material-icons" color="#333333">add</FontIcon>
+          </div>
+          <div className={{'sidebar__item__content': true, 'sidebar__item__content--active': true}} >
+
+            <div className="sidebar__item sidebar__item--sub" >
+              <div className="sidebar__item__title" >
+                <div className="sidebar__item__title__text" >{this.state.userProfile.location.name} ({this.state.userProfile.time} min)</div>
+                <FontIcon className="sidebar__item__title__action material-icons" color="#333333">delete</FontIcon>
+              </div>
+            </div>
+
+          </div>
+        </div>
 
         <div className="sidebar__add-panel">
           <FloatingActionButton
