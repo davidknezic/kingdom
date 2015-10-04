@@ -152,10 +152,11 @@ export default class Detail extends Component {
               _.keys(areas).map((key) => {
                 var area = areas[key];
 
-                var perc = area.min / this.state.userProfile.time;
+                var location = _.find(stores.userProfile.getState().locations, (location) => location.location.uic == key);
+                var perc = area.min / location.time;
                 return (
-                  <tr style={{color: `hsl(${Math.round(120*perc)}, 100%, 50%)`}}>
-                    <th>{this.state.userProfile.location ? this.state.userProfile.location.name : ''}</th>
+                  <tr style={{color: `hsl(${Math.round(120-(120*perc))}, 100%, 50%)`}}>
+                    <th>{location && location.location ? location.location.name : ''}</th>
                     <td>{area.min} - {area.max}min</td>
                   </tr>
                 )
