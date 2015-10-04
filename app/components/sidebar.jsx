@@ -161,7 +161,7 @@ export default class NameChallenge extends Component {
 
             <div className="sidebar__item sidebar__item--sub" >
               <div className="sidebar__item__title" >
-                <div className="sidebar__item__title__text" >{this.state.userProfile.location.name} ({this.state.userProfile.time} min)</div>
+                <div className="sidebar__item__title__text" >{this.state.userProfile.defaultLocation.name} ({this.state.userProfile.time} min)</div>
                 <FontIcon className="sidebar__item__title__action material-icons" color="#333333">delete</FontIcon>
               </div>
             </div>
