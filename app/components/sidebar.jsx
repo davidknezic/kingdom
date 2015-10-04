@@ -11,17 +11,26 @@ export default class NameChallenge extends Component {
     super(props);
 
     this.state = {
+      flats: stores.flats.getState(),
       userProfile: stores.userProfile.getState(),
     };
 
     this.onChangeUserProfile = this.onChangeUserProfile.bind(this)
+    this.onChangeFlats = this.onChangeFlats.bind(this)
 
     stores.userProfile.listen(this.onChangeUserProfile)
+    stores.flats.listen(this.onChangeFlats)
   }
 
   onChangeUserProfile(userProfile) {
     this.setState({
       userProfile: userProfile
+    })
+  }
+
+  onChangeFlats(flats) {
+    this.setState({
+      flats: flats
     })
   }
 
@@ -47,6 +56,11 @@ export default class NameChallenge extends Component {
           title="Hello"
           showMenuIconButton={false} />
 
+        {() => {
+          if(this.state.flats && this.state.flats.list && this.state.flats.list.length) {
+            return (<div>{this.state.flats.list.length} Ergebnisse</div>)
+          }
+        }}
 
         <div className="sidebar__item" >
           <div className="sidebar__item__title" >
