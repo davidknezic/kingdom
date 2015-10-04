@@ -1,6 +1,7 @@
 import alt from '../alt'
 import request from './utils/request'
-import config from '../config'
+
+import apiBase from './utils/api-base'
 
 class MeetupCategoriesActions {
 
@@ -16,7 +17,7 @@ class MeetupCategoriesActions {
     }
 
     this.currentRequest = request
-      .get(`${config.api.endpoint}/meetups/categories`);
+      .get(`${apiBase}/meetups/categories`);
 
     this.currentRequest
       .then((response) => {

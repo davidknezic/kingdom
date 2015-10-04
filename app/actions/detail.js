@@ -1,6 +1,7 @@
 import alt from '../alt'
 import request from './utils/request'
-import config from '../config'
+
+import apiBase from './utils/api-base'
 
 class DetailActions {
 
@@ -25,7 +26,7 @@ class DetailActions {
     var lat = coords[1];
 
     this.currentRequest = request
-      .get(`${config.api.endpoint}/flats/${flat.advId}`);
+      .get(`${apiBase}/flats/${flat.advId}`);
 
     this.currentRequest
       .then((response) => {
@@ -37,7 +38,7 @@ class DetailActions {
       })
 
     this.currentInstagramRequest = request
-      .get(`${config.api.endpoint}/instagram/media/search`)
+      .get(`${apiBase}/instagram/media/search`)
       .query({'lat': lat})
       .query({'lng': lng});
 

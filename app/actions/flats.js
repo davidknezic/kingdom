@@ -1,6 +1,7 @@
 import alt from '../alt'
 import request from './utils/request'
-import config from '../config'
+
+import apiBase from './utils/api-base'
 
 class FlatsActions {
 
@@ -22,7 +23,7 @@ class FlatsActions {
     }
 
     this.currentRequest = request
-      .get(`${config.api.endpoint}/flats`)
+      .get(`${apiBase}/flats`)
       .query({ station: JSON.stringify(station) })
       .query({ roomFrom: profile.rooms.min })
       .query({ roomTo: profile.rooms.max })
