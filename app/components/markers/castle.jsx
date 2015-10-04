@@ -5,7 +5,7 @@ import actions from '../../actions'
 export default class CastleMarker extends BaseMarkerComponent {
 
   onClick() {
-    actions.detail.show('')
+    actions.detail.show(this.props.flat)
   }
 
   render() {
