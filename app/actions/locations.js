@@ -1,6 +1,7 @@
 import alt from '../alt'
 import request from './utils/request'
-import config from '../config'
+
+import apiBase from './utils/api-base'
 
 class LocationsActions {
 
@@ -16,7 +17,7 @@ class LocationsActions {
     }
 
     this.currentRequest = request
-      .get(`${config.api.endpoint}/stations`)
+      .get(`${apiBase}/stations`)
       .query({'query': queryString});
 
     this.currentRequest

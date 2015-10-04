@@ -1,6 +1,7 @@
 import alt from '../alt'
 import request from './utils/request'
-import config from '../config'
+
+import apiBase from './utils/api-base'
 
 class MeetupsActions {
 
@@ -16,7 +17,7 @@ class MeetupsActions {
     }
 
     this.currentRequest = request
-      .get(`${config.api.endpoint}/meetups/find`)
+      .get(`${apiBase}/meetups/find`)
       .query({'category': category});
 
     this.currentRequest

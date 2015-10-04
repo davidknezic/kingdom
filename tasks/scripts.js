@@ -5,6 +5,7 @@ import sourcemaps from 'gulp-sourcemaps'
 import gutil from 'gulp-util'
 import buffer from 'vinyl-buffer'
 import source from 'vinyl-source-stream'
+import envify from 'envify'
 
 let b = browserify({
   entries: 'app/index.jsx',
@@ -12,7 +13,7 @@ let b = browserify({
   debug: true,
   transform: [babelify.configure({
     stage: 0
-  })]
+  }), envify]
 })
 
 gulp.task('scripts', function () {
