@@ -16,22 +16,21 @@ class FlatsStore {
 
   onShow() {
     this.setState({
-      list: null,
+      list: [],
       erro: null,
       isLoading: true,
     })
   }
 
-  onShowCompleted(flats) {
+  onShowCompleted(list) {
     this.setState({
-      list: flats,
+      list: list.hits,
       erro: null,
       isLoading: false,
     })
   }
 
   onShowFailed(err) {
-    console.log('onShowFailed', err)
     this.setState({
       list: [],
       erro: err,
