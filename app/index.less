@@ -179,6 +179,7 @@ html, body {
   max-width: 400px;
   background: white;
   height: 100%;
+  overflow: auto;
 }
 
 .main__map {
@@ -194,13 +195,23 @@ html, body {
   padding: 10px 20px;
 }
 
+.sidebar__item--sub {
+  padding-right: 0;
+  padding-left: 30px;
+}
+
 .sidebar__item__title {
   color: #666;
   cursor: pointer;
   display: flex;
 }
 
+.sidebar__item__title__icon {
+  width: 30px,
+}
+
 .sidebar__item__title__text {
+  padding-top: 3px;
   flex: 1;
 }
 

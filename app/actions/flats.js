@@ -16,9 +16,9 @@ class FlatsActions {
     }
 
     let station = {
-      uic: profile.location.uic,
-      cntr: profile.location.cntr,
-      maxTime: profile.time
+      uic: profile.defaultLocation.uic,
+      cntr: profile.defaultLocation.cntr,
+      maxTime: profile.defaultTime
     }
 
     this.currentRequest = request

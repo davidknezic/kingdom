@@ -49,11 +49,6 @@ export default class Welcome extends React.Component {
     })
   }
 
-  shouldComponentUpdate(newState) {
-    return this.state.userProfile != newState.userProfile ||
-      this.state.process != newState.process
-  }
-
   render() {
     var challenge = ''
     if (this.state.process.processState == 'home' || (this.state.process.state && this.state.process.state.processState == 'home')) {
@@ -94,7 +89,7 @@ export default class Welcome extends React.Component {
     else if (this.state.process.processState == 'getAnticipatedTravelTime')
     {
       challenge = <TimeChallenge
-        locationName={this.state.userProfile.location.name}
+        locationName={this.state.userProfile.defaultLocation.name}
         onTimeSelected={this._handleTimeSelected} />
     }
     else if (this.state.process.processState == 'getStore')
@@ -149,7 +144,7 @@ export default class Welcome extends React.Component {
   }
 
   _handleLocationSelected(location) {
-    actions.userProfile.updateLocation(location)
+    actions.userProfile.updateDefaultLocation(location)
   }
 
   _handleLocationCertain() {
@@ -157,7 +152,7 @@ export default class Welcome extends React.Component {
   }
 
   _handleTimeSelected(time) {
-    actions.userProfile.updateTime(time)
+    actions.userProfile.updateDefaultTime(time)
     actions.process.updateProcessState('getStore')
   }
 
