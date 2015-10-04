@@ -12,6 +12,13 @@ class MigrosStore {
       shops: shops
     })
   }
+
+  onDistance(result) {
+    this.setState({
+      nearest: result.hit,
+      distance: result.distance
+    })
+  }
 }
 
 export default alt.createStore(MigrosStore)

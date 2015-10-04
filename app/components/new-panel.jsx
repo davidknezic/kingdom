@@ -3,6 +3,7 @@ import { RaisedButton } from 'material-ui'
 import actions from '../actions'
 import _ from 'lodash'
 import LocationFinder from './location-finder'
+import MeetupCategories from './meetup-categories'
 
 export default class NewPanel extends Component {
 
@@ -33,6 +34,10 @@ export default class NewPanel extends Component {
 
   onDistanceSelected() {
     actions.newPanel.setCategory('distance')
+  }
+
+  onCommunitySelected() {
+    actions.newPanel.setCategory('community')
   }
 
   onChangeUserProfile(userProfile) {
@@ -71,6 +76,11 @@ export default class NewPanel extends Component {
     actions.newPanel.setCategory('')
   }
 
+  _close() {
+    this._back()
+    actions.newPanel.dismiss()
+  }
+
   _saveLocation() {
     actions.userProfile.addLocationTime(
       {
@@ -86,12 +96,12 @@ export default class NewPanel extends Component {
     return (
       <div>
         <div className="welcome__name-challenge">
-          <span className="welcome__h1">Choose another location that's important to you</span>
+          <span className="welcome__h2">Choose another location that's important to you</span>
         </div>
         <LocationFinder onOptionSelected={this._handleLocationSelected} />
 
         <div className="welcome__name-challenge">
-          <span className="welcome__h1">Whats the acceptable time one trip should take you?</span>
+          <span className="welcome__h2">Whats the acceptable time one trip should take you?</span>
         </div>
         <div className="button__row">
           <RaisedButton label="15 min" onClick={this._15Selected} />
@@ -101,9 +111,20 @@ export default class NewPanel extends Component {
         </div>
 
         <div className="welcom__button">
-          <RaisedButton label="back" onClick={this._back} />
-          <RaisedButton label="Save this additional location" onClick={this._saveLocation} />
+          <RaisedButton label="Save this additional location" primary={true} onClick={this._saveLocation} />
         </div>
+      </div>
+    )
+  }
+
+  meetupSelected() {
+
+  }
+
+  renderMeetupChooser() {
+    return (
+      <div>
+        <MeetupCategories onSelect={this._close.bind(this)} />
       </div>
     )
   }
@@ -127,7 +148,7 @@ export default class NewPanel extends Component {
             </div>
             <div className="categories__item__title">Distance To...</div>
           </a>
-          <a className="categories__item">
+          <a className="categories__item" onClick={this.onCommunitySelected}>
             <div className="categories__item__icon">
               <svg className="svg-icon" viewBox="-95 97 48 48" dangerouslySetInnerHTML={{__html: community }} />
             </div>
@@ -168,16 +189,26 @@ export default class NewPanel extends Component {
       locationChooser = this.renderLocationChooser()
     }
 
+    var meetupChooser = ''
+    if (this.state.newPanel.category == 'community') {
+      meetupChooser = this.renderMeetupChooser()
+    }
+
     return (
       <div>
         <div className="details__cloze" >
-          <RaisedButton label="Cloze" secondary={true} onClick={this.onCloseClicked} />
+          <RaisedButton label="Cloze" primary={true} onClick={this.onCloseClicked} />
+          { (this.state.newPanel.category && this.state.newPanel.category!='') ?
+          <RaisedButton label="back" primary={true} onClick={this._back} /> : null }
         </div>
         {
           categories
         }
         {
           locationChooser
+        }
+        {
+          meetupChooser
         }
       </div>
     )

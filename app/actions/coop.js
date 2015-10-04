@@ -18,6 +18,34 @@ class CoopActions {
 
     this.dispatch(shops)
   }
+
+  distance(origin) {
+    let lat = parseFloat(origin.lat)
+    let lng = parseFloat(origin.lng)
+
+    let everything = _.map(coops, (coop) => {
+      return {
+        latitude: coop.lat,
+        longitude: coop.lng,
+        name: coop.name,
+      }
+    })
+
+    let hit = geolib.findNearest({
+      latitude: lat,
+      longitude: lng,
+    }, everything)
+
+    let distance = geolib.getDistance({
+      latitude: lat,
+      longitude: lng,
+    }, hit)
+
+    this.dispatch({
+      hit: hit,
+      distance: distance
+    })
+  }
 }
 
 export default alt.createActions(CoopActions)

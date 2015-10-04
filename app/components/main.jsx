@@ -55,20 +55,22 @@ export default class Main extends React.Component {
         <div className="main__map">
           <Map />
         </div>
-        <Dialog
-          ref="detail"
-          autoDetectWindowHeight={true}
-          autoScrollBodyContent={true}>
-          <div>
-            <Detail />
-          </div>
-        </Dialog>
-        <Dialog
-          ref="newPanel"
-          autoDetectWindowHeight={true}
-          autoScrollBodyContent={true}>
-          <NewPanel />
-        </Dialog>
+        <div className="main__dialog">
+          <Dialog
+            ref="detail"
+            autoDetectWindowHeight={true}
+            autoScrollBodyContent={true}>
+            <div>
+              <Detail />
+            </div>
+          </Dialog>
+          <Dialog
+            ref="newPanel"
+            autoDetectWindowHeight={true}
+            autoScrollBodyContent={true}>
+            <NewPanel />
+          </Dialog>
+        </div>
       </div>
     )
   }

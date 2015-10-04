@@ -12,6 +12,14 @@ html, body {
   height: 100%;
 }
 
+.main__dialog > div > div > div {
+  max-width: 100% !important;
+}
+
+.main__dialog > div > div > div > div {
+  max-height: 100% !important;
+}
+
 .loading {
   position: relative;
   height: 80px;
@@ -408,6 +416,13 @@ p {
   margin-top: 0;
 }
 
+.details__text {
+  position: relative;
+  max-height: 300px;
+  overflow-y: hidden;
+  background: white;
+}
+
 .details__right {
   flex: 0.75;
   max-width: 280px;
@@ -419,7 +434,9 @@ p {
 }
 
 .details__cloze {
-  text-align: right;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
 }
 
 .details__table {
@@ -428,6 +445,30 @@ p {
   td, th {
     text-align: left;
     padding: 5px 5px 10px 0;
+  }
+}
+
+.actions {
+  display: flex;
+  float: right;
+  width: 100%;
+}
+
+.actions__like,
+.actions__visit,
+.actions__contact {
+  padding: 0 20px;
+  text-align: center;
+
+  &__icon {
+    display: block;
+    margin: 0 auto;
+    width: 64px;
+    height: 64px;
+  }
+
+  &__title {
+    display: block;
   }
 }
 
@@ -460,7 +501,7 @@ p {
 
 .categories__item {
   display: block;
-  width: 33.3%;
+  width: 20%;
   color: #E91E63;
   cursor: pointer;
 }

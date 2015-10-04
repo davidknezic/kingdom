@@ -17,6 +17,6 @@ applications:
   domain: scapp.io
   
 env:
-    API_BASE: https://kingdom_api.scapp.io/
+    API_BASE: https://kingdom_api.scapp.io
 
 ---
