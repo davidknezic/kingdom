@@ -434,7 +434,9 @@ p {
 }
 
 .details__cloze {
-  text-align: right;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
 }
 
 .details__table {
@@ -489,4 +491,36 @@ p {
   fill: currentColor;
   height: 100%;
   width: 100%;
+}
+
+.categories {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.categories__item {
+  display: block;
+  width: 20%;
+  color: #E91E63;
+  cursor: pointer;
+}
+
+.categories__item__title {
+  text-align: center;
+}
+
+.meetups {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.meetups__meetup {
+  width: 33%;
+
+  > button {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    min-width: auto !important;
+  }
 }

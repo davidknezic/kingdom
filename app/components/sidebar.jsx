@@ -38,6 +38,10 @@ export default class NameChallenge extends Component {
     return this.refs.name.getValue()
   }
 
+  onAddPanelClick() {
+    actions.newPanel.show()
+  }
+
   render() {
     var editSvg = '<path d="M50 5C25.1 5 5 25.1 5 50s20.1 45 45 45 45-20.1 45-45S74.9 5 50 5zM25.6 73.7l7.6-16.4 8.8 8.8-16.4 7.6zM43 65.2l-8.8-8.8 23.2-23.2 8.8 8.8L43 65.2zM67.1 41l-8.8-8.8 9.4-9.4 8.8 8.8-9.4 9.4z"/>';
     var deleteSvg = '<path d="M50 5C25.147 5 5 25.147 5 50s20.147 45 45 45 45-20.147 45-45S74.853 5 50 5zm27.463 63.31l-9.153 9.153L50 59.153l-18.31 18.31-9.154-9.153L40.846 50l-18.31-18.31 9.156-9.154L50 40.846l18.31-18.31 9.153 9.155L59.153 50l18.31 18.31z"/>';
@@ -102,36 +106,12 @@ export default class NameChallenge extends Component {
         <div className="sidebar__item" >
           <div className="sidebar__item__title" >
             <div className="sidebar__item__title__icon" >
-              <FontIcon className="material-icons" color="#333333">add</FontIcon>
-            </div>
-            <div className="sidebar__item__title__text" >Size pref</div>
-          </div>
-          <div className={classNames({'sidebar__item__content': true, 'sidebar__item__content--active': true})} >
-            <DropDownMenu menuItems={['spacey', 'cozy'].map((val) => { return { payload: val, text: val } })} />
-          </div>
-        </div>
-
-        <div className="sidebar__item" >
-          <div className="sidebar__item__title" >
-            <div className="sidebar__item__title__icon" >
               <FontIcon className="material-icons" color="#333333">terraine</FontIcon>
             </div>
             <div className="sidebar__item__title__text" >Stairs pref</div>
           </div>
           <div className={classNames({'sidebar__item__content': true, 'sidebar__item__content--active': true})} >
             <DropDownMenu menuItems={['rage', 'workout'].map((val) => { return { payload: val, text: val } })} />
-          </div>
-        </div>
-
-        <div className="sidebar__item" >
-          <div className="sidebar__item__title" >
-            <div className="sidebar__item__title__icon" >
-              <FontIcon className="material-icons" color="#333333">attachmoney</FontIcon>
-            </div>
-            <div className="sidebar__item__title__text" >Price pref</div>
-          </div>
-          <div className={classNames({'sidebar__item__content': true, 'sidebar__item__content--active': true})} >
-            <DropDownMenu menuItems={['low', 'mid', 'high'].map((val) => { return { payload: val, text: val } })} />
           </div>
         </div>
 
@@ -176,6 +156,7 @@ export default class NameChallenge extends Component {
 
         <div className="sidebar__add-panel">
           <FloatingActionButton
+            onClick={this.onAddPanelClick.bind(this)}
             className="sidebar__add-button"
             styles={{ width: '100px' }}>
             <svg className="sidebar__add-icon" viewBox="-95 97 48 48">

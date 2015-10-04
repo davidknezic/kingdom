@@ -7,14 +7,16 @@ class MeetupCategoriesStore {
     this.bindActions(actions.meetupCategories)
 
     this.state = {
-      list: []
+      categories: null,
+      error: null,
+      isLoading: true,
     }
   }
 
   onFetch() {
     this.setState({
       categories: null,
-      erro: null,
+      error: null,
       isLoading: true,
     })
   }
@@ -27,7 +29,6 @@ class MeetupCategoriesStore {
   }
 
   onFetchFailed(err) {
-    console.log('onFetchFailed', err)
     this.setState({
       error: err,
       isLoading: false,

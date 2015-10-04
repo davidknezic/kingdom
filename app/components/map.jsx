@@ -13,18 +13,17 @@ import MigrosMarker from './markers/migros'
 
 export default class Map extends Component {
 
-  static defaultProps = {
-    center: [46.86519534, 8.37823366],
-    zoom: 8
-  }
-
   shouldComponentUpdate = shouldPureComponentUpdate
 
   constructor() {
     super()
 
+    var flats = stores.flats.getState()
+
     this.state = {
-      flats: stores.flats.getState(),
+      flats: flats,
+      center: [46.86519534, 8.37823366],
+      zoom: 8,
       userProfile: stores.userProfile.getState(),
     }
 
@@ -34,20 +33,62 @@ export default class Map extends Component {
     stores.userProfile.listen(this._onChange)
   }
 
+  componentDidMount() {
+
+    setTimeout(() => {
+
+      var flats = stores.flats.getState()
+
+      var markers = this._getMarkers(flats.list)
+
+      this.setState(this._getZoomAndCenter(markers))
+
+    }, 1)
+  }
+
+  _getMarkers(flats) {
+    return flats.map((flat) => {
+      var loc = flat.geoLocation.split(",");
+      return {
+        "latitude": parseFloat(loc[1]),
+        "longitude": parseFloat(loc[0])
+      }
+    });
+  }
+
+  _getZoomAndCenter(markers) {
+    var maps = this.refs.map.maps_
+    var map = this.refs.map.map_
+
+    var bounds = new maps.LatLngBounds();
+
+    for(var i = 0; i < markers.length; i++){
+      bounds.extend(new maps.LatLng(markers[i].latitude, markers[i].longitude));
+    }
+
+    map.fitBounds(bounds);
+
+    return {
+      center: map.getCenter(),
+      zoom: map.getZoom()
+    }
+  }
+
   componentWillUnmount() {
     stores.flats.unlisten(this._onChange)
     stores.userProfile.unlisten(this._onChange)
   }
 
   onChange() {
-    this.state = {
-      flats: stores.flats.getState(),
-      userProfile: stores.userProfile.getState(),
-    }
-  }
+    var flats = stores.flats.getState()
 
-  onBoundsChange(center, zoom, bounds, marginBounds) {
-    console.log('bounds change', center, zoom)
+    var markers = this._getMarkers(flats.list)
+    this.setState(this._getZoomAndCenter(markers))
+
+    this.setState({
+      flats: flats,
+      userProfile: stores.userProfile.getState(),
+    })
   }
 
   render() {
@@ -58,9 +99,8 @@ export default class Map extends Component {
        <GoogleMap
          containerProps={{...this.props}}
          ref='map'
-         center={this.props.center}
-         zoom={this.props.zoom}
-         onBoundsChange={this.onBoundsChange}>
+         center={this.state.center}
+         zoom={this.state.zoom}>
 
          {_.map(this.state.userProfile.locations, (loc) => {
            return (
