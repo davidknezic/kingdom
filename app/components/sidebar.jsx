@@ -61,6 +61,26 @@ export default class NameChallenge extends Component {
             return (<div>{this.state.flats.list.length} Ergebnisse</div>)
           }
         }}
+        
+        <div className="sidebar__item" >
+          <div className="sidebar__item__title" >
+            <div className="sidebar__item__title__icon" >
+              <FontIcon className="material-icons" color="#333333">place</FontIcon>
+            </div>
+            <div className="sidebar__item__title__text" >Locations</div>
+            <FontIcon className="sidebar__item__title__action material-icons" color="#333333">add</FontIcon>
+          </div>
+          <div className={{'sidebar__item__content': true, 'sidebar__item__content--active': true}} >
+
+            <div className="sidebar__item sidebar__item--sub" >
+              <div className="sidebar__item__title" >
+                <div className="sidebar__item__title__text" >{this.state.userProfile.defaultLocation.name} ({this.state.userProfile.time} min)</div>
+                <FontIcon className="sidebar__item__title__action material-icons" color="#333333">delete</FontIcon>
+              </div>
+            </div>
+
+          </div>
+        </div>
 
         <div className="sidebar__item" >
           <div className="sidebar__item__title" >
@@ -148,26 +168,6 @@ export default class NameChallenge extends Component {
             }
           })
         }
-
-        <div className="sidebar__item" >
-          <div className="sidebar__item__title" >
-            <div className="sidebar__item__title__icon" >
-              <FontIcon className="material-icons" color="#333333">place</FontIcon>
-            </div>
-            <div className="sidebar__item__title__text" >Locations</div>
-            <FontIcon className="sidebar__item__title__action material-icons" color="#333333">add</FontIcon>
-          </div>
-          <div className={{'sidebar__item__content': true, 'sidebar__item__content--active': true}} >
-
-            <div className="sidebar__item sidebar__item--sub" >
-              <div className="sidebar__item__title" >
-                <div className="sidebar__item__title__text" >{this.state.userProfile.defaultLocation.name} ({this.state.userProfile.time} min)</div>
-                <FontIcon className="sidebar__item__title__action material-icons" color="#333333">delete</FontIcon>
-              </div>
-            </div>
-
-          </div>
-        </div>
 
         <div className="sidebar__add-panel">
           <FloatingActionButton

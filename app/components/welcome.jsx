@@ -38,8 +38,6 @@ export default class Welcome extends React.Component {
   }
 
   onUserProfileChange(store) {
-    console.log('onUserProfileChange', store)
-
     this.setState({
       userProfile: store,
     })
