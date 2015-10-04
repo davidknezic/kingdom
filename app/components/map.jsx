@@ -57,6 +57,14 @@ export default class Map extends Component {
   }
 
   _getZoomAndCenter(markers) {
+
+    if(markers.length == 0) {
+      return {
+        center: [46.86519534, 8.37823366],
+        zoom: 8,
+      }
+    }
+
     var maps = this.refs.map.maps_
     var map = this.refs.map.map_
 
