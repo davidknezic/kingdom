@@ -416,6 +416,13 @@ p {
   margin-top: 0;
 }
 
+.details__text {
+  position: relative;
+  max-height: 300px;
+  overflow-y: hidden;
+  background: white;
+}
+
 .details__right {
   flex: 0.75;
   max-width: 280px;
@@ -436,6 +443,30 @@ p {
   td, th {
     text-align: left;
     padding: 5px 5px 10px 0;
+  }
+}
+
+.actions {
+  display: flex;
+  float: right;
+  width: 100%;
+}
+
+.actions__like,
+.actions__visit,
+.actions__contact {
+  padding: 0 20px;
+  text-align: center;
+
+  &__icon {
+    display: block;
+    margin: 0 auto;
+    width: 64px;
+    height: 64px;
+  }
+
+  &__title {
+    display: block;
   }
 }
 

@@ -1,5 +1,6 @@
 import alt from '../alt'
 import request from './utils/request'
+import actions from '.'
 import config from '../config'
 
 class DetailActions {
@@ -49,6 +50,16 @@ class DetailActions {
         this.currentInstagramRequest = null;
         this.actions.instagramFailed(err)
       });
+
+    actions.migros.distance.defer({
+      lat: lat,
+      lng: lng,
+    })
+
+    actions.coop.distance.defer({
+      lat: lat,
+      lng: lng,
+    })
   }
 
   dismiss() {
