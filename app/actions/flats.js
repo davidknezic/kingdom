@@ -16,15 +16,23 @@ class FlatsActions {
       this.currentRequest.abort()
     }
 
-    let station = {
-      uic: profile.defaultLocation.uic,
-      cntr: profile.defaultLocation.cntr,
-      maxTime: profile.defaultTime
+    this.currentRequest = request
+      .get(`${apiBase}/flats`);
+
+    console.log(profile.locations)
+    for (var i = 0;i < profile.locations.length; i++){
+      let station = {
+        uic: profile.locations[i].location.uic,
+        cntr: profile.locations[i].location.cntr,
+        maxTime: profile.locations[i].time
+      }
+
+      console.log(station)
+
+      this.currentRequest.query({ station: JSON.stringify(station)})
     }
 
-    this.currentRequest = request
-      .get(`${apiBase}/flats`)
-      .query({ station: JSON.stringify(station) })
+    this.currentRequest
       .query({ roomFrom: profile.rooms.min })
       .query({ roomTo: profile.rooms.max })
       .query({ areaFrom: profile.area.min })

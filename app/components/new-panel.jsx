@@ -78,6 +78,7 @@ export default class NewPanel extends Component {
         time: this.state.newPanel.time
       })
     actions.newPanel.setCategory('')
+    actions.flats.show(stores.userProfile.getState())
     actions.newPanel.dismiss()
   }
 
