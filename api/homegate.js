@@ -3,6 +3,7 @@ import moment from 'moment'
 import superagent from './utils/superagent'
 import {MongoClient} from 'mongodb'
 import mongoConfig from './mongo-config'
+import _ from 'lodash'
 
 import pointsInPolygon from './utils/point-in-polygon'
 
@@ -214,7 +215,7 @@ function doIt(stations, flats) {
 
     })
 
-    var hits = flats.filter((flat) => { return !!flat.area });
+    var hits = flats.filter((flat) => { return flat.area && _.keys(flat.area).length == heatmaps.length });
 
     console.log((hits.length+'').cyan, 'flats in reachable distance');
 
