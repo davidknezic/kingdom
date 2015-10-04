@@ -13,47 +13,112 @@ import MigrosMarker from './markers/migros'
 
 export default class Map extends Component {
 
-  static defaultProps = {
-    center: [46.86519534, 8.37823366],
-    zoom: 8
-  }
-
   shouldComponentUpdate = shouldPureComponentUpdate
 
   constructor() {
-    super();
+    super()
+
+    var flats = stores.flats.getState()
 
     this.state = {
-      flats: stores.flats.getState(),
-    };
+      flats: flats,
+      center: [46.86519534, 8.37823366],
+      zoom: 8,
+      userProfile: stores.userProfile.getState(),
+    }
 
-    stores.flats.listen(this.onChangeFlats.bind(this))
+    this._onChange = this.onChange.bind(this)
+
+    stores.flats.listen(this._onChange)
+    stores.userProfile.listen(this._onChange)
+  }
+
+  componentDidMount() {
+
+    setTimeout(() => {
+
+      var flats = stores.flats.getState()
+
+      var markers = this._getMarkers(flats.list)
+
+      this.setState(this._getZoomAndCenter(markers))
+
+    }, 1)
+  }
+
+  _getMarkers(flats) {
+    return flats.map((flat) => {
+      var loc = flat.geoLocation.split(",");
+      return {
+        "latitude": parseFloat(loc[1]),
+        "longitude": parseFloat(loc[0])
+      }
+    });
+  }
+
+  _getZoomAndCenter(markers) {
+    var maps = this.refs.map.maps_
+    var map = this.refs.map.map_
+
+    var bounds = new maps.LatLngBounds();
+
+    for(var i = 0; i < markers.length; i++){
+      bounds.extend(new maps.LatLng(markers[i].latitude, markers[i].longitude));
+    }
+
+    map.fitBounds(bounds);
+
+    return {
+      center: map.getCenter(),
+      zoom: map.getZoom()
+    }
   }
 
   componentWillUnmount() {
-    stores.flats.unlisten(this.onChangeFlats)
+    stores.flats.unlisten(this._onChange)
+    stores.userProfile.unlisten(this._onChange)
   }
 
-  onChangeFlats() {
-    this.state = {
-      flats: stores.flats.getState(),
-    };
-  }
+  onChange() {
+    var flats = stores.flats.getState()
 
-  onBoundsChange(center, zoom, bounds, marginBounds) {
-    console.log('bounds change', center, zoom)
+    var markers = this._getMarkers(flats.list)
+    this.setState(this._getZoomAndCenter(markers))
+
+    this.setState({
+      flats: flats,
+      userProfile: stores.userProfile.getState(),
+    })
   }
 
   render() {
+    let castles = _.slice(this.state.flats.list, 0, 3)
+    let flats = _.slice(this.state.flats.list, 2)
+
     return (
        <GoogleMap
          containerProps={{...this.props}}
          ref='map'
-         center={this.props.center}
-         zoom={this.props.zoom}
-         onBoundsChange={this.onBoundsChange}>
+         center={this.state.center}
+         zoom={this.state.zoom}>
 
-         {_.map(this.state.flats.list, (flat) => {
+         {_.map(this.state.userProfile.locations, (loc) => {
+           return (
+             <StarMarker lat={loc.location.coord[0]} lng={loc.location.coord[1]} />
+           )
+         })}
+
+         {_.map(flats, (flat) => {
+           let coords = flat.geoLocation.split(',')
+           let lat = parseFloat(coords[1])
+           let lng = parseFloat(coords[0])
+
+           return (
+             <CastleDecentMarker flat={flat} lat={lat} lng={lng} />
+           )
+         })}
+
+         {_.map(castles, (flat) => {
            let coords = flat.geoLocation.split(',')
            let lat = parseFloat(coords[1])
            let lng = parseFloat(coords[0])
@@ -62,6 +127,7 @@ export default class Map extends Component {
              <CastleMarker flat={flat} lat={lat} lng={lng} />
            )
          })}
+
       </GoogleMap>
     )
   }
