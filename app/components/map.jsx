@@ -16,7 +16,7 @@ export default class Map extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
 
   constructor() {
-    super();
+    super()
 
     var flats = stores.flats.getState()
 
@@ -24,9 +24,13 @@ export default class Map extends Component {
       flats: flats,
       center: [46.86519534, 8.37823366],
       zoom: 8,
-    };
+      userProfile: stores.userProfile.getState(),
+    }
 
-    stores.flats.listen(this.onChangeFlats.bind(this))
+    this._onChange = this.onChange.bind(this)
+
+    stores.flats.listen(this._onChange)
+    stores.userProfile.listen(this._onChange)
   }
 
   componentDidMount() {
@@ -71,36 +75,50 @@ export default class Map extends Component {
   }
 
   componentWillUnmount() {
-    stores.flats.unlisten(this.onChangeFlats)
+    stores.flats.unlisten(this._onChange)
+    stores.userProfile.unlisten(this._onChange)
   }
 
-  onChangeFlats() {
-
+  onChange() {
     var flats = stores.flats.getState()
 
     var markers = this._getMarkers(flats.list)
+    this.setState(this._getZoomAndCenter(markers))
 
     this.setState({
       flats: flats,
+      userProfile: stores.userProfile.getState(),
     })
-    this.setState(this._getZoomAndCenter(markers))
-
-  }
-
-  onBoundsChange(center, zoom, bounds, marginBounds) {
-    console.log('bounds change', center, zoom)
   }
 
   render() {
+    let castles = _.slice(this.state.flats.list, 0, 3)
+    let flats = _.slice(this.state.flats.list, 2)
+
     return (
        <GoogleMap
          containerProps={{...this.props}}
          ref='map'
          center={this.state.center}
-         zoom={this.state.zoom}
-         onBoundsChange={this.onBoundsChange}>
+         zoom={this.state.zoom}>
 
-         {_.map(this.state.flats.list, (flat) => {
+         {_.map(this.state.userProfile.locations, (loc) => {
+           return (
+             <StarMarker lat={loc.location.coord[0]} lng={loc.location.coord[1]} />
+           )
+         })}
+
+         {_.map(flats, (flat) => {
+           let coords = flat.geoLocation.split(',')
+           let lat = parseFloat(coords[1])
+           let lng = parseFloat(coords[0])
+
+           return (
+             <CastleDecentMarker flat={flat} lat={lat} lng={lng} />
+           )
+         })}
+
+         {_.map(castles, (flat) => {
            let coords = flat.geoLocation.split(',')
            let lat = parseFloat(coords[1])
            let lng = parseFloat(coords[0])
@@ -109,6 +127,7 @@ export default class Map extends Component {
              <CastleMarker flat={flat} lat={lat} lng={lng} />
            )
          })}
+
       </GoogleMap>
     )
   }
