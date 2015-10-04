@@ -95,12 +95,12 @@ export default class NewPanel extends Component {
     return (
       <div>
         <div className="welcome__name-challenge">
-          <span className="welcome__h1">Choose another location that's important to you</span>
+          <span className="welcome__h2">Choose another location that's important to you</span>
         </div>
         <LocationFinder onOptionSelected={this._handleLocationSelected} />
 
         <div className="welcome__name-challenge">
-          <span className="welcome__h1">Whats the acceptable time one trip should take you?</span>
+          <span className="welcome__h2">Whats the acceptable time one trip should take you?</span>
         </div>
         <div className="button__row">
           <RaisedButton label="15 min" onClick={this._15Selected} />
@@ -110,8 +110,7 @@ export default class NewPanel extends Component {
         </div>
 
         <div className="welcom__button">
-          <RaisedButton label="back" onClick={this._back} />
-          <RaisedButton label="Save this additional location" onClick={this._saveLocation} />
+          <RaisedButton label="Save this additional location" primary={true} onClick={this._saveLocation} />
         </div>
       </div>
     )
@@ -125,7 +124,6 @@ export default class NewPanel extends Component {
     return (
       <div>
         <MeetupCategories onSelect={this._close.bind(this)} />
-        <RaisedButton label="back" onClick={this._back} />
       </div>
     )
   }
@@ -198,7 +196,9 @@ export default class NewPanel extends Component {
     return (
       <div>
         <div className="details__cloze" >
-          <RaisedButton label="Cloze" secondary={true} onClick={this.onCloseClicked} />
+          <RaisedButton label="Cloze" primary={true} onClick={this.onCloseClicked} />
+          { (this.state.newPanel.category && this.state.newPanel.category!='') ?
+          <RaisedButton label="back" primary={true} onClick={this._back} /> : null }
         </div>
         {
           categories

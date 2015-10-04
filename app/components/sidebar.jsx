@@ -106,36 +106,12 @@ export default class NameChallenge extends Component {
         <div className="sidebar__item" >
           <div className="sidebar__item__title" >
             <div className="sidebar__item__title__icon" >
-              <FontIcon className="material-icons" color="#333333">add</FontIcon>
-            </div>
-            <div className="sidebar__item__title__text" >Size pref</div>
-          </div>
-          <div className={classNames({'sidebar__item__content': true, 'sidebar__item__content--active': true})} >
-            <DropDownMenu menuItems={['spacey', 'cozy'].map((val) => { return { payload: val, text: val } })} />
-          </div>
-        </div>
-
-        <div className="sidebar__item" >
-          <div className="sidebar__item__title" >
-            <div className="sidebar__item__title__icon" >
               <FontIcon className="material-icons" color="#333333">terraine</FontIcon>
             </div>
             <div className="sidebar__item__title__text" >Stairs pref</div>
           </div>
           <div className={classNames({'sidebar__item__content': true, 'sidebar__item__content--active': true})} >
             <DropDownMenu menuItems={['rage', 'workout'].map((val) => { return { payload: val, text: val } })} />
-          </div>
-        </div>
-
-        <div className="sidebar__item" >
-          <div className="sidebar__item__title" >
-            <div className="sidebar__item__title__icon" >
-              <FontIcon className="material-icons" color="#333333">attachmoney</FontIcon>
-            </div>
-            <div className="sidebar__item__title__text" >Price pref</div>
-          </div>
-          <div className={classNames({'sidebar__item__content': true, 'sidebar__item__content--active': true})} >
-            <DropDownMenu menuItems={['low', 'mid', 'high'].map((val) => { return { payload: val, text: val } })} />
           </div>
         </div>
 
