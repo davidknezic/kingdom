@@ -21,23 +21,29 @@ export default class Map extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
 
   constructor() {
-    super();
+    super()
 
     this.state = {
       flats: stores.flats.getState(),
-    };
+      userProfile: stores.userProfile.getState(),
+    }
 
-    stores.flats.listen(this.onChangeFlats.bind(this))
+    this._onChange = this.onChange.bind(this)
+
+    stores.flats.listen(this._onChange)
+    stores.userProfile.listen(this._onChange)
   }
 
   componentWillUnmount() {
-    stores.flats.unlisten(this.onChangeFlats)
+    stores.flats.unlisten(this._onChange)
+    stores.userProfile.unlisten(this._onChange)
   }
 
-  onChangeFlats() {
+  onChange() {
     this.state = {
       flats: stores.flats.getState(),
-    };
+      userProfile: stores.userProfile.getState(),
+    }
   }
 
   onBoundsChange(center, zoom, bounds, marginBounds) {
@@ -62,6 +68,13 @@ export default class Map extends Component {
              <CastleMarker flat={flat} lat={lat} lng={lng} />
            )
          })}
+
+         {_.map(this.state.userProfile.locations, (loc) => {
+           return (
+             <StarMarker lat={loc.location.coord[0]} lng={loc.location.coord[1]} />
+           )
+         })}
+
       </GoogleMap>
     )
   }
