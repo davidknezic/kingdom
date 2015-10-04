@@ -15,5 +15,8 @@ applications:
   buildpack: https://github.com/cloudfoundry/nodejs-buildpack
   host: kingdom
   domain: scapp.io
+  
+env:
+    API_BASE: https://kingdom_api.scapp.io/
 
 ---
