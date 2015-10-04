@@ -7,6 +7,7 @@ import migros from './migros'
 import meetups from './meetups'
 import meetupCategories from './meetup-categories'
 import locations from './locations'
+import newPanel from './new-panel'
 
 export default {
   coop,
@@ -18,4 +19,5 @@ export default {
   meetups,
   meetupCategories,
   locations,
+  newPanel,
 }
