@@ -1,5 +1,6 @@
 import Immutable from 'immutable'
 import actions from '../actions'
+import stores from '../stores'
 import alt from '../alt'
 
 class FlatsStore {
@@ -32,7 +33,7 @@ class FlatsStore {
   onShowFailed(err) {
     console.log('onShowFailed', err)
     this.setState({
-      categories: null,
+      list: [],
       erro: err,
       isLoading: false,
     })

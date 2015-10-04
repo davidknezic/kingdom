@@ -36,30 +36,6 @@ app.get('/flats', (req, res, next) => {
 
     console.log(req.query)
 
-    if(!req.query.roomFrom) {
-      res.end('{error: "roomFrom missing"}')
-    }
-
-    if(!req.query.roomTo) {
-      res.end('{error: "roomTo missing"}')
-    }
-
-    if(!req.query.areaFrom) {
-      res.end('{error: "areaFrom missing"}')
-    }
-
-    if(!req.query.areaTo) {
-      res.end('{error: "areaTo missing"}')
-    }
-
-    if(!req.query.priceFrom) {
-      res.end('{error: "priceFrom missing"}')
-    }
-
-    if(!req.query.priceTo) {
-      res.end('{error: "priceTo missing"}')
-    }
-
     if(!Array.isArray(req.query.station)) {
       req.query.station = [ req.query.station ];
     }
@@ -68,20 +44,37 @@ app.get('/flats', (req, res, next) => {
 
       var flats = db.collection('flats');
 
-      var search = {
-        sellingPrice: {
-          '$gt': parseInt(req.query.priceFrom, 10),
-          '$lt': parseInt(req.query.priceTo, 10)
-        },
-        numberRooms: {
-          '$gte': parseFloat(req.query.roomFrom),
-          '$lte': parseFloat(req.query.roomTo)
-        },
-        surfaceLiving: {
-          '$gte': parseFloat(req.query.areaFrom),
-          '$lte': parseFloat(req.query.areaTo)
-        }
-      };
+      var search = {}
+
+      if (req.query.priceFrom && req.query.priceFrom != 'NaN') {
+        search.sellingPrice = search.sellingPrice || {}
+        search.sellingPrice['$gte'] = parseInt(req.query.priceFrom, 10)
+      }
+
+      if (req.query.priceTo && req.query.priceTo != 'NaN') {
+        search.sellingPrice = search.sellingPrice || {}
+        search.sellingPrice['$lte'] = parseInt(req.query.priceTo, 10)
+      }
+
+      if (req.query.roomFrom) {
+        search.numberRooms = search.numberRooms || {}
+        search.numberRooms['$gte'] = parseFloat(req.query.roomFrom)
+      }
+
+      if (req.query.roomTo) {
+        search.numberRooms = search.numberRooms || {}
+        search.numberRooms['$lte'] = parseFloat(req.query.roomTo)
+      }
+
+      if (req.query.areaFrom) {
+        search.surfaceLiving = search.surfaceLiving || {}
+        search.surfaceLiving['$gte'] = parseFloat(req.query.areaFrom)
+      }
+
+      if (req.query.areaTo) {
+        search.surfaceLiving = search.surfaceLiving || {}
+        search.surfaceLiving['$lte'] = parseFloat(req.query.areaTo)
+      }
 
       flats.find(search, {
         advId: true,
@@ -100,9 +93,17 @@ app.get('/flats', (req, res, next) => {
         city: true,
       }).toArray((err, data) => {
         console.log((data.length+'').cyan, 'flats match search criteria', JSON.stringify(search).blue)
-        doIt(req.query.station, data).then((data) => {
-          res.send(data);
-        });
+
+        if (data.length == 0) {
+          console.log('nothing found, responding with 404');
+
+          res.status(404)
+          res.send('[]')
+        } else {
+          doIt(req.query.station, data).then((data) => {
+            res.send(data);
+          });
+        }
       });
 
     })
@@ -114,24 +115,36 @@ app.get('/flats', (req, res, next) => {
 })
 
 function doIt(stations, flats) {
+  console.log('now doing it these stations ' + stations.toString())
+
   var heatmapPromises = [];
 
   for(var i = 0; i < stations.length; i++) {
+    console.log((i+1) + '. station is ' + stations[i].toString())
 
     var station = JSON.parse(stations[i]);
+
+    console.log('parsed this: ', station)
+
     var date = moment().day(-6).toDate();
 
     heatmapPromises.push(new Promise((resolve, reject) => {
       heatmap(station.uic, station.cntr, date, station.maxTime, (err, result) => {
+        console.log('got result from getting heatmap')
+
          if (!err && result.ok) {
+           console.log('it is positive', result.body)
            resolve(result.body)
          } else {
+           console.log('failed', err)
            reject(err)
          }
       })
     }));
 
   }
+
+  console.log('starting ' + heatmapPromises.length + ' promises at once')
 
   return Promise.all(heatmapPromises).then((heatmaps) => {
 

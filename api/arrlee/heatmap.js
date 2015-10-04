@@ -1,6 +1,8 @@
 import superagent from '../utils/superagent'
 
 export default function(station, country, d, maxTime, cb) {
+  console.log('getting heatmap from arlee')
+
   return superagent
     .get('http://arrlee.ch/ajax/heatmap')
     .query({ 'start_station_uic': station })
