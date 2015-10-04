@@ -10,6 +10,7 @@ import CastleDecentMarker from './markers/castle-decent'
 import StarMarker from './markers/star'
 import CoopMarker from './markers/coop'
 import MigrosMarker from './markers/migros'
+import CommunityMarker from './markers/community'
 
 export default class Map extends Component {
 
@@ -25,12 +26,14 @@ export default class Map extends Component {
       center: [46.86519534, 8.37823366],
       zoom: 8,
       userProfile: stores.userProfile.getState(),
+      meetups: stores.meetups.getState(),
     }
 
     this._onChange = this.onChange.bind(this)
 
     stores.flats.listen(this._onChange)
     stores.userProfile.listen(this._onChange)
+    stores.meetups.listen(this._onChange)
   }
 
   componentDidMount() {
@@ -85,6 +88,7 @@ export default class Map extends Component {
   componentWillUnmount() {
     stores.flats.unlisten(this._onChange)
     stores.userProfile.unlisten(this._onChange)
+    stores.meetups.unlisten(this._onChange)
   }
 
   onChange() {
@@ -96,6 +100,7 @@ export default class Map extends Component {
     this.setState({
       flats: flats,
       userProfile: stores.userProfile.getState(),
+      meetups: stores.meetups.getState(),
     })
   }
 
@@ -113,6 +118,12 @@ export default class Map extends Component {
          {_.map(this.state.userProfile.locations, (loc) => {
            return (
              <StarMarker lat={loc.location.coord[0]} lng={loc.location.coord[1]} />
+           )
+         })}
+
+         {_.map(this.state.meetups.meetups, (meetup) => {
+           return (
+             <CommunityMarker lat={meetup.lat} lng={meetup.lon} />
            )
          })}
 
@@ -140,10 +151,3 @@ export default class Map extends Component {
     )
   }
 }
-
-/*
-<CastleDecentMarker title={title} lat={47.498820} lng={8.523689} />
-<StarMarker title={title} lat={47.00696} lng={8.70872} />
-<CoopMarker title={title} lat={46.70696} lng={8.70872} />
-<MigrosMarker title={title} lat={48.20696} lng={8.70872} />
-*/
