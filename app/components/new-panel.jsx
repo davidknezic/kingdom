@@ -76,6 +76,11 @@ export default class NewPanel extends Component {
     actions.newPanel.setCategory('')
   }
 
+  _close() {
+    this._back()
+    actions.newPanel.dismiss()
+  }
+
   _saveLocation() {
     actions.userProfile.addLocationTime(
       {
@@ -117,7 +122,12 @@ export default class NewPanel extends Component {
   }
 
   renderMeetupChooser() {
-    return <MeetupCategories onSelect={this.meetupSelected.bind(this)} />
+    return (
+      <div>
+        <MeetupCategories onSelect={this._close.bind(this)} />
+        <RaisedButton label="back" onClick={this._back} />
+      </div>
+    )
   }
 
   renderCategories() {

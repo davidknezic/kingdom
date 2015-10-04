@@ -34,6 +34,7 @@ export default class MeetupCategories extends React.Component {
 
   _onCategoryClick(cat) {
     actions.meetups.fetch(cat.id);
+    this.props.onSelect ? this.props.onSelect(cat.id) : null
   }
 
   render() {
@@ -53,7 +54,6 @@ export default class MeetupCategories extends React.Component {
             return (
               <div className="meetups__meetup" >
                 <FlatButton onClick={this._onCategoryClick.bind(this, category)} >{category.name}</FlatButton>
-
               </div>
             )
           })
