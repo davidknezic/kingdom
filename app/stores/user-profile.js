@@ -116,7 +116,7 @@ class UserProfileStore {
   onUpdateDefaultTime(time) {
     this.setState({
       defaultTime: time,
-      locations: this.state.locations.concat({ location: this.state.defaultLocation, time: this.state.defaultTime })
+      locations: this.state.locations.concat({ location: this.state.defaultLocation, time: time })
     })
   }
 
