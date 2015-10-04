@@ -116,13 +116,13 @@ class UserProfileStore {
   onUpdateDefaultTime(time) {
     this.setState({
       defaultTime: time,
-      locations: this.state.locations.push({ location: this.state.defaultLocation, time: this.state.defaultTime })
+      locations: this.state.locations.concat({ location: this.state.defaultLocation, time: this.state.defaultTime })
     })
   }
 
-  onAddLocation(location, time) {
+  onAddLocationTime(locationTime) {
     this.setState({
-      locations: this.state.locations.push({ location: location, time: time })
+      locations: this.state.locations.concat(locationTime)
     })
   }
 

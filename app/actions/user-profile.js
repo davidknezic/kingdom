@@ -12,7 +12,7 @@ class UserProfileActions {
       'updateDefaultLocation',
       'updateDefaultTime',
       'updateStore',
-      'addLocation',
+      'addLocationTime',
     )
   }
 }
