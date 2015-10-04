@@ -8,7 +8,9 @@ class NewPanelStore {
 
     this.state = {
       category: null,
-      show: null
+      show: null,
+      location: {},
+      time: {},
     }
   }
 
@@ -24,9 +26,21 @@ class NewPanelStore {
     })
   }
 
-  onShowDistance() {
+  onSetCategory(cat) {
     this.setState({
-      category: 'distance'
+      category: cat
+    })
+  }
+
+  onUpdateLocation(location) {
+    this.setState({
+      location: location
+    })
+  }
+
+  onUpdateTime(time) {
+    this.setState({
+      time: time
     })
   }
 }

@@ -4,9 +4,9 @@ import config from '../config'
 
 class NewPanelActions {
 
-  // constructor() {
-  //   this.generateActions('instagramCompleted', 'instagramFailed', 'showCompleted', 'showFailed')
-  // }
+  constructor() {
+    this.generateActions('updateLocation', 'updateTime')
+  }
 
   show() {
     this.dispatch()
@@ -16,8 +16,8 @@ class NewPanelActions {
     this.dispatch()
   }
 
-  showDistance() {
-    this.dispatch()
+  setCategory(lolcat) {
+    this.dispatch(lolcat)
   }
 }
 

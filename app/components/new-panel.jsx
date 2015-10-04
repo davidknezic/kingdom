@@ -2,6 +2,7 @@ import { default as React, addons, Component } from 'react/addons'
 import { RaisedButton } from 'material-ui'
 import actions from '../actions'
 import _ from 'lodash'
+import LocationFinder from './location-finder'
 
 export default class NewPanel extends Component {
 
@@ -15,6 +16,7 @@ export default class NewPanel extends Component {
 
     this.onChangeUserProfile = this.onChangeUserProfile.bind(this)
     this.onChangeNewPanel = this.onChangeNewPanel.bind(this)
+    this._saveLocation = this._saveLocation.bind(this)
 
     stores.userProfile.listen(this.onChangeUserProfile)
     stores.newPanel.listen(this.onChangeNewPanel)
@@ -30,7 +32,7 @@ export default class NewPanel extends Component {
   }
 
   onDistanceSelected() {
-    actions.newPanel.showDistance()
+    actions.newPanel.setCategory('distance')
   }
 
   onChangeUserProfile(userProfile) {
@@ -45,8 +47,59 @@ export default class NewPanel extends Component {
     })
   }
 
+  _handleLocationSelected(location) {
+    actions.newPanel.updateLocation(location)
+  }
+
+  _15Selected() {
+    actions.newPanel.updateTime(15);
+  }
+
+  _30Selected() {
+    actions.newPanel.updateTime(30);
+  }
+
+  _60Selected() {
+    actions.newPanel.updateTime(60);
+  }
+
+  _90Selected() {
+    actions.newPanel.updateTime(90);
+  }
+
+  _saveLocation() {
+    actions.userProfile.addLocationTime(
+      {
+        location: this.state.newPanel.location,
+        time: this.state.newPanel.time
+      })
+    actions.newPanel.setCategory('')
+    actions.newPanel.dismiss()
+  }
+
   renderLocationChooser() {
-    
+    return (
+      <div>
+        <div className="welcome__name-challenge">
+          <span className="welcome__h1">Choose another location that's important to you</span>
+        </div>
+        <LocationFinder onOptionSelected={this._handleLocationSelected} />
+
+        <div className="welcome__name-challenge">
+          <span className="welcome__h1">Whats the acceptable time one trip should take you?</span>
+        </div>
+        <div className="button__row">
+          <RaisedButton label="15 min" onClick={this._15Selected} />
+          <RaisedButton label="30 min" onClick={this._30Selected} />
+          <RaisedButton label="60 min" onClick={this._60Selected} />
+          <RaisedButton label="90 min" onClick={this._90Selected} />
+        </div>
+
+        <div className="welcom__button">
+          <RaisedButton label="Save this additional location" onClick={this._saveLocation} />
+        </div>
+      </div>
+    )
   }
 
   renderCategories() {
@@ -57,37 +110,42 @@ export default class NewPanel extends Component {
     var shopping = '<path class="st1" d="M-80.2 115.1h3.2v.8c-.4.3-.7.8-.7 1.3 0 .9.7 1.6 1.6 1.6.9 0 1.5-.7 1.5-1.6 0-.6-.3-1.1-.8-1.4v-.8h8v1.1c-.2.3-.4.6-.4 1 0 .9.7 1.6 1.5 1.6.9 0 1.5-.7 1.5-1.6 0-.7-.5-1.3-1.1-1.5v-.6h3.2l2.4 14.6h-21.6l1.7-14.5zm4.8-4.1c0-2.4 1.5-4.2 3.9-4.2s4.1 1.8 4.1 4.2v2.4h-8V111zm14.4 2.5h-4.8V111c0-3.1-2.6-6-5.7-6s-5.5 2.9-5.5 6v2.4h-4.8l-2.4 17.9h26.4l-3.2-17.8z"/>'
 
     return(
-      <div className="categories">
-        <a className="categories__item" onClick={this.onDistanceSelected}>
-          <div className="categories__item__icon">
-            <svg className="svg-icon" viewBox="-95 97 48 48" dangerouslySetInnerHTML={{__html: distance }} />
-          </div>
-          <div className="categories__item__title">Distance To...</div>
-        </a>
-        <a className="categories__item">
-          <div className="categories__item__icon">
-            <svg className="svg-icon" viewBox="-95 97 48 48" dangerouslySetInnerHTML={{__html: community }} />
-          </div>
-          <div className="categories__item__title">Communities</div>
-        </a>
-        <a className="categories__item">
-          <div className="categories__item__icon">
-            <svg className="svg-icon" viewBox="-95 97 48 48" dangerouslySetInnerHTML={{__html: drinks }} />
-          </div>
-          <div className="categories__item__title">Drinks</div>
-        </a>
-        <a className="categories__item">
-          <div className="categories__item__icon">
-            <svg className="svg-icon" viewBox="-95 97 48 48" dangerouslySetInnerHTML={{__html: nature }} />
-          </div>
-          <div className="categories__item__title">Nature</div>
-        </a>
-        <a className="categories__item">
-          <div className="categories__item__icon">
-            <svg className="svg-icon" viewBox="-95 97 48 48" dangerouslySetInnerHTML={{__html: shopping }} />
-          </div>
-          <div className="categories__item__title">Shopping</div>
-        </a>
+      <div>
+        <div className="welcome__name-challenge">
+          <span className="welcome__h2">What else is important to you?</span>
+        </div>
+        <div className="categories">
+          <a className="categories__item" onClick={this.onDistanceSelected}>
+            <div className="categories__item__icon">
+              <svg className="svg-icon" viewBox="-95 97 48 48" dangerouslySetInnerHTML={{__html: distance }} />
+            </div>
+            <div className="categories__item__title">Distance To...</div>
+          </a>
+          <a className="categories__item">
+            <div className="categories__item__icon">
+              <svg className="svg-icon" viewBox="-95 97 48 48" dangerouslySetInnerHTML={{__html: community }} />
+            </div>
+            <div className="categories__item__title">Communities</div>
+          </a>
+          <a className="categories__item">
+            <div className="categories__item__icon">
+              <svg className="svg-icon" viewBox="-95 97 48 48" dangerouslySetInnerHTML={{__html: drinks }} />
+            </div>
+            <div className="categories__item__title">Drinks</div>
+          </a>
+          <a className="categories__item">
+            <div className="categories__item__icon">
+              <svg className="svg-icon" viewBox="-95 97 48 48" dangerouslySetInnerHTML={{__html: nature }} />
+            </div>
+            <div className="categories__item__title">Nature</div>
+          </a>
+          <a className="categories__item">
+            <div className="categories__item__icon">
+              <svg className="svg-icon" viewBox="-95 97 48 48" dangerouslySetInnerHTML={{__html: shopping }} />
+            </div>
+            <div className="categories__item__title">Shopping</div>
+          </a>
+        </div>
       </div>
     )
   }
@@ -95,7 +153,7 @@ export default class NewPanel extends Component {
   render() {
     var categories = ''
 
-    if (!this.state.newPanel.category) {
+    if (!this.state.newPanel.category || this.state.newPanel.category == '') {
       categories = this.renderCategories()
     }
 
@@ -105,75 +163,17 @@ export default class NewPanel extends Component {
     }
 
     return (
-      <div className="details">
-        <div className="details__left" >
-          <div className="welcome__name-challenge">
-            <span className="welcome__h2">What else is important to you?</span>
-          </div>
-          {
-            categories
-          }
-          {
-            locationChooser
-          }
+      <div>
+        <div className="details__cloze" >
+          <RaisedButton label="Cloze" secondary={true} onClick={this.onCloseClicked} />
         </div>
-
-        <div className="details__right" >
-          <div className="details__cloze" >
-            <RaisedButton label="Cloze" secondary={true} onClick={this.onCloseClicked} />
-          </div>
-        </div>
+        {
+          categories
+        }
+        {
+          locationChooser
+        }
       </div>
     )
   }
 }
-      //   <div>
-      //     <TextField
-      //       className="welcome__text-answer"
-      //       hintText={this.props.hintText}
-      //       style={{fontSize: '1.5rem', color: 'white'}}
-      //       value={this.props.value}
-      //       ref='name'
-      //       onChange={this.props.onChange}
-      //       />
-      //   </div>
-      // </div>
-      // <div className="details">
-      //   <div className="details__left" >
-      //     <p><strong>{this.state.details.flat.street}, {this.state.details.flat.zip} {this.state.details.flat.city}</strong></p>
-      //     <h3 className="details__title" >{this.state.details.flat.title}</h3>
-      //     <p dangerouslySetInnerHTML={{__html: this.state.details.flatDetails.adDescription }} ></p>
-      //     <table className="details__table">
-      //       <tr>
-      //         <th>Floor</th>
-      //         <td>{this.state.details.flat.floorLabel}</td>
-      //       </tr>
-      //       <tr>
-      //         <th>Rooms</th>
-      //         <td>{this.state.details.flat.numberRooms}</td>
-      //       </tr>
-      //       <tr>
-      //         <th>Price</th>
-      //         <td>{this.state.details.flat.sellingPrice} {this.state.details.flat.currency}</td>
-      //       </tr>
-      //       <tr>
-      //         <th>Size</th>
-      //         <td>{this.state.details.flat.surfaceLiving} m2</td>
-      //       </tr>
-      //       {
-      //
-      //         _.keys(areas).map((key) => {
-      //           var area = areas[key];
-      //
-      //           var perc = area.min / this.state.userProfile.time;
-      //           return (
-      //             <tr style={{color: `hsl(${Math.round(120*perc)}, 100%, 50%)`}}>
-      //               <th>{this.state.userProfile.location ? this.state.userProfile.location.name : ''}</th>
-      //               <td>{area.min} - {area.max}min</td>
-      //             </tr>
-      //           )
-      //         })
-      //       }
-      //     </table>
-      //   </div>
-      // </div>

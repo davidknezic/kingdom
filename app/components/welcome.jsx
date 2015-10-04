@@ -99,9 +99,6 @@ export default class Welcome extends React.Component {
     }
     else if (this.state.process.processState == 'finish')
     {
-      console.log(this.state.userProfile.locations)
-      console.log(this.state.userProfile.locations[0].location.name)
-      console.log(this.state.userProfile.locations[0].time)
       challenge = <FinishChallenge />
     }
 
