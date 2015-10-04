@@ -1,7 +1,6 @@
-# react-starter-kit
-My personal react starter kit that includes
+# Kingdom Finder
 
-- facebook/react
-- callemall/material-ui
-- goatslacker/alt
-- facebook/immutable-js/
+> A different take on search for rented apartments. Tell us about yourself,
+> and we'll show you where the best neighborhood is you should live in.
+> Based on places you visit often, communities, fashion trends, political
+> alignment,.
