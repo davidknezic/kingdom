@@ -61,7 +61,7 @@ export default class NameChallenge extends Component {
             return (<div>{this.state.flats.list.length} Ergebnisse</div>)
           }
         }}
-        
+
         <div className="sidebar__item" >
           <div className="sidebar__item__title" >
             <div className="sidebar__item__title__icon" >
@@ -72,12 +72,17 @@ export default class NameChallenge extends Component {
           </div>
           <div className={{'sidebar__item__content': true, 'sidebar__item__content--active': true}} >
 
-            <div className="sidebar__item sidebar__item--sub" >
-              <div className="sidebar__item__title" >
-                <div className="sidebar__item__title__text" >{this.state.userProfile.defaultLocation.name} ({this.state.userProfile.time} min)</div>
-                <FontIcon className="sidebar__item__title__action material-icons" color="#333333">delete</FontIcon>
-              </div>
-            </div>
+            {this.state.userProfile.locations && this.state.userProfile.locations.length && this.state.userProfile.locations.map((location) => {
+              return (
+                <div className="sidebar__item sidebar__item--sub" >
+                  <div className="sidebar__item__title" >
+                    <div className="sidebar__item__title__text" >{location.location.name} ({location.time} min)</div>
+                    <FontIcon className="sidebar__item__title__action material-icons" color="#333333">delete</FontIcon>
+                  </div>
+                </div>
+              )
+            })}
+
 
           </div>
         </div>
