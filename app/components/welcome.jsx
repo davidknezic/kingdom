@@ -37,22 +37,17 @@ export default class Welcome extends React.Component {
   }
 
   onUserProfileChange(store) {
+    console.log('onUserProfileChange', store)
+
     this.setState({
       userProfile: store,
-      process: this.state.process
     })
   }
 
   onProcessStoreChange(store) {
     this.setState({
-      userProfile: this.state.userProfile,
       process: store
     })
-  }
-
-  shouldComponentUpdate(newState) {
-    return this.state.userProfile != newState.userProfile ||
-      this.state.process != newState.process
   }
 
   render() {
