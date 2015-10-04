@@ -51,6 +51,9 @@ export default class Map extends Component {
   }
 
   render() {
+    let castles = _.slice(this.state.flats.list, 0, 3)
+    let flats = _.slice(this.state.flats.list, 2)
+
     return (
        <GoogleMap
          containerProps={{...this.props}}
@@ -59,19 +62,29 @@ export default class Map extends Component {
          zoom={this.props.zoom}
          onBoundsChange={this.onBoundsChange}>
 
-         {_.map(this.state.flats.list, (flat) => {
+         {_.map(this.state.userProfile.locations, (loc) => {
+           return (
+             <StarMarker lat={loc.location.coord[0]} lng={loc.location.coord[1]} />
+           )
+         })}
+
+         {_.map(flats, (flat) => {
+           let coords = flat.geoLocation.split(',')
+           let lat = parseFloat(coords[1])
+           let lng = parseFloat(coords[0])
+
+           return (
+             <CastleDecentMarker flat={flat} lat={lat} lng={lng} />
+           )
+         })}
+
+         {_.map(castles, (flat) => {
            let coords = flat.geoLocation.split(',')
            let lat = parseFloat(coords[1])
            let lng = parseFloat(coords[0])
 
            return (
              <CastleMarker flat={flat} lat={lat} lng={lng} />
-           )
-         })}
-
-         {_.map(this.state.userProfile.locations, (loc) => {
-           return (
-             <StarMarker lat={loc.location.coord[0]} lng={loc.location.coord[1]} />
            )
          })}
 
