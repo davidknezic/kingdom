@@ -57,7 +57,7 @@ export default class NameChallenge extends Component {
     return (
       <div>
         <AppBar
-          title="Hello"
+          title={'Hello ' + this.state.userProfile.name}
           showMenuIconButton={false} />
 
         {() => {
