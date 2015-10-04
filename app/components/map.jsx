@@ -13,21 +13,61 @@ import MigrosMarker from './markers/migros'
 
 export default class Map extends Component {
 
-  static defaultProps = {
-    center: [46.86519534, 8.37823366],
-    zoom: 8
-  }
-
   shouldComponentUpdate = shouldPureComponentUpdate
 
   constructor() {
     super();
 
+    var flats = stores.flats.getState()
+
     this.state = {
-      flats: stores.flats.getState(),
+      flats: flats,
+      center: [46.86519534, 8.37823366],
+      zoom: 8,
     };
 
     stores.flats.listen(this.onChangeFlats.bind(this))
+  }
+
+  componentDidMount() {
+
+    setTimeout(() => {
+
+      var flats = stores.flats.getState()
+
+      var markers = this._getMarkers(flats.list)
+
+      this.setState(this._getZoomAndCenter(markers))
+
+    }, 1)
+  }
+
+  _getMarkers(flats) {
+    return flats.map((flat) => {
+      var loc = flat.geoLocation.split(",");
+      return {
+        "latitude": parseFloat(loc[1]),
+        "longitude": parseFloat(loc[0])
+      }
+    });
+  }
+
+  _getZoomAndCenter(markers) {
+    var maps = this.refs.map.maps_
+    var map = this.refs.map.map_
+
+    var bounds = new maps.LatLngBounds();
+
+    for(var i = 0; i < markers.length; i++){
+      bounds.extend(new maps.LatLng(markers[i].latitude, markers[i].longitude));
+    }
+
+    map.fitBounds(bounds);
+
+    return {
+      center: map.getCenter(),
+      zoom: map.getZoom()
+    }
   }
 
   componentWillUnmount() {
@@ -35,9 +75,16 @@ export default class Map extends Component {
   }
 
   onChangeFlats() {
-    this.state = {
-      flats: stores.flats.getState(),
-    };
+
+    var flats = stores.flats.getState()
+
+    var markers = this._getMarkers(flats.list)
+
+    this.setState({
+      flats: flats,
+    })
+    this.setState(this._getZoomAndCenter(markers))
+
   }
 
   onBoundsChange(center, zoom, bounds, marginBounds) {
@@ -49,8 +96,8 @@ export default class Map extends Component {
        <GoogleMap
          containerProps={{...this.props}}
          ref='map'
-         center={this.props.center}
-         zoom={this.props.zoom}
+         center={this.state.center}
+         zoom={this.state.zoom}
          onBoundsChange={this.onBoundsChange}>
 
          {_.map(this.state.flats.list, (flat) => {
