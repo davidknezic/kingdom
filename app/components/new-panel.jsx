@@ -67,6 +67,10 @@ export default class NewPanel extends Component {
     actions.newPanel.updateTime(90);
   }
 
+  _back() {
+    actions.newPanel.setCategory('')
+  }
+
   _saveLocation() {
     actions.userProfile.addLocationTime(
       {
@@ -96,6 +100,7 @@ export default class NewPanel extends Component {
         </div>
 
         <div className="welcom__button">
+          <RaisedButton label="back" onClick={this._back} />
           <RaisedButton label="Save this additional location" onClick={this._saveLocation} />
         </div>
       </div>
