@@ -12,7 +12,9 @@ class UserProfileStore {
       sizePreference: '',
       stairsPreference: '',
       priceIllusions: '',
-      location: {},
+      locations: [],
+      defaultLocation: {},
+      defaultTime: {},
 
       area: {
         min: null,
@@ -28,7 +30,6 @@ class UserProfileStore {
         min: null,
         max: null
       },
-      time: 0,
       store: '',
     }
   }
@@ -106,15 +107,22 @@ class UserProfileStore {
     })
   }
 
-  onUpdateLocation(location) {
+  onUpdateDefaultLocation(location) {
     this.setState({
-      location: location,
+      defaultLocation: location
     })
   }
 
-  onUpdateTime(time) {
+  onUpdateDefaultTime(time) {
     this.setState({
-      time: time,
+      defaultTime: time,
+      locations: this.state.locations.push({ location: this.state.defaultLocation, time: this.state.defaultTime })
+    })
+  }
+
+  onAddLocation(location, time) {
+    this.setState({
+      locations: this.state.locations.push({ location: location, time: time })
     })
   }
 
