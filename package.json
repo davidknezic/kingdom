@@ -4,7 +4,8 @@
   "description": "A starter kit for react based applications",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "./node_modules/.bin/babel-node both.js",
+    "test": "node test.js"
   },
   "repository": {
     "type": "git",

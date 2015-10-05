@@ -1,0 +1,3 @@
+FROM node:onbuild
+EXPOSE 8000
+EXPOSE 8001
