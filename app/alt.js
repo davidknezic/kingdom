@@ -3,7 +3,7 @@ import flux from 'flux'
 
 class AnalyticsDispatcher extends flux.Dispatcher {
   dispatch(payload) {
-    ga('send', event, 'foo', payload.action, JSON.stringify(payload.data))
+    ga('send', 'event', 'foo', payload.action, JSON.stringify(payload.data))
     super.dispatch(payload)
   }
 }
