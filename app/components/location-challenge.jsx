@@ -8,6 +8,19 @@ import ArrowRight from './arrow-right'
 export default class LocationChallenge extends Component {
   constructor(props) {
     super(props)
+    this.onOptionSelected = this.onOptionSelected.bind(this);
+
+    this.state = {
+      proceedEnabled: false
+    }
+  }
+
+  onOptionSelected(option) {
+    this.props.onLocationSelected(option)
+
+    this.setState({
+      proceedEnabled: true,
+    })
   }
 
   render() {
@@ -17,10 +30,11 @@ export default class LocationChallenge extends Component {
         <div className="welcome__name-challenge">
           <span className="welcome__h1">Understood. Where do you go often? Maybe a place like work...</span>
         </div>
-        <LocationFinder onOptionSelected={this.props.onLocationSelected} />
+        <LocationFinder onOptionSelected={this.onOptionSelected} />
 
         <div className="welcome__button" >
-          <RaisedButton label="Proceed" onClick={this.props.onProceed} />
+          <RaisedButton label="Proceed" disabled={!this.state.proceedEnabled} onClick={this.props.onProceed} />
+          <p>Select an option above to proceed</p>
         </div>
       </div>
     )

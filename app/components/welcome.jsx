@@ -27,6 +27,7 @@ export default class Welcome extends React.Component {
     this.onUserProfileChange = this.onUserProfileChange.bind(this)
     this.onProcessStoreChange = this.onProcessStoreChange.bind(this)
     this._handleNameChange = this._handleNameChange.bind(this)
+    this._handleProceedToNumberOfPeople = this._handleProceedToNumberOfPeople.bind(this)
 
     stores.userProfile.listen(this.onUserProfileChange)
     stores.process.listen(this.onProcessStoreChange)
@@ -116,10 +117,11 @@ export default class Welcome extends React.Component {
   }
 
   _handleNameChange() {
-    actions.userProfile.updateName(this.refs.nameChallenge.getValue())
+    // noop. moved to _handleProceedToNumberOfPeople
   }
 
   _handleProceedToNumberOfPeople() {
+    actions.userProfile.updateName(this.refs.nameChallenge.getValue())
     actions.process.updateProcessState('getNumberOfPeople')
   }
 
