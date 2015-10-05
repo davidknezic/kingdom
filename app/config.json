@@ -1,8 +1,5 @@
 {
   "api": {
     "endpoint": "https://kingdom_api.scapp.io"
-  },
-  "mongo": {
-    "url": "mongodb://localhost:27017/kingdom"
   }
 }
