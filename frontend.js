@@ -11,5 +11,8 @@ app.use('/', express.static(__dirname+'/dist'))
 let port = process.env.PORT || 8000
 
 http.createServer(app).listen(port, '0.0.0.0', function () {
-  console.log(`API server ${'running'.green.bold} on ${'http://0.0.0.0:'.cyan}${(port+'').cyan}`)
+  let status = 'running'.green.bold
+  let url = `http://0.0.0.0:${port}`.cyan
+
+  console.log(`App server ${status} on ${url}`)
 })
